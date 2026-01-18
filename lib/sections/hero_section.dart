@@ -3,6 +3,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 import '../widgets/glow_button.dart';
+// Conditional import for web resume download
+import '../resume_helper_stub.dart'
+    if (dart.library.html) '../resume_helper_web.dart'
+    as resume_helper;
 
 class HeroSection extends StatefulWidget {
   final ScrollController? scrollController;
@@ -75,18 +79,46 @@ class _HeroSectionState extends State<HeroSection>
 
   Future<void> _downloadResume() async {
     if (kIsWeb) {
-      // For web, use the asset path directly
-      try {
-        final uri = Uri.parse('/assets/Resume_dmn.pdf');
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } catch (e) {
-        // Fallback to GitHub URL if local asset fails
-        await _launchURL(
-          'https://github.com/Muthunilavan-D/portfolio_dmn/raw/main/assets/Resume_dmn.pdf',
-        );
+      // For web, try multiple asset paths
+      final assetPaths = [
+        '/assets/Resume_dmn.pdf',
+        '/assets/assets/Resume_dmn.pdf',
+        'assets/Resume_dmn.pdf',
+      ];
+
+      bool downloaded = false;
+      for (final path in assetPaths) {
+        try {
+          downloaded = await resume_helper.downloadResumeWeb(path);
+          if (downloaded) break;
+        } catch (e) {
+          continue;
+        }
+      }
+
+      if (!downloaded) {
+        // If all asset paths fail, try using url_launcher
+        try {
+          final uri = Uri.parse('/assets/Resume_dmn.pdf');
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        } catch (e2) {
+          // Last fallback: show error message
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'Could not download resume. Please try again later.',
+                ),
+                backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 3),
+              ),
+            );
+          }
+        }
       }
     } else {
-      // For mobile/desktop, use url_launcher
+      // For mobile/desktop, use url_launcher with GitHub URL
       await _launchURL(
         'https://github.com/Muthunilavan-D/portfolio_dmn/raw/main/assets/Resume_dmn.pdf',
       );
