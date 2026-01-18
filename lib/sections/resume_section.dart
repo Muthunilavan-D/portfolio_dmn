@@ -26,13 +26,15 @@ class ResumeSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'RESUME',
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.neonBlue,
-              letterSpacing: 2,
+          Center(
+            child: Text(
+              'RESUME',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.neonBlue,
+                letterSpacing: 2,
+              ),
             ),
           ),
           const SizedBox(height: 40),

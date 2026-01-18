@@ -15,89 +15,102 @@ class SkillsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'SKILLS',
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.neonBlue,
-              letterSpacing: 2,
+          Center(
+            child: Text(
+              'SKILLS',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.neonBlue,
+                letterSpacing: 2,
+              ),
             ),
           ),
           const SizedBox(height: 40),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final cardWidth = constraints.maxWidth > 1200
-                  ? (constraints.maxWidth - 100) / 3
-                  : constraints.maxWidth > 768
-                  ? (constraints.maxWidth - 60) / 2
-                  : constraints.maxWidth - 40;
+          Center(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final cardWidth = constraints.maxWidth > 1200
+                    ? (constraints.maxWidth - 100) / 3
+                    : constraints.maxWidth > 768
+                    ? (constraints.maxWidth - 60) / 2
+                    : constraints.maxWidth - 40;
 
-              return Wrap(
-                spacing: 20,
-                runSpacing: 20,
-                alignment: WrapAlignment.start,
-                children: [
-                  _SkillCategory(
-                    title: 'Mobile App Development',
-                    icon: Icons.phone_android,
-                    skills: [
-                      'Flutter (Mobile & Web)',
-                      'Dart',
-                      'Material 3',
-                      'Responsive UI Design',
-                      'State Management (Provider, Riverpod)',
-                    ],
-                    width: cardWidth,
-                  ),
-                  _SkillCategory(
-                    title: 'Backend & Services',
-                    icon: Icons.cloud,
-                    skills: [
-                      'Node.js ',
-                      'SQL','Firebase Authentication',
-                      'Cloud Firestore & Storage',
-                      'REST API Integration',
-                      'Web Scraping / Cron Jobs',
-                      
-                    ],
-                    width: cardWidth,
-                  ),
-                  _SkillCategory(
-                    title: 'Programming Languages',
-                    icon: Icons.code,
-                    skills: ['Dart', 'Java', 'HTML', 'CSS', 'JavaScript', 'SQL'],
-                    width: cardWidth,
-                  ),
-                  _SkillCategory(
-                    title: 'Tools & Workflow',
-                    icon: Icons.build,
-                    skills: [
-                      'Git & GitHub',
-                      'Android Studio',
-                      'VS Code',
-                      'Notion',
-                      'Photoshop',
-                      'Figma (UI/UX)',
-                    ],
-                    width: cardWidth,
-                  ),
-                  _SkillCategory(
-                    title: 'Concepts',
-                    icon: Icons.lightbulb,
-                    skills: [
-                    'Clean Architecture', 
-                    'State Management', 'API Integration', 
-                    'Authentication & Authorization', 'Offline-first Design', 
-                    'Real-time Data Handling', 'AI Integration', 
-                    'UI/UX Thinking'
-
-                    ],
-                    width: cardWidth,
-                  ),
-                ],
-              );
-            },
+                return Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _SkillCategory(
+                      title: 'Mobile App Development',
+                      icon: Icons.phone_android,
+                      skills: [
+                        'Flutter (Mobile & Web)',
+                        'Dart',
+                        'Material 3',
+                        'Responsive UI Design',
+                        'State Management (Provider, Riverpod)',
+                      ],
+                      width: cardWidth,
+                    ),
+                    _SkillCategory(
+                      title: 'Backend & Services',
+                      icon: Icons.cloud,
+                      skills: [
+                        'Node.js ',
+                        'SQL',
+                        'Firebase Authentication',
+                        'Cloud Firestore & Storage',
+                        'REST API Integration',
+                        'Web Scraping / Cron Jobs',
+                      ],
+                      width: cardWidth,
+                    ),
+                    _SkillCategory(
+                      title: 'Programming Languages',
+                      icon: Icons.code,
+                      skills: [
+                        'Dart',
+                        'Java',
+                        'HTML',
+                        'CSS',
+                        'JavaScript',
+                        'SQL',
+                      ],
+                      width: cardWidth,
+                    ),
+                    _SkillCategory(
+                      title: 'Tools & Workflow',
+                      icon: Icons.build,
+                      skills: [
+                        'Git & GitHub',
+                        'Android Studio',
+                        'VS Code',
+                        'Notion',
+                        'Photoshop',
+                        'Figma (UI/UX)',
+                      ],
+                      width: cardWidth,
+                    ),
+                    _SkillCategory(
+                      title: 'Concepts',
+                      icon: Icons.lightbulb,
+                      skills: [
+                        'Clean Architecture',
+                        'State Management',
+                        'API Integration',
+                        'Authentication & Authorization',
+                        'Offline-first Design',
+                        'Real-time Data Handling',
+                        'AI Integration',
+                        'UI/UX Thinking',
+                      ],
+                      width: cardWidth,
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ],
       ),

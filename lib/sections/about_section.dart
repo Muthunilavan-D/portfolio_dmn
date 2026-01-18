@@ -15,13 +15,15 @@ class AboutSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'ABOUT ME',
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.neonBlue,
-              letterSpacing: 2,
+          Center(
+            child: Text(
+              'ABOUT ME',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.neonBlue,
+                letterSpacing: 2,
+              ),
             ),
           ),
           const SizedBox(height: 40),

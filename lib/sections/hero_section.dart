@@ -98,11 +98,16 @@ class HeroSection extends StatelessWidget {
                       // Name with gradient effect
                       ShaderMask(
                         shaderCallback: (bounds) => LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                           colors: [
-                            Colors.white,
                             AppTheme.neonBlue,
-                            Colors.white,
+                            AppTheme.neonPurple,
+                            AppTheme.neonPink,
+                            AppTheme.neonPurple,
+                            AppTheme.neonBlue,
                           ],
+                          stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
                         ).createShader(bounds),
                         child: const Text(
                           'Muthunilavan D',

@@ -57,13 +57,15 @@ class _ContactSectionState extends State<ContactSection> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'CONTACT',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.neonBlue,
-                  letterSpacing: 2,
+              Center(
+                child: Text(
+                  'CONTACT',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.neonBlue,
+                    letterSpacing: 2,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -136,15 +138,16 @@ class _ContactSectionState extends State<ContactSection> {
                                   const SizedBox(height: 20),
                                   _ContactTextField(
                                     controller: _emailController,
-                                    label: 'Email',
+                                    label: 'Your Email',
                                     icon: Icons.email,
                                     keyboardType: TextInputType.emailAddress,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your email';
                                       }
-                                      if (!value.contains('@')) {
-                                        return 'Please enter a valid email';
+                                      if (!value.contains('@') ||
+                                          !value.contains('.')) {
+                                        return 'Please enter a valid email address';
                                       }
                                       return null;
                                     },
@@ -224,15 +227,16 @@ class _ContactSectionState extends State<ContactSection> {
                                 const SizedBox(height: 20),
                                 _ContactTextField(
                                   controller: _emailController,
-                                  label: 'Email',
+                                  label: 'Your Email',
                                   icon: Icons.email,
                                   keyboardType: TextInputType.emailAddress,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your email';
                                     }
-                                    if (!value.contains('@')) {
-                                      return 'Please enter a valid email';
+                                    if (!value.contains('@') ||
+                                        !value.contains('.')) {
+                                      return 'Please enter a valid email address';
                                     }
                                     return null;
                                   },
@@ -349,16 +353,16 @@ class _ContactTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final IconData icon;
-  final TextInputType? keyboardType;
   final int? maxLines;
+  final TextInputType? keyboardType;
   final String? Function(String?)? validator;
 
   const _ContactTextField({
     required this.controller,
     required this.label,
     required this.icon,
-    this.keyboardType,
     this.maxLines = 1,
+    this.keyboardType,
     this.validator,
   });
 
@@ -366,8 +370,8 @@ class _ContactTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: keyboardType,
       maxLines: maxLines,
+      keyboardType: keyboardType,
       validator: validator,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
