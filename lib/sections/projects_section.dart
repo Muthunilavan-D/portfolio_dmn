@@ -37,7 +37,7 @@ class ProjectsSection extends StatelessWidget {
               return Wrap(
                 spacing: 20,
                 runSpacing: 20,
-                alignment: WrapAlignment.start,
+                alignment: WrapAlignment.center,
                 children: [
                   _ProjectCard(
                     title: 'FitTrack — AI Fitness Tracker',

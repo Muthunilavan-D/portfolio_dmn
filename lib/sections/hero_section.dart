@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 import '../widgets/glow_button.dart';
@@ -16,10 +17,23 @@ class HeroSection extends StatelessWidget {
   }
 
   Future<void> _downloadResume() async {
-    // For web, you can trigger download
-    await _launchURL(
-      'https://github.com/Muthunilavan-D/portfolio_dmn/raw/main/assets/Resume_dmn.pdf',
-    );
+    if (kIsWeb) {
+      // For web, use the asset path directly
+      try {
+        final uri = Uri.parse('/assets/Resume_dmn.pdf');
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } catch (e) {
+        // Fallback to GitHub URL if local asset fails
+        await _launchURL(
+          'https://github.com/Muthunilavan-D/portfolio_dmn/raw/main/assets/Resume_dmn.pdf',
+        );
+      }
+    } else {
+      // For mobile/desktop, use url_launcher
+      await _launchURL(
+        'https://github.com/Muthunilavan-D/portfolio_dmn/raw/main/assets/Resume_dmn.pdf',
+      );
+    }
   }
 
   @override
@@ -123,40 +137,46 @@ class HeroSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       // Role badge
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              AppTheme.neonBlue.withOpacity(0.25),
-                              AppTheme.neonPurple.withOpacity(0.25),
+                      Builder(
+                        builder: (context) => Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width > 400
+                                ? 20
+                                : 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppTheme.neonBlue.withOpacity(0.25),
+                                AppTheme.neonPurple.withOpacity(0.25),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(
+                              color: AppTheme.neonBlue.withOpacity(0.6),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppTheme.neonBlue.withOpacity(0.2),
+                                blurRadius: 15,
+                                spreadRadius: 0,
+                              ),
                             ],
                           ),
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(
-                            color: AppTheme.neonBlue.withOpacity(0.6),
-                            width: 1.5,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppTheme.neonBlue.withOpacity(0.2),
-                              blurRadius: 15,
-                              spreadRadius: 0,
+                          child: Text(
+                            'Flutter Developer | Creative Thinker | Problem Solver',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width > 400
+                                  ? 14
+                                  : 12,
+                              color: AppTheme.neonBlue,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.5,
                             ),
-                          ],
-                        ),
-                        child: Text(
-                          'Flutter Developer | Creative Thinker | Problem Solver',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: AppTheme.neonBlue,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.5,
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -269,11 +289,16 @@ class HeroSection extends StatelessWidget {
                             // Name with gradient effect
                             ShaderMask(
                               shaderCallback: (bounds) => LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
                                 colors: [
-                                  Colors.white,
                                   AppTheme.neonBlue,
-                                  Colors.white,
+                                  AppTheme.neonPurple,
+                                  AppTheme.neonPink,
+                                  AppTheme.neonPurple,
+                                  AppTheme.neonBlue,
                                 ],
+                                stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
                               ).createShader(bounds),
                               child: const Text(
                                 'Muthunilavan D',

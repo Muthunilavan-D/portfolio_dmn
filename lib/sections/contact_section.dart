@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/glow_button.dart';
@@ -26,21 +27,70 @@ class _ContactSectionState extends State<ContactSection> {
     super.dispose();
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // In a real app, you would send this to a backend
-      // For now, we'll just show a success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Message sent successfully!'),
-          backgroundColor: AppTheme.neonBlue,
-          behavior: SnackBarBehavior.floating,
-        ),
+      final name = _nameController.text.trim();
+      final email = _emailController.text.trim();
+      final subject = _subjectController.text.trim();
+      final message = _messageController.text.trim();
+
+      // Create mailto link with pre-filled information
+      final emailBody = 'Name: $name\nEmail: $email\n\nMessage:\n$message';
+      final emailSubject = Uri.encodeComponent(subject);
+      final emailBodyEncoded = Uri.encodeComponent(emailBody);
+
+      final mailtoUri = Uri.parse(
+        'mailto:muthunilavand@gmail.com?subject=$emailSubject&body=$emailBodyEncoded',
       );
-      _nameController.clear();
-      _emailController.clear();
-      _subjectController.clear();
-      _messageController.clear();
+
+      try {
+        if (await canLaunchUrl(mailtoUri)) {
+          await launchUrl(mailtoUri);
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Opening your email client...'),
+                backgroundColor: AppTheme.neonBlue,
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+          // Clear form after a short delay
+          Future.delayed(const Duration(milliseconds: 500), () {
+            _nameController.clear();
+            _emailController.clear();
+            _subjectController.clear();
+            _messageController.clear();
+          });
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'Could not open email client. Please send email manually to muthunilavand@gmail.com',
+                ),
+                backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(seconds: 4),
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Error: $e. Please send email manually to muthunilavand@gmail.com',
+              ),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -69,21 +119,27 @@ class _ContactSectionState extends State<ContactSection> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                'Let\'s Build Something Amazing',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > 768 ? 26 : 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+              Center(
+                child: Text(
+                  'Let\'s Build Something Amazing',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width > 768 ? 26 : 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: 12),
-              Text(
-                'Feel free to reach out for internships, collaborations, freelance projects, or tech discussions.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppTheme.textSecondary,
-                  height: 1.6,
+              Center(
+                child: Text(
+                  'Feel free to reach out for internships, collaborations, freelance projects, or tech discussions.',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width > 768 ? 16 : 14,
+                    color: AppTheme.textSecondary,
+                    height: 1.6,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: 40),
@@ -196,7 +252,7 @@ class _ContactSectionState extends State<ContactSection> {
                         _ContactInfoCard(
                           icon: Icons.email,
                           title: 'Email',
-                          value: 'muthunilavan.d@gmail.com',
+                          value: 'muthunilavand@gmail.com',
                           color: AppTheme.neonBlue,
                         ),
                         const SizedBox(height: 16),

@@ -8,7 +8,7 @@ class ExperienceEducationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
-    
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
@@ -35,7 +35,7 @@ class ExperienceEducationSection extends StatelessWidget {
               LayoutBuilder(
                 builder: (context, constraints) {
                   final isDesktop = constraints.maxWidth > 768;
-                  
+
                   if (isDesktop) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(16),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: AppTheme.neonBlue.withOpacity(0.3),
+                                            color: AppTheme.neonBlue
+                                                .withOpacity(0.3),
                                             blurRadius: 15,
                                             spreadRadius: 0,
                                           ),
@@ -85,7 +86,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                     const SizedBox(width: 30),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Bachelor of Engineering',
@@ -126,33 +128,40 @@ class ExperienceEducationSection extends StatelessWidget {
                                           Row(
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                  horizontal: 14,
-                                                  vertical: 8,
-                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 14,
+                                                      vertical: 8,
+                                                    ),
                                                 decoration: BoxDecoration(
-                                                  color: AppTheme.neonPurple.withOpacity(0.2),
-                                                  borderRadius: BorderRadius.circular(20),
+                                                  color: AppTheme.neonPurple
+                                                      .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
                                                   border: Border.all(
                                                     color: AppTheme.neonPurple,
                                                     width: 1,
                                                   ),
                                                 ),
                                                 child: Row(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
                                                     Icon(
                                                       Icons.calendar_today,
                                                       size: 14,
-                                                      color: AppTheme.neonPurple,
+                                                      color:
+                                                          AppTheme.neonPurple,
                                                     ),
                                                     const SizedBox(width: 6),
                                                     Text(
                                                       '2023 – 2027',
                                                       style: TextStyle(
                                                         fontSize: 14,
-                                                        color: AppTheme.neonPurple,
-                                                        fontWeight: FontWeight.w600,
+                                                        color:
+                                                            AppTheme.neonPurple,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                   ],
@@ -160,25 +169,30 @@ class ExperienceEducationSection extends StatelessWidget {
                                               ),
                                               const SizedBox(width: 16),
                                               Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                  vertical: 8,
-                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 8,
+                                                    ),
                                                 decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      AppTheme.neonBlue.withOpacity(0.3),
-                                                      AppTheme.neonPurple.withOpacity(0.3),
+                                                      AppTheme.neonBlue
+                                                          .withOpacity(0.3),
+                                                      AppTheme.neonPurple
+                                                          .withOpacity(0.3),
                                                     ],
                                                   ),
-                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
                                                   border: Border.all(
                                                     color: AppTheme.neonBlue,
                                                     width: 1.5,
                                                   ),
                                                   boxShadow: [
                                                     BoxShadow(
-                                                      color: AppTheme.neonBlue.withOpacity(0.2),
+                                                      color: AppTheme.neonBlue
+                                                          .withOpacity(0.2),
                                                       blurRadius: 10,
                                                       spreadRadius: 0,
                                                     ),
@@ -214,7 +228,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(16),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: AppTheme.neonBlue.withOpacity(0.3),
+                                            color: AppTheme.neonBlue
+                                                .withOpacity(0.3),
                                             blurRadius: 15,
                                             spreadRadius: 0,
                                           ),
@@ -229,7 +244,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                     const SizedBox(width: 30),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'HSE',
@@ -268,7 +284,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                           ),
                                           const SizedBox(height: 16),
                                           Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Icon(
                                                 Icons.business,
@@ -278,7 +295,7 @@ class ExperienceEducationSection extends StatelessWidget {
                                               const SizedBox(width: 8),
                                               Expanded(
                                                 child: Text(
-                                                  'Akshara Matriculation Higher Secondary School',
+                                                  'Akshara Matriculation \nHigher Secondary School',
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.white,
@@ -298,18 +315,23 @@ class ExperienceEducationSection extends StatelessWidget {
                                             decoration: BoxDecoration(
                                               gradient: LinearGradient(
                                                 colors: [
-                                                  AppTheme.neonBlue.withOpacity(0.3),
-                                                  AppTheme.neonPurple.withOpacity(0.3),
+                                                  AppTheme.neonBlue.withOpacity(
+                                                    0.3,
+                                                  ),
+                                                  AppTheme.neonPurple
+                                                      .withOpacity(0.3),
                                                 ],
                                               ),
-                                              borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                               border: Border.all(
                                                 color: AppTheme.neonBlue,
                                                 width: 1.5,
                                               ),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: AppTheme.neonBlue.withOpacity(0.2),
+                                                  color: AppTheme.neonBlue
+                                                      .withOpacity(0.2),
                                                   blurRadius: 10,
                                                   spreadRadius: 0,
                                                 ),
@@ -366,7 +388,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                           shape: BoxShape.circle,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: AppTheme.neonBlue.withOpacity(0.5),
+                                              color: AppTheme.neonBlue
+                                                  .withOpacity(0.5),
                                               blurRadius: 10,
                                               spreadRadius: 2,
                                             ),
@@ -381,7 +404,9 @@ class ExperienceEducationSection extends StatelessWidget {
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
-                                              AppTheme.neonBlue.withOpacity(0.5),
+                                              AppTheme.neonBlue.withOpacity(
+                                                0.5,
+                                              ),
                                               Colors.transparent,
                                             ],
                                           ),
@@ -393,15 +418,20 @@ class ExperienceEducationSection extends StatelessWidget {
                                   Expanded(
                                     child: GlassCard(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.all(12),
+                                                padding: const EdgeInsets.all(
+                                                  12,
+                                                ),
                                                 decoration: BoxDecoration(
-                                                  gradient: AppTheme.neonGradient,
-                                                  borderRadius: BorderRadius.circular(12),
+                                                  gradient:
+                                                      AppTheme.neonGradient,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
                                                 ),
                                                 child: const Icon(
                                                   Icons.work_outline,
@@ -412,14 +442,17 @@ class ExperienceEducationSection extends StatelessWidget {
                                               const SizedBox(width: 20),
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       'Flutter Developer Intern',
                                                       style: TextStyle(
                                                         fontSize: 22,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: AppTheme.neonBlue,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            AppTheme.neonBlue,
                                                       ),
                                                     ),
                                                     const SizedBox(height: 6),
@@ -428,20 +461,28 @@ class ExperienceEducationSection extends StatelessWidget {
                                                       style: TextStyle(
                                                         fontSize: 17,
                                                         color: Colors.white,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
                                                     ),
                                                     const SizedBox(height: 6),
                                                     Container(
-                                                      padding: const EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 6,
-                                                      ),
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                            horizontal: 12,
+                                                            vertical: 6,
+                                                          ),
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme.neonPurple.withOpacity(0.2),
-                                                        borderRadius: BorderRadius.circular(20),
+                                                        color: AppTheme
+                                                            .neonPurple
+                                                            .withOpacity(0.2),
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              20,
+                                                            ),
                                                         border: Border.all(
-                                                          color: AppTheme.neonPurple,
+                                                          color: AppTheme
+                                                              .neonPurple,
                                                           width: 1,
                                                         ),
                                                       ),
@@ -449,8 +490,10 @@ class ExperienceEducationSection extends StatelessWidget {
                                                         'May 2025 – June 2025',
                                                         style: TextStyle(
                                                           fontSize: 14,
-                                                          color: AppTheme.neonPurple,
-                                                          fontWeight: FontWeight.w600,
+                                                          color: AppTheme
+                                                              .neonPurple,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
                                                       ),
                                                     ),
@@ -460,19 +503,25 @@ class ExperienceEducationSection extends StatelessWidget {
                                             ],
                                           ),
                                           const SizedBox(height: 28),
-                                          const Divider(color: AppTheme.spaceGray),
+                                          const Divider(
+                                            color: AppTheme.spaceGray,
+                                          ),
                                           const SizedBox(height: 20),
                                           _BulletPoint(
-                                            text: 'Built real-world mobile app features',
+                                            text:
+                                                'Built real-world mobile app features',
                                           ),
                                           _BulletPoint(
-                                            text: 'Integrated APIs and Firebase services',
+                                            text:
+                                                'Integrated APIs and Firebase services',
                                           ),
                                           _BulletPoint(
-                                            text: 'Improved code structure and UI responsiveness',
+                                            text:
+                                                'Improved code structure and UI responsiveness',
                                           ),
                                           _BulletPoint(
-                                            text: 'Collaborated in professional development workflow',
+                                            text:
+                                                'Collaborated in professional development workflow',
                                           ),
                                         ],
                                       ),
@@ -570,8 +619,11 @@ class ExperienceEducationSection extends StatelessWidget {
                                           vertical: 8,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: AppTheme.neonPurple.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(20),
+                                          color: AppTheme.neonPurple
+                                              .withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
                                           border: Border.all(
                                             color: AppTheme.neonPurple,
                                             width: 1,
@@ -605,11 +657,17 @@ class ExperienceEducationSection extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           gradient: LinearGradient(
                                             colors: [
-                                              AppTheme.neonBlue.withOpacity(0.3),
-                                              AppTheme.neonPurple.withOpacity(0.3),
+                                              AppTheme.neonBlue.withOpacity(
+                                                0.3,
+                                              ),
+                                              AppTheme.neonPurple.withOpacity(
+                                                0.3,
+                                              ),
                                             ],
                                           ),
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
                                           border: Border.all(
                                             color: AppTheme.neonBlue,
                                             width: 1.5,
@@ -745,7 +803,9 @@ class ExperienceEducationSection extends StatelessWidget {
                                         padding: const EdgeInsets.all(12),
                                         decoration: BoxDecoration(
                                           gradient: AppTheme.neonGradient,
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                         child: const Icon(
                                           Icons.work_outline,
@@ -756,7 +816,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                       const SizedBox(width: 20),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Flutter Developer Intern',
@@ -777,13 +838,16 @@ class ExperienceEducationSection extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 6),
                                             Container(
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 12,
-                                                vertical: 6,
-                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 6,
+                                                  ),
                                               decoration: BoxDecoration(
-                                                color: AppTheme.neonPurple.withOpacity(0.2),
-                                                borderRadius: BorderRadius.circular(20),
+                                                color: AppTheme.neonPurple
+                                                    .withOpacity(0.2),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
                                                 border: Border.all(
                                                   color: AppTheme.neonPurple,
                                                   width: 1,
@@ -807,16 +871,20 @@ class ExperienceEducationSection extends StatelessWidget {
                                   const Divider(color: AppTheme.spaceGray),
                                   const SizedBox(height: 20),
                                   _BulletPoint(
-                                    text: 'Built real-world mobile app features',
+                                    text:
+                                        'Built real-world mobile app features',
                                   ),
                                   _BulletPoint(
-                                    text: 'Integrated APIs and Firebase services',
+                                    text:
+                                        'Integrated APIs and Firebase services',
                                   ),
                                   _BulletPoint(
-                                    text: 'Improved code structure and UI responsiveness',
+                                    text:
+                                        'Improved code structure and UI responsiveness',
                                   ),
                                   _BulletPoint(
-                                    text: 'Collaborated in professional development workflow',
+                                    text:
+                                        'Collaborated in professional development workflow',
                                   ),
                                 ],
                               ),
