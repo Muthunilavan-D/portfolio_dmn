@@ -44,9 +44,10 @@ class _ContactSectionState extends State<ContactSection> {
       final emailSubject = Uri.encodeComponent(subject);
       final emailBodyEncoded = Uri.encodeComponent(emailBody);
 
-      final mailtoUri = Uri.parse(
-        'mailto:muthunilavand@gmail.com?subject=$emailSubject&body=$emailBodyEncoded',
-      );
+      // Construct mailto URI properly
+      final mailtoUriString =
+          'mailto:muthunilavand@gmail.com?subject=$emailSubject&body=$emailBodyEncoded';
+      final mailtoUri = Uri.parse(mailtoUriString);
 
       try {
         bool launched = false;
@@ -56,27 +57,42 @@ class _ContactSectionState extends State<ContactSection> {
           // This is the most reliable method for web browsers
           launched = await mailto_helper.launchMailtoWeb(mailtoUri.toString());
 
-          // Always show success message on web since browser handles mailto
-          // Even if no email client is configured, the browser will handle it
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Opening your email client...'),
-                backgroundColor: AppTheme.neonBlue,
-                behavior: SnackBarBehavior.floating,
-                duration: const Duration(seconds: 2),
-              ),
-            );
-          }
-          // Clear form after a short delay
-          Future.delayed(const Duration(milliseconds: 500), () {
+          if (launched) {
+            // Show success message only if launch was successful
             if (mounted) {
-              _nameController.clear();
-              _emailController.clear();
-              _subjectController.clear();
-              _messageController.clear();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Opening your email client...'),
+                  backgroundColor: AppTheme.neonBlue,
+                  behavior: SnackBarBehavior.floating,
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             }
-          });
+            // Clear form after a short delay
+            Future.delayed(const Duration(milliseconds: 500), () {
+              if (mounted) {
+                _nameController.clear();
+                _emailController.clear();
+                _subjectController.clear();
+                _messageController.clear();
+              }
+            });
+          } else {
+            // If launch failed, show error message
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text(
+                    'Could not open email client. Please send email manually to muthunilavand@gmail.com',
+                  ),
+                  backgroundColor: Colors.red,
+                  behavior: SnackBarBehavior.floating,
+                  duration: const Duration(seconds: 4),
+                ),
+              );
+            }
+          }
         } else {
           // For mobile/desktop, check if we can launch first
           if (await canLaunchUrl(mailtoUri)) {
