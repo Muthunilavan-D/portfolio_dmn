@@ -81,9 +81,10 @@ class _HeroSectionState extends State<HeroSection>
     if (kIsWeb) {
       // For web, try multiple asset paths
       final assetPaths = [
-        '/assets/Resume_dmn.pdf',
+        'assets/assets/Resume_dmn.pdf', // Based on service worker manifest
         '/assets/assets/Resume_dmn.pdf',
         'assets/Resume_dmn.pdf',
+        '/assets/Resume_dmn.pdf',
       ];
 
       bool downloaded = false;
@@ -97,24 +98,18 @@ class _HeroSectionState extends State<HeroSection>
       }
 
       if (!downloaded) {
-        // If all asset paths fail, try using url_launcher
-        try {
-          final uri = Uri.parse('/assets/Resume_dmn.pdf');
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        } catch (e2) {
-          // Last fallback: show error message
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text(
-                  'Could not download resume. Please try again later.',
-                ),
-                backgroundColor: Colors.red,
-                behavior: SnackBarBehavior.floating,
-                duration: const Duration(seconds: 3),
+        // If all asset paths fail, show error message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'Could not download resume. Please try again later.',
               ),
-            );
-          }
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 3),
+            ),
+          );
         }
       }
     } else {
