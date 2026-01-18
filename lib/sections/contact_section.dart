@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/glow_button.dart';
+// Conditional import for web mailto handling
+import '../mailto_helper_stub.dart'
+    if (dart.library.html) '../mailto_helper_web.dart'
+    as mailto_helper;
 
 class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
@@ -44,8 +49,15 @@ class _ContactSectionState extends State<ContactSection> {
       );
 
       try {
-        if (await canLaunchUrl(mailtoUri)) {
-          await launchUrl(mailtoUri);
+        bool launched = false;
+
+        if (kIsWeb) {
+          // For web, use HTML anchor element approach
+          // This is the most reliable method for web browsers
+          launched = await mailto_helper.launchMailtoWeb(mailtoUri.toString());
+
+          // Always show success message on web since browser handles mailto
+          // Even if no email client is configured, the browser will handle it
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -58,23 +70,55 @@ class _ContactSectionState extends State<ContactSection> {
           }
           // Clear form after a short delay
           Future.delayed(const Duration(milliseconds: 500), () {
-            _nameController.clear();
-            _emailController.clear();
-            _subjectController.clear();
-            _messageController.clear();
+            if (mounted) {
+              _nameController.clear();
+              _emailController.clear();
+              _subjectController.clear();
+              _messageController.clear();
+            }
           });
         } else {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text(
-                  'Could not open email client. Please send email manually to muthunilavand@gmail.com',
-                ),
-                backgroundColor: Colors.red,
-                behavior: SnackBarBehavior.floating,
-                duration: const Duration(seconds: 4),
-              ),
+          // For mobile/desktop, check if we can launch first
+          if (await canLaunchUrl(mailtoUri)) {
+            launched = await launchUrl(
+              mailtoUri,
+              mode: LaunchMode.externalApplication,
             );
+          }
+
+          if (launched) {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Opening your email client...'),
+                  backgroundColor: AppTheme.neonBlue,
+                  behavior: SnackBarBehavior.floating,
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
+            // Clear form after a short delay
+            Future.delayed(const Duration(milliseconds: 500), () {
+              if (mounted) {
+                _nameController.clear();
+                _emailController.clear();
+                _subjectController.clear();
+                _messageController.clear();
+              }
+            });
+          } else {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text(
+                    'Could not open email client. Please send email manually to muthunilavand@gmail.com',
+                  ),
+                  backgroundColor: Colors.red,
+                  behavior: SnackBarBehavior.floating,
+                  duration: const Duration(seconds: 4),
+                ),
+              );
+            }
           }
         }
       } catch (e) {
