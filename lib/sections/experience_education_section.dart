@@ -263,29 +263,8 @@ class ExperienceEducationSection extends StatelessWidget {
                                               color: AppTheme.textSecondary,
                                             ),
                                           ),
-                                          const SizedBox(height: 8),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.calendar_today,
-                                                size: 16,
-                                                color: AppTheme.neonPurple,
-                                              ),
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                '2022 - 2023',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: AppTheme.textSecondary,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                           const SizedBox(height: 16),
                                           Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
                                             children: [
                                               Icon(
                                                 Icons.business,
@@ -295,7 +274,7 @@ class ExperienceEducationSection extends StatelessWidget {
                                               const SizedBox(width: 8),
                                               Expanded(
                                                 child: Text(
-                                                  'Akshara Matriculation \nHigher Secondary School',
+                                                  'Akshara Matriculation Higher Secondary School',
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.white,
@@ -307,44 +286,89 @@ class ExperienceEducationSection extends StatelessWidget {
                                             ],
                                           ),
                                           const SizedBox(height: 16),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 16,
-                                              vertical: 8,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  AppTheme.neonBlue.withOpacity(
-                                                    0.3,
-                                                  ),
-                                                  AppTheme.neonPurple
-                                                      .withOpacity(0.3),
-                                                ],
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                color: AppTheme.neonBlue,
-                                                width: 1.5,
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppTheme.neonBlue
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 14,
+                                                      vertical: 8,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color: AppTheme.neonPurple
                                                       .withOpacity(0.2),
-                                                  blurRadius: 10,
-                                                  spreadRadius: 0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  border: Border.all(
+                                                    color: AppTheme.neonPurple,
+                                                    width: 1,
+                                                  ),
                                                 ),
-                                              ],
-                                            ),
-                                            child: Text(
-                                              '83.6%',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppTheme.neonBlue,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.calendar_today,
+                                                      size: 14,
+                                                      color:
+                                                          AppTheme.neonPurple,
+                                                    ),
+                                                    const SizedBox(width: 6),
+                                                    Text(
+                                                      '2022 – 2023',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            AppTheme.neonPurple,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
+                                              const SizedBox(width: 16),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 8,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      AppTheme.neonBlue
+                                                          .withOpacity(0.3),
+                                                      AppTheme.neonPurple
+                                                          .withOpacity(0.3),
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  border: Border.all(
+                                                    color: AppTheme.neonBlue,
+                                                    width: 1.5,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppTheme.neonBlue
+                                                          .withOpacity(0.2),
+                                                      blurRadius: 10,
+                                                      spreadRadius: 0,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  '83.6%',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppTheme.neonBlue,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -738,6 +762,81 @@ class ExperienceEducationSection extends StatelessWidget {
                                             fontSize: 15,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 14,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppTheme.neonPurple
+                                              .withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          border: Border.all(
+                                            color: AppTheme.neonPurple,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Icons.calendar_today,
+                                              size: 14,
+                                              color: AppTheme.neonPurple,
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              '2022 – 2023',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: AppTheme.neonPurple,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              AppTheme.neonBlue.withOpacity(
+                                                0.3,
+                                              ),
+                                              AppTheme.neonPurple.withOpacity(
+                                                0.3,
+                                              ),
+                                            ],
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          border: Border.all(
+                                            color: AppTheme.neonBlue,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '83.6%',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppTheme.neonBlue,
                                           ),
                                         ),
                                       ),

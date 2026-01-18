@@ -129,7 +129,7 @@ class _HeaderNavState extends State<HeaderNav> {
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.neonBlue.withOpacity(0.3),
+                      color: const Color.fromARGB(255, 246, 74, 185).withOpacity(0.3),
                       blurRadius: 10,
                       spreadRadius: 0,
                     ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
+
+// Conditional import for web
+import 'fullscreen_helper_stub.dart'
+    if (dart.library.html) 'fullscreen_helper_web.dart' as fullscreen_helper;
 import 'widgets/header_nav.dart';
 import 'widgets/footer.dart';
 import 'widgets/animated_background.dart';
@@ -62,6 +66,29 @@ class _PortfolioHomeState extends State<PortfolioHome> {
   final GlobalKey _projectsKey = GlobalKey();
   final GlobalKey _experienceKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
+  bool _isFullscreen = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen for fullscreen changes
+    if (kIsWeb) {
+      fullscreen_helper.initFullscreenListener((isFullscreen) {
+        if (mounted) {
+          setState(() {
+            _isFullscreen = isFullscreen;
+          });
+        }
+      });
+      _isFullscreen = fullscreen_helper.isFullscreen;
+    }
+  }
+
+  void _toggleFullscreen() {
+    if (kIsWeb) {
+      fullscreen_helper.toggleFullscreen();
+    }
+  }
 
   @override
   void dispose() {
@@ -107,6 +134,35 @@ class _PortfolioHomeState extends State<PortfolioHome> {
               },
             ),
           ),
+          // Fullscreen toggle button
+          if (kIsWeb)
+            Positioned(
+              top: 80,
+              right: 20,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _toggleFullscreen,
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppTheme.spaceGray.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppTheme.neonBlue.withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
+                    child: Icon(
+                      _isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
+                      color: AppTheme.neonBlue,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

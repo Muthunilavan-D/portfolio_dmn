@@ -4,10 +4,67 @@ import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
 import '../widgets/glow_button.dart';
 
-class HeroSection extends StatelessWidget {
+class HeroSection extends StatefulWidget {
   final ScrollController? scrollController;
 
   const HeroSection({super.key, this.scrollController});
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _colorController;
+  late Animation<double> _colorAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _colorController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat();
+    _colorAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _colorController, curve: Curves.linear));
+  }
+
+  @override
+  void dispose() {
+    _colorController.dispose();
+    super.dispose();
+  }
+
+  Color _getAnimatedColor(double value) {
+    // Cycle through colors: blue -> purple -> pink -> purple -> blue
+    if (value < 0.25) {
+      // Blue to Purple
+      return Color.lerp(AppTheme.neonBlue, AppTheme.neonPurple, value * 4)!;
+    } else if (value < 0.5) {
+      // Purple to Pink
+      return Color.lerp(
+        AppTheme.neonPurple,
+        AppTheme.neonPink,
+        (value - 0.25) * 4,
+      )!;
+    } else if (value < 0.75) {
+      // Pink to Purple
+      return Color.lerp(
+        AppTheme.neonPink,
+        AppTheme.neonPurple,
+        (value - 0.5) * 4,
+      )!;
+    } else {
+      // Purple to Blue
+      return Color.lerp(
+        AppTheme.neonPurple,
+        AppTheme.neonBlue,
+        (value - 0.75) * 4,
+      )!;
+    }
+  }
 
   Future<void> _launchURL(String url) async {
     final uri = Uri.parse(url);
@@ -109,31 +166,39 @@ class HeroSection extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      // Name with gradient effect
-                      ShaderMask(
-                        shaderCallback: (bounds) => LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            AppTheme.neonBlue,
-                            AppTheme.neonPurple,
-                            AppTheme.neonPink,
-                            AppTheme.neonPurple,
-                            AppTheme.neonBlue,
-                          ],
-                          stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
-                        ).createShader(bounds),
-                        child: const Text(
-                          'Muthunilavan D',
-                          style: TextStyle(
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: 1.5,
-                            height: 1.2,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                      // Name with animated gradient effect
+                      AnimatedBuilder(
+                        animation: _colorAnimation,
+                        builder: (context, child) {
+                          final color1 = _getAnimatedColor(
+                            _colorAnimation.value,
+                          );
+                          final color2 = _getAnimatedColor(
+                            (_colorAnimation.value + 0.33) % 1.0,
+                          );
+                          final color3 = _getAnimatedColor(
+                            (_colorAnimation.value + 0.66) % 1.0,
+                          );
+                          return ShaderMask(
+                            shaderCallback: (bounds) => LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [color1, color2, color3, color2, color1],
+                              stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
+                            ).createShader(bounds),
+                            child: const Text(
+                              'Muthunilavan D',
+                              style: TextStyle(
+                                fontSize: 36,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: 1.5,
+                                height: 1.2,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(height: 16),
                       // Role badge
@@ -202,8 +267,8 @@ class HeroSection extends StatelessWidget {
                             text: 'View Projects',
                             icon: Icons.rocket_launch,
                             onPressed: () {
-                              if (scrollController != null) {
-                                scrollController!.animateTo(
+                              if (widget.scrollController != null) {
+                                widget.scrollController!.animateTo(
                                   2000.0,
                                   duration: const Duration(milliseconds: 800),
                                   curve: Curves.easeInOut,
@@ -222,8 +287,8 @@ class HeroSection extends StatelessWidget {
                             icon: Icons.mail,
                             isOutlined: true,
                             onPressed: () {
-                              if (scrollController != null) {
-                                scrollController!.animateTo(
+                              if (widget.scrollController != null) {
+                                widget.scrollController!.animateTo(
                                   4400.0,
                                   duration: const Duration(milliseconds: 800),
                                   curve: Curves.easeInOut,
@@ -286,30 +351,44 @@ class HeroSection extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Name with gradient effect
-                            ShaderMask(
-                              shaderCallback: (bounds) => LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  AppTheme.neonBlue,
-                                  AppTheme.neonPurple,
-                                  AppTheme.neonPink,
-                                  AppTheme.neonPurple,
-                                  AppTheme.neonBlue,
-                                ],
-                                stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
-                              ).createShader(bounds),
-                              child: const Text(
-                                'Muthunilavan D',
-                                style: TextStyle(
-                                  fontSize: 56,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  letterSpacing: 1.5,
-                                  height: 1.2,
-                                ),
-                              ),
+                            // Name with animated gradient effect
+                            AnimatedBuilder(
+                              animation: _colorAnimation,
+                              builder: (context, child) {
+                                final color1 = _getAnimatedColor(
+                                  _colorAnimation.value,
+                                );
+                                final color2 = _getAnimatedColor(
+                                  (_colorAnimation.value + 0.33) % 1.0,
+                                );
+                                final color3 = _getAnimatedColor(
+                                  (_colorAnimation.value + 0.66) % 1.0,
+                                );
+                                return ShaderMask(
+                                  shaderCallback: (bounds) => LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      color1,
+                                      color2,
+                                      color3,
+                                      color2,
+                                      color1,
+                                    ],
+                                    stops: const [0.0, 0.3, 0.5, 0.7, 1.0],
+                                  ).createShader(bounds),
+                                  child: const Text(
+                                    'Muthunilavan D',
+                                    style: TextStyle(
+                                      fontSize: 56,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      letterSpacing: 1.5,
+                                      height: 1.2,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                             const SizedBox(height: 24),
                             // Role badge
@@ -370,8 +449,8 @@ class HeroSection extends StatelessWidget {
                                   text: 'View Projects',
                                   icon: Icons.rocket_launch,
                                   onPressed: () {
-                                    if (scrollController != null) {
-                                      scrollController!.animateTo(
+                                    if (widget.scrollController != null) {
+                                      widget.scrollController!.animateTo(
                                         2000.0,
                                         duration: const Duration(
                                           milliseconds: 800,
@@ -392,8 +471,8 @@ class HeroSection extends StatelessWidget {
                                   icon: Icons.mail,
                                   isOutlined: true,
                                   onPressed: () {
-                                    if (scrollController != null) {
-                                      scrollController!.animateTo(
+                                    if (widget.scrollController != null) {
+                                      widget.scrollController!.animateTo(
                                         4400.0,
                                         duration: const Duration(
                                           milliseconds: 800,
