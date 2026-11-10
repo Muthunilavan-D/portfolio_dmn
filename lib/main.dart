@@ -137,8 +137,8 @@ class _PortfolioHomeState extends State<PortfolioHome> {
           // Fullscreen toggle button
           if (kIsWeb)
             Positioned(
-              top: 80,
-              right: 20,
+              bottom: 24,
+              right: 24,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -147,17 +147,24 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppTheme.spaceGray.withOpacity(0.8),
+                      color: AppTheme.surfaceDark.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppTheme.neonBlue.withOpacity(0.5),
+                        color: AppTheme.borderSubtle,
                         width: 1,
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Icon(
                       _isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
-                      color: AppTheme.neonBlue,
-                      size: 24,
+                      color: AppTheme.primaryLight,
+                      size: 20,
                     ),
                   ),
                 ),

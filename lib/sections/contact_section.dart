@@ -39,12 +39,10 @@ class _ContactSectionState extends State<ContactSection> {
       final subject = _subjectController.text.trim();
       final message = _messageController.text.trim();
 
-      // Create mailto link with pre-filled information
       final emailBody = 'Name: $name\nEmail: $email\n\nMessage:\n$message';
       final emailSubject = Uri.encodeComponent(subject);
       final emailBodyEncoded = Uri.encodeComponent(emailBody);
 
-      // Construct mailto URI properly
       final mailtoUriString =
           'mailto:muthunilavand@gmail.com?subject=$emailSubject&body=$emailBodyEncoded';
       final mailtoUri = Uri.parse(mailtoUriString);
@@ -53,23 +51,19 @@ class _ContactSectionState extends State<ContactSection> {
         bool launched = false;
 
         if (kIsWeb) {
-          // For web, use HTML anchor element approach
-          // This is the most reliable method for web browsers
           launched = await mailto_helper.launchMailtoWeb(mailtoUri.toString());
 
           if (launched) {
-            // Show success message only if launch was successful
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Opening your email client...'),
-                  backgroundColor: AppTheme.neonBlue,
+                const SnackBar(
+                  content: Text('Opening your email client...'),
+                  backgroundColor: AppTheme.primary,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 2),
+                  duration: Duration(seconds: 2),
                 ),
               );
             }
-            // Clear form after a short delay
             Future.delayed(const Duration(milliseconds: 500), () {
               if (mounted) {
                 _nameController.clear();
@@ -79,22 +73,20 @@ class _ContactSectionState extends State<ContactSection> {
               }
             });
           } else {
-            // If launch failed, show error message
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text(
-                    'Could not open email client. Please send email manually to muthunilavand@gmail.com',
+                const SnackBar(
+                  content: Text(
+                    'Could not open email client. Please email muthunilavand@gmail.com directly.',
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: AppTheme.rose,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 4),
+                  duration: Duration(seconds: 4),
                 ),
               );
             }
           }
         } else {
-          // For mobile/desktop, check if we can launch first
           if (await canLaunchUrl(mailtoUri)) {
             launched = await launchUrl(
               mailtoUri,
@@ -105,48 +97,27 @@ class _ContactSectionState extends State<ContactSection> {
           if (launched) {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Opening your email client...'),
-                  backgroundColor: AppTheme.neonBlue,
+                const SnackBar(
+                  content: Text('Opening your email client...'),
+                  backgroundColor: AppTheme.primary,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 2),
+                  duration: Duration(seconds: 2),
                 ),
               );
             }
-            // Clear form after a short delay
-            Future.delayed(const Duration(milliseconds: 500), () {
-              if (mounted) {
-                _nameController.clear();
-                _emailController.clear();
-                _subjectController.clear();
-                _messageController.clear();
-              }
-            });
-          } else {
-            if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text(
-                    'Could not open email client. Please send email manually to muthunilavand@gmail.com',
-                  ),
-                  backgroundColor: Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 4),
-                ),
-              );
-            }
+            _nameController.clear();
+            _emailController.clear();
+            _subjectController.clear();
+            _messageController.clear();
           }
         }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                'Error: $e. Please send email manually to muthunilavand@gmail.com',
-              ),
-              backgroundColor: Colors.red,
+              content: Text('Error: $e'),
+              backgroundColor: AppTheme.rose,
               behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 4),
             ),
           );
         }
@@ -154,285 +125,163 @@ class _ContactSectionState extends State<ContactSection> {
     }
   }
 
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 960;
+
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width > 768 ? 40 : 20,
-        vertical: 60,
+        horizontal: isMobile ? 20 : 40,
+        vertical: 80,
       ),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
+          constraints: const BoxConstraints(maxWidth: 1140),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Text(
-                  'CONTACT',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width > 768 ? 36 : 28,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.neonBlue,
-                    letterSpacing: 2,
-                  ),
+              _buildSectionHeader(),
+              const SizedBox(height: 48),
+              if (isMobile)
+                Column(
+                  children: [
+                    _buildContactInfo(),
+                    const SizedBox(height: 24),
+                    _buildFormCard(),
+                  ],
+                )
+              else
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 4, child: _buildContactInfo()),
+                    const SizedBox(width: 32),
+                    Expanded(flex: 6, child: _buildFormCard()),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  'Let\'s Build Something Amazing',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width > 768 ? 26 : 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Center(
-                child: Text(
-                  'Feel free to reach out for internships, collaborations, freelance projects, or tech discussions.',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width > 768 ? 16 : 14,
-                    color: AppTheme.textSecondary,
-                    height: 1.6,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 40),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isDesktop = constraints.maxWidth > 768;
-
-                  if (isDesktop) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              _ContactInfoCard(
-                                icon: Icons.email,
-                                title: 'Email',
-                                value: 'muthunilavand@gmail.com',
-                                color: AppTheme.neonBlue,
-                              ),
-                              const SizedBox(height: 16),
-                              _ContactInfoCard(
-                                icon: Icons.location_on,
-                                title: 'Location',
-                                value: 'Madurai,Tamil Nadu, India',
-                                color: AppTheme.neonPurple,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          flex: 2,
-                          child: GlassCard(
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _ContactTextField(
-                                    controller: _nameController,
-                                    label: 'Name',
-                                    icon: Icons.person,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your name';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  _ContactTextField(
-                                    controller: _emailController,
-                                    label: 'Your Email',
-                                    icon: Icons.email,
-                                    keyboardType: TextInputType.emailAddress,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your email';
-                                      }
-                                      if (!value.contains('@') ||
-                                          !value.contains('.')) {
-                                        return 'Please enter a valid email address';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  _ContactTextField(
-                                    controller: _subjectController,
-                                    label: 'Subject',
-                                    icon: Icons.subject,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a subject';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 20),
-                                  _ContactTextField(
-                                    controller: _messageController,
-                                    label: 'Message',
-                                    icon: Icons.message,
-                                    maxLines: 6,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your message';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 30),
-                                  GlowButton(
-                                    text: 'Send Message',
-                                    icon: Icons.send,
-                                    onPressed: _submitForm,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        _ContactInfoCard(
-                          icon: Icons.email,
-                          title: 'Email',
-                          value: 'muthunilavand@gmail.com',
-                          color: AppTheme.neonBlue,
-                        ),
-                        const SizedBox(height: 16),
-                        _ContactInfoCard(
-                          icon: Icons.location_on,
-                          title: 'Location',
-                          value: 'Chennai, India',
-                          color: AppTheme.neonPurple,
-                        ),
-                        const SizedBox(height: 24),
-                        GlassCard(
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                _ContactTextField(
-                                  controller: _nameController,
-                                  label: 'Name',
-                                  icon: Icons.person,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your name';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 20),
-                                _ContactTextField(
-                                  controller: _emailController,
-                                  label: 'Your Email',
-                                  icon: Icons.email,
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your email';
-                                    }
-                                    if (!value.contains('@') ||
-                                        !value.contains('.')) {
-                                      return 'Please enter a valid email address';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 20),
-                                _ContactTextField(
-                                  controller: _subjectController,
-                                  label: 'Subject',
-                                  icon: Icons.subject,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a subject';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 20),
-                                _ContactTextField(
-                                  controller: _messageController,
-                                  label: 'Message',
-                                  icon: Icons.message,
-                                  maxLines: 6,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter your message';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(height: 30),
-                                GlowButton(
-                                  text: 'Send Message',
-                                  icon: Icons.send,
-                                  onPressed: _submitForm,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
             ],
           ),
         ),
       ),
     );
   }
-}
 
-class _ContactInfoCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-  final Color color;
+  Widget _buildSectionHeader() {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppTheme.emerald.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppTheme.emerald.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          child: const Text(
+            'GET IN TOUCH',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.emerald,
+              letterSpacing: 1.5,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          "Let's Build Something Impactful",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w800,
+            color: AppTheme.textPrimary,
+            letterSpacing: -0.5,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          'Open for software roles, internships, open source, or technical discussions.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 15,
+            color: AppTheme.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
 
-  const _ContactInfoCard({
-    required this.icon,
-    required this.title,
-    required this.value,
-    required this.color,
-  });
+  Widget _buildContactInfo() {
+    return Column(
+      children: [
+        _buildInfoCard(
+          icon: Icons.email_outlined,
+          title: 'Direct Email',
+          value: 'muthunilavand@gmail.com',
+          accentColor: AppTheme.primary,
+          onTap: () => _launchURL('mailto:muthunilavand@gmail.com'),
+        ),
+        const SizedBox(height: 16),
+        _buildInfoCard(
+          icon: Icons.phone_outlined,
+          title: 'Phone / WhatsApp',
+          value: '+91 9047807547',
+          accentColor: AppTheme.secondary,
+          onTap: () => _launchURL('tel:+919047807547'),
+        ),
+        const SizedBox(height: 16),
+        _buildInfoCard(
+          icon: Icons.location_on_outlined,
+          title: 'Location',
+          value: 'Madurai, Tamil Nadu, India',
+          accentColor: AppTheme.emerald,
+          onTap: null,
+        ),
+        const SizedBox(height: 16),
+        _buildInfoCard(
+          icon: Icons.code,
+          title: 'GitHub & Portfolio Code',
+          value: 'github.com/Muthunilavan-D',
+          accentColor: AppTheme.primaryLight,
+          onTap: () => _launchURL('https://github.com/Muthunilavan-D'),
+        ),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String title,
+    required String value,
+    required Color accentColor,
+    VoidCallback? onTap,
+  }) {
     return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(20),
+      onTap: onTap,
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+              color: accentColor.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: accentColor.withValues(alpha: 0.3),
+                width: 1,
               ),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: color.withOpacity(0.5), width: 1),
             ),
-            child: Icon(icon, color: color, size: 24),
+            child: Icon(icon, color: accentColor, size: 22),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -441,81 +290,169 @@ class _ContactInfoCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: color.withOpacity(0.8),
-                    fontWeight: FontWeight.w600,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    color: AppTheme.textMuted,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 3),
                 Text(
                   value,
                   style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
+                    color: AppTheme.textPrimary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
           ),
+          if (onTap != null)
+            const Icon(
+              Icons.arrow_outward,
+              size: 16,
+              color: AppTheme.textMuted,
+            ),
         ],
       ),
     );
   }
-}
 
-class _ContactTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final IconData icon;
-  final int? maxLines;
-  final TextInputType? keyboardType;
-  final String? Function(String?)? validator;
+  Widget _buildFormCard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(32),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Send a Message',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              "I'll get back to you as soon as possible.",
+              style: TextStyle(
+                fontSize: 14,
+                color: AppTheme.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 24),
+            _buildTextField(
+              controller: _nameController,
+              label: 'Your Name',
+              hint: 'John Doe',
+              icon: Icons.person_outline,
+              validator: (v) => v == null || v.isEmpty ? 'Please enter your name' : null,
+            ),
+            const SizedBox(height: 18),
+            _buildTextField(
+              controller: _emailController,
+              label: 'Email Address',
+              hint: 'john@example.com',
+              icon: Icons.mail_outline,
+              validator: (v) {
+                if (v == null || v.isEmpty) return 'Please enter your email';
+                if (!v.contains('@')) return 'Please enter a valid email';
+                return null;
+              },
+            ),
+            const SizedBox(height: 18),
+            _buildTextField(
+              controller: _subjectController,
+              label: 'Subject',
+              hint: 'Collaboration or Opportunity',
+              icon: Icons.chat_bubble_outline,
+              validator: (v) => v == null || v.isEmpty ? 'Please enter a subject' : null,
+            ),
+            const SizedBox(height: 18),
+            _buildTextField(
+              controller: _messageController,
+              label: 'Message',
+              hint: 'Tell me about your project, idea, or role...',
+              icon: Icons.edit_note,
+              maxLines: 4,
+              validator: (v) => v == null || v.isEmpty ? 'Please enter your message' : null,
+            ),
+            const SizedBox(height: 28),
+            SizedBox(
+              width: double.infinity,
+              child: GlowButton(
+                text: 'Send Message',
+                icon: Icons.send_rounded,
+                onPressed: _submitForm,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-  const _ContactTextField({
-    required this.controller,
-    required this.label,
-    required this.icon,
-    this.maxLines = 1,
-    this.keyboardType,
-    this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      maxLines: maxLines,
-      keyboardType: keyboardType,
-      validator: validator,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: label,
-        prefixIcon: Icon(icon, color: AppTheme.neonBlue),
-        labelStyle: TextStyle(color: AppTheme.textSecondary),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: AppTheme.neonBlue.withOpacity(0.3),
-            width: 1,
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    int maxLines = 1,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 13.5,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.textPrimary,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppTheme.neonBlue, width: 2),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          maxLines: maxLines,
+          validator: validator,
+          style: const TextStyle(
+            fontSize: 14.5,
+            color: AppTheme.textPrimary,
+          ),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: const TextStyle(
+              fontSize: 14,
+              color: AppTheme.textMuted,
+            ),
+            prefixIcon: Icon(icon, size: 18, color: AppTheme.textMuted),
+            filled: true,
+            fillColor: AppTheme.spaceGray.withValues(alpha: 0.8),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: AppTheme.borderSubtle),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: AppTheme.primaryLight, width: 1.5),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: AppTheme.rose),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: AppTheme.rose, width: 1.5),
+            ),
+          ),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.red, width: 1),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.red, width: 2),
-        ),
-        filled: true,
-        fillColor: AppTheme.spaceGray.withOpacity(0.5),
-      ),
+      ],
     );
   }
 }

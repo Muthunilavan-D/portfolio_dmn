@@ -15,79 +15,134 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 48),
       decoration: BoxDecoration(
-        color: AppTheme.deepSpace,
+        color: AppTheme.darkSpace,
         border: Border(
           top: BorderSide(
-            color: AppTheme.neonBlue.withOpacity(0.2),
+            color: AppTheme.borderSubtle,
             width: 1,
           ),
         ),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1140),
+          child: Column(
             children: [
-              IconButton(
-                icon: const Icon(Icons.code, size: 32),
-                color: AppTheme.neonBlue,
-                onPressed: () => _launchURL('https://github.com/Muthunilavan-D'),
-                tooltip: 'GitHub',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _FooterSocialButton(
+                    icon: Icons.code,
+                    tooltip: 'GitHub',
+                    onPressed: () =>
+                        _launchURL('https://github.com/Muthunilavan-D'),
+                  ),
+                  const SizedBox(width: 16),
+                  _FooterSocialButton(
+                    icon: Icons.work_outline,
+                    tooltip: 'LinkedIn',
+                    onPressed: () => _launchURL(
+                      'https://www.linkedin.com/in/d-mn-92a1b7341',
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  _FooterSocialButton(
+                    icon: Icons.mail_outline,
+                    tooltip: 'Email',
+                    onPressed: () =>
+                        _launchURL('mailto:muthunilavand@gmail.com'),
+                  ),
+                ],
               ),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.work, size: 32),
-                color: AppTheme.neonPurple,
-                onPressed: () => _launchURL('https://www.linkedin.com/in/d-mn-92a1b7341'),
-                tooltip: 'LinkedIn',
+              const SizedBox(height: 24),
+              const Text(
+                '© 2026 Muthunilavan D. All rights reserved.',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.textSecondary,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 6,
+                    height: 6,
+                    decoration: const BoxDecoration(
+                      color: AppTheme.emerald,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Built with Flutter Web & Clean Architecture',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppTheme.textMuted,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          Text(
-            '© 2026 Muthunilavan D',
-            style: TextStyle(
-              fontSize: 16,
-              color: AppTheme.textSecondary,
+        ),
+      ),
+    );
+  }
+}
+
+class _FooterSocialButton extends StatefulWidget {
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  const _FooterSocialButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  @override
+  State<_FooterSocialButton> createState() => _FooterSocialButtonState();
+}
+
+class _FooterSocialButtonState extends State<_FooterSocialButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: _isHovered
+                ? AppTheme.primary.withValues(alpha: 0.15)
+                : AppTheme.surfaceDark,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: _isHovered
+                  ? AppTheme.primaryLight.withValues(alpha: 0.4)
+                  : AppTheme.borderSubtle,
+              width: 1,
             ),
           ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Built with ',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white60,
-                ),
-              ),
-              Icon(
-                Icons.favorite,
-                size: 16,
-                color: AppTheme.neonPink,
-              ),
-              Text(
-                ' using Flutter Web',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white60,
-                ),
-              ),
-            ],
+          child: Icon(
+            widget.icon,
+            size: 20,
+            color: _isHovered ? AppTheme.primaryLight : AppTheme.textSecondary,
           ),
-          const SizedBox(height: 4),
-          Text(
-            'Designed with a futuristic space-inspired dark neon theme',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white38,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

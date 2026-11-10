@@ -8,6 +8,9 @@ class GlassCard extends StatefulWidget {
   final VoidCallback? onTap;
   final double? width;
   final double? height;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final double borderRadius;
 
   const GlassCard({
     super.key,
@@ -17,6 +20,9 @@ class GlassCard extends StatefulWidget {
     this.onTap,
     this.width,
     this.height,
+    this.borderColor,
+    this.backgroundColor,
+    this.borderRadius = 18.0,
   });
 
   @override
@@ -34,10 +40,10 @@ class _GlassCardState extends State<GlassCard>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 180),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.02).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.01).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
     );
   }
 
@@ -65,28 +71,37 @@ class _GlassCardState extends State<GlassCard>
           builder: (context, child) {
             return Transform.scale(
               scale: _scaleAnimation.value,
-              child: Container(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
                 width: widget.width,
                 height: widget.height,
-                margin: widget.margin ?? const EdgeInsets.all(16),
+                margin: widget.margin ?? const EdgeInsets.all(12),
                 padding: widget.padding ?? const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: AppTheme.glassWhite.withOpacity(
-                    _isHovered ? 0.3 : 0.2,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
+                  color: widget.backgroundColor ??
+                      (_isHovered
+                          ? AppTheme.surfaceElevated.withValues(alpha: 0.85)
+                          : AppTheme.surfaceDark.withValues(alpha: 0.70)),
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                   border: Border.all(
-                    color: (_isHovered ? AppTheme.neonBlue : AppTheme.neonPurple)
-                        .withOpacity(_isHovered ? 0.6 : 0.4),
-                    width: _isHovered ? 1.5 : 1,
+                    color: widget.borderColor ??
+                        (_isHovered
+                            ? AppTheme.primaryLight.withValues(alpha: 0.5)
+                            : AppTheme.borderSubtle),
+                    width: 1,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: (_isHovered ? AppTheme.neonBlue : AppTheme.neonPurple)
-                          .withOpacity(_isHovered ? 0.4 : 0.15),
-                      blurRadius: _isHovered ? 30 : 20,
-                      spreadRadius: _isHovered ? 2 : 0,
+                      color: Colors.black.withValues(alpha: _isHovered ? 0.35 : 0.20),
+                      blurRadius: _isHovered ? 24 : 16,
+                      offset: const Offset(0, 8),
                     ),
+                    if (_isHovered)
+                      BoxShadow(
+                        color: AppTheme.primary.withValues(alpha: 0.08),
+                        blurRadius: 20,
+                        spreadRadius: 0,
+                      ),
                   ],
                 ),
                 child: widget.child,

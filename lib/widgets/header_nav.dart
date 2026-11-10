@@ -36,7 +36,6 @@ class _HeaderNavState extends State<HeaderNav> {
     int newSection = 0;
     double minDistance = double.infinity;
 
-    // Find the closest section based on actual positions
     for (var entry in widget.sectionKeys.entries) {
       final key = entry.value;
       final context = key.currentContext;
@@ -44,9 +43,8 @@ class _HeaderNavState extends State<HeaderNav> {
         final RenderBox? box = context.findRenderObject() as RenderBox?;
         if (box != null) {
           final position = box.localToGlobal(Offset.zero);
-          final distance = (position.dy - 100)
-              .abs(); // Account for nav bar height
-          if (distance < minDistance && position.dy <= 150) {
+          final distance = (position.dy - 100).abs();
+          if (distance < minDistance && position.dy <= 160) {
             minDistance = distance;
             newSection = entry.key;
           }
@@ -69,13 +67,11 @@ class _HeaderNavState extends State<HeaderNav> {
       if (box != null) {
         final position = box.localToGlobal(Offset.zero);
         final offset =
-            widget.scrollController.offset +
-            position.dy -
-            100; // Account for nav bar
+            widget.scrollController.offset + position.dy - 90;
         widget.scrollController.animateTo(
           offset,
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 700),
+          curve: Curves.easeInOutCubic,
         );
       }
     }
@@ -92,149 +88,177 @@ class _HeaderNavState extends State<HeaderNav> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 960;
 
-    return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 20 : 40,
-            vertical: 20,
-          ),
-          decoration: BoxDecoration(
-            color: AppTheme.deepSpace.withOpacity(0.7),
-            border: Border(
-              bottom: BorderSide(
-                color: AppTheme.neonBlue.withOpacity(0.3),
-                width: 1,
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1140),
+        margin: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 24,
+          vertical: 12,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 16 : 24,
+                vertical: 12,
+              ),
+              decoration: BoxDecoration(
+                color: AppTheme.surfaceDark.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppTheme.borderSubtle,
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.35),
+                    blurRadius: 24,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Logo with refined branding and active indicator
+                  InkWell(
+                    onTap: () => _scrollToSection(0),
+                    borderRadius: BorderRadius.circular(8),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: AppTheme.emerald,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x6610B981),
+                                  blurRadius: 6,
+                                  spreadRadius: 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'MUTHU',
+                            style: TextStyle(
+                              fontSize: isMobile ? 17 : 19,
+                              fontWeight: FontWeight.w800,
+                              color: AppTheme.textPrimary,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                          Text(
+                            '.DEV',
+                            style: TextStyle(
+                              fontSize: isMobile ? 17 : 19,
+                              fontWeight: FontWeight.w800,
+                              color: AppTheme.primaryLight,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (isMobile)
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.code, size: 20),
+                          color: AppTheme.textSecondary,
+                          onPressed: () =>
+                              _launchURL('https://github.com/Muthunilavan-D'),
+                          tooltip: 'GitHub',
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.work_outline, size: 20),
+                          color: AppTheme.textSecondary,
+                          onPressed: () => _launchURL(
+                            'https://www.linkedin.com/in/d-mn-92a1b7341',
+                          ),
+                          tooltip: 'LinkedIn',
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.menu, color: AppTheme.textPrimary),
+                          onPressed: () => _showMobileMenu(context),
+                        ),
+                      ],
+                    )
+                  else
+                    Row(
+                      children: [
+                        _NavItem(
+                          label: 'About',
+                          index: 1,
+                          activeSection: _activeSection,
+                          onTap: () => _scrollToSection(1),
+                        ),
+                        const SizedBox(width: 6),
+                        _NavItem(
+                          label: 'Skills',
+                          index: 2,
+                          activeSection: _activeSection,
+                          onTap: () => _scrollToSection(2),
+                        ),
+                        const SizedBox(width: 6),
+                        _NavItem(
+                          label: 'Projects',
+                          index: 3,
+                          activeSection: _activeSection,
+                          onTap: () => _scrollToSection(3),
+                        ),
+                        const SizedBox(width: 6),
+                        _NavItem(
+                          label: 'Experience',
+                          index: 4,
+                          activeSection: _activeSection,
+                          onTap: () => _scrollToSection(4),
+                        ),
+                        const SizedBox(width: 6),
+                        _NavItem(
+                          label: 'Contact',
+                          index: 5,
+                          activeSection: _activeSection,
+                          onTap: () => _scrollToSection(5),
+                        ),
+                        const SizedBox(width: 16),
+                        Container(
+                          width: 1,
+                          height: 20,
+                          color: AppTheme.borderSubtle,
+                        ),
+                        const SizedBox(width: 12),
+                        _SocialIconButton(
+                          icon: Icons.code,
+                          tooltip: 'GitHub',
+                          onPressed: () =>
+                              _launchURL('https://github.com/Muthunilavan-D'),
+                        ),
+                        const SizedBox(width: 6),
+                        _SocialIconButton(
+                          icon: Icons.work_outline,
+                          tooltip: 'LinkedIn',
+                          onPressed: () => _launchURL(
+                            'https://www.linkedin.com/in/d-mn-92a1b7341',
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
               ),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.neonBlue.withOpacity(0.1),
-                blurRadius: 20,
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Logo with glow effect
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color.fromARGB(255, 246, 74, 185).withOpacity(0.3),
-                      blurRadius: 10,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Text(
-                  'DMN',
-                  style: TextStyle(
-                    fontSize: isMobile ? 20 : 24,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.neonBlue,
-                    letterSpacing: 2,
-                  ),
-                ),
-              ),
-              if (isMobile)
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.code, color: AppTheme.neonBlue),
-                      onPressed: () =>
-                          _launchURL('https://github.com/Muthunilavan-D'),
-                      tooltip: 'GitHub',
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.work, color: AppTheme.neonPurple),
-                      onPressed: () => _launchURL(
-                        'https://www.linkedin.com/in/d-mn-92a1b7341',
-                      ),
-                      tooltip: 'LinkedIn',
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.menu, color: Colors.white),
-                      onPressed: () => _showMobileMenu(context),
-                    ),
-                  ],
-                )
-              else
-                Row(
-                  children: [
-                    _NavItem(
-                      label: 'About',
-                      icon: Icons.person_outline,
-                      index: 1,
-                      activeSection: _activeSection,
-                      onTap: () => _scrollToSection(1),
-                    ),
-                    const SizedBox(width: 20),
-                    _NavItem(
-                      label: 'Skills',
-                      icon: Icons.build,
-                      index: 2,
-                      activeSection: _activeSection,
-                      onTap: () => _scrollToSection(2),
-                    ),
-                    const SizedBox(width: 20),
-                    _NavItem(
-                      label: 'Projects',
-                      icon: Icons.folder,
-                      index: 3,
-                      activeSection: _activeSection,
-                      onTap: () => _scrollToSection(3),
-                    ),
-                    const SizedBox(width: 20),
-                    _NavItem(
-                      label: 'Experience',
-                      icon: Icons.work_outline,
-                      index: 4,
-                      activeSection: _activeSection,
-                      onTap: () => _scrollToSection(4),
-                    ),
-                    const SizedBox(width: 20),
-                    _NavItem(
-                      label: 'Contact',
-                      icon: Icons.mail,
-                      index: 5,
-                      activeSection: _activeSection,
-                      onTap: () => _scrollToSection(5),
-                    ),
-                    const SizedBox(width: 30),
-                    Container(
-                      width: 1,
-                      height: 24,
-                      color: AppTheme.neonBlue.withOpacity(0.3),
-                    ),
-                    const SizedBox(width: 20),
-                    _SocialButton(
-                      icon: Icons.code,
-                      color: AppTheme.neonBlue,
-                      onPressed: () =>
-                          _launchURL('https://github.com/Muthunilavan-D'),
-                      tooltip: 'GitHub',
-                    ),
-                    const SizedBox(width: 10),
-                    _SocialButton(
-                      icon: Icons.work,
-                      color: AppTheme.neonPurple,
-                      onPressed: () => _launchURL(
-                        'https://www.linkedin.com/in/d-mn-92a1b7341',
-                      ),
-                      tooltip: 'LinkedIn',
-                    ),
-                  ],
-                ),
-            ],
           ),
         ),
       ),
@@ -251,11 +275,12 @@ class _HeaderNavState extends State<HeaderNav> {
       builder: (context) => ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             decoration: BoxDecoration(
-              color: AppTheme.deepSpace.withOpacity(0.9),
+              color: AppTheme.surfaceDark.withValues(alpha: 0.95),
+              border: Border.all(color: AppTheme.borderSubtle),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
@@ -264,11 +289,11 @@ class _HeaderNavState extends State<HeaderNav> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 40,
+                  width: 36,
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 20),
                   decoration: BoxDecoration(
-                    color: AppTheme.neonBlue.withOpacity(0.5),
+                    color: AppTheme.textMuted.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -282,7 +307,7 @@ class _HeaderNavState extends State<HeaderNav> {
                 ),
                 _MobileNavItem(
                   label: 'Skills',
-                  icon: Icons.build,
+                  icon: Icons.layers_outlined,
                   onTap: () {
                     Navigator.pop(context);
                     _scrollToSection(2);
@@ -290,7 +315,7 @@ class _HeaderNavState extends State<HeaderNav> {
                 ),
                 _MobileNavItem(
                   label: 'Projects',
-                  icon: Icons.folder,
+                  icon: Icons.folder_open_outlined,
                   onTap: () {
                     Navigator.pop(context);
                     _scrollToSection(3);
@@ -306,13 +331,13 @@ class _HeaderNavState extends State<HeaderNav> {
                 ),
                 _MobileNavItem(
                   label: 'Contact',
-                  icon: Icons.mail,
+                  icon: Icons.mail_outline,
                   onTap: () {
                     Navigator.pop(context);
                     _scrollToSection(5);
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -324,14 +349,12 @@ class _HeaderNavState extends State<HeaderNav> {
 
 class _NavItem extends StatefulWidget {
   final String label;
-  final IconData icon;
   final int index;
   final int activeSection;
   final VoidCallback onTap;
 
   const _NavItem({
     required this.label,
-    required this.icon,
     required this.index,
     required this.activeSection,
     required this.onTap,
@@ -341,187 +364,96 @@ class _NavItem extends StatefulWidget {
   State<_NavItem> createState() => _NavItemState();
 }
 
-class _NavItemState extends State<_NavItem>
-    with SingleTickerProviderStateMixin {
+class _NavItemState extends State<_NavItem> {
   bool _isHovered = false;
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.1,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final isActive = widget.activeSection == widget.index;
 
     return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedBuilder(
-          animation: _scaleAnimation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _scaleAnimation.value,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: (isActive || _isHovered)
-                      ? AppTheme.neonBlue.withOpacity(0.15)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: isActive
-                        ? AppTheme.neonBlue
-                        : (_isHovered
-                              ? AppTheme.neonBlue.withOpacity(0.5)
-                              : Colors.transparent),
-                    width: 1,
-                  ),
-                  boxShadow: (isActive || _isHovered)
-                      ? [
-                          BoxShadow(
-                            color: AppTheme.neonBlue.withOpacity(0.3),
-                            blurRadius: 10,
-                            spreadRadius: 0,
-                          ),
-                        ]
-                      : null,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      widget.icon,
-                      size: 18,
-                      color: isActive
-                          ? AppTheme.neonBlue
-                          : (_isHovered ? AppTheme.neonBlue : Colors.white70),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      widget.label,
-                      style: TextStyle(
-                        color: isActive
-                            ? AppTheme.neonBlue
-                            : (_isHovered ? AppTheme.neonBlue : Colors.white70),
-                        fontSize: 15,
-                        fontWeight: isActive
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: isActive
+                ? AppTheme.primary.withValues(alpha: 0.15)
+                : (_isHovered
+                    ? Colors.white.withValues(alpha: 0.06)
+                    : Colors.transparent),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isActive
+                  ? AppTheme.primaryLight.withValues(alpha: 0.4)
+                  : Colors.transparent,
+              width: 1,
+            ),
+          ),
+          child: Text(
+            widget.label,
+            style: TextStyle(
+              color: isActive
+                  ? AppTheme.primaryLight
+                  : (_isHovered
+                      ? AppTheme.textPrimary
+                      : AppTheme.textSecondary),
+              fontSize: 14,
+              fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+              letterSpacing: 0.2,
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class _SocialButton extends StatefulWidget {
+class _SocialIconButton extends StatefulWidget {
   final IconData icon;
-  final Color color;
   final VoidCallback onPressed;
   final String tooltip;
 
-  const _SocialButton({
+  const _SocialIconButton({
     required this.icon,
-    required this.color,
     required this.onPressed,
     required this.tooltip,
   });
 
   @override
-  State<_SocialButton> createState() => _SocialButtonState();
+  State<_SocialIconButton> createState() => _SocialIconButtonState();
 }
 
-class _SocialButtonState extends State<_SocialButton>
-    with SingleTickerProviderStateMixin {
+class _SocialIconButtonState extends State<_SocialIconButton> {
   bool _isHovered = false;
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.2,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
-      child: AnimatedBuilder(
-        animation: _scaleAnimation,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: IconButton(
-              icon: Icon(widget.icon, color: widget.color),
-              onPressed: widget.onPressed,
-              tooltip: widget.tooltip,
-              style: IconButton.styleFrom(
-                backgroundColor: _isHovered
-                    ? widget.color.withOpacity(0.2)
-                    : Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          );
-        },
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: _isHovered
+                ? Colors.white.withValues(alpha: 0.08)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(
+            widget.icon,
+            color: _isHovered ? AppTheme.textPrimary : AppTheme.textSecondary,
+            size: 19,
+          ),
+        ),
       ),
     );
   }
@@ -541,27 +473,28 @@ class _MobileNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppTheme.neonBlue.withOpacity(0.2),
+          color: AppTheme.primary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: AppTheme.neonBlue, size: 20),
+        child: Icon(icon, color: AppTheme.primaryLight, size: 20),
       ),
       title: Text(
         label,
         style: const TextStyle(
-          color: Colors.white,
-          fontSize: 18,
+          color: AppTheme.textPrimary,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
       ),
       onTap: onTap,
-      trailing: Icon(
-        Icons.arrow_forward_ios,
-        color: AppTheme.neonBlue,
-        size: 16,
+      trailing: const Icon(
+        Icons.chevron_right,
+        color: AppTheme.textMuted,
+        size: 20,
       ),
     );
   }

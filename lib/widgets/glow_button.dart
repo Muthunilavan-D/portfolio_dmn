@@ -6,6 +6,8 @@ class GlowButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final IconData? icon;
   final bool isOutlined;
+  final Color? customColor;
+  final EdgeInsets? padding;
 
   const GlowButton({
     super.key,
@@ -13,104 +15,93 @@ class GlowButton extends StatefulWidget {
     this.onPressed,
     this.icon,
     this.isOutlined = false,
+    this.customColor,
+    this.padding,
   });
 
   @override
   State<GlowButton> createState() => _GlowButtonState();
 }
 
-class _GlowButtonState extends State<GlowButton>
-    with SingleTickerProviderStateMixin {
+class _GlowButtonState extends State<GlowButton> {
   bool _isHovered = false;
-  late AnimationController _controller;
-  late Animation<double> _glowAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _glowAnimation = Tween<double>(begin: 0.3, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final Color accent = widget.customColor ?? AppTheme.primary;
+
     return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
         onTap: widget.onPressed,
-        child: AnimatedBuilder(
-          animation: _glowAnimation,
-          builder: (context, child) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              decoration: BoxDecoration(
-                gradient: widget.isOutlined
-                    ? null
-                    : (_isHovered
-                        ? AppTheme.neonGradient
-                        : LinearGradient(
-                            colors: [
-                              AppTheme.neonBlue,
-                              AppTheme.neonPurple,
-                            ],
-                          )),
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(
-                  color: AppTheme.neonBlue,
-                  width: 2,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOut,
+          padding: widget.padding ??
+              const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          decoration: BoxDecoration(
+            gradient: widget.isOutlined
+                ? null
+                : LinearGradient(
+                    colors: [
+                      accent,
+                      accent == AppTheme.primary
+                          ? AppTheme.primaryDark
+                          : accent.withValues(alpha: 0.8),
+                    ],
+                  ),
+            color: widget.isOutlined
+                ? (_isHovered
+                    ? accent.withValues(alpha: 0.15)
+                    : AppTheme.surfaceDark.withValues(alpha: 0.7))
+                : null,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: widget.isOutlined
+                  ? (_isHovered ? accent : AppTheme.borderSubtle)
+                  : (_isHovered
+                      ? Colors.white.withValues(alpha: 0.4)
+                      : Colors.white.withValues(alpha: 0.15)),
+              width: 1,
+            ),
+            boxShadow: [
+              if (!widget.isOutlined)
+                BoxShadow(
+                  color: accent.withValues(alpha: _isHovered ? 0.35 : 0.15),
+                  blurRadius: _isHovered ? 20 : 12,
+                  offset: const Offset(0, 4),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.neonBlue.withOpacity(
-                      _glowAnimation.value * (_isHovered ? 0.8 : 0.4),
-                    ),
-                    blurRadius: _isHovered ? 20 : 10,
-                    spreadRadius: _isHovered ? 2 : 0,
-                  ),
-                ],
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (widget.icon != null) ...[
+                Icon(
+                  widget.icon,
+                  color: widget.isOutlined
+                      ? (_isHovered ? accent : AppTheme.textPrimary)
+                      : Colors.white,
+                  size: 18,
+                ),
+                const SizedBox(width: 8),
+              ],
+              Text(
+                widget.text,
+                style: TextStyle(
+                  color: widget.isOutlined
+                      ? (_isHovered ? accent : AppTheme.textPrimary)
+                      : Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.3,
+                ),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (widget.icon != null) ...[
-                    Icon(
-                      widget.icon,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                  Text(
-                    widget.text,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

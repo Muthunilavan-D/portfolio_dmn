@@ -10,42 +10,21 @@ class AnimatedBackground extends StatefulWidget {
 }
 
 class _AnimatedBackgroundState extends State<AnimatedBackground>
-    with TickerProviderStateMixin {
-  late AnimationController _particleController;
-  final Random _random = Random();
-  final List<_Particle> _particles = [];
-  static const int _particleCount = 60;
-  static const double _connectionDistance = 150;
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ambientController;
 
   @override
   void initState() {
     super.initState();
-
-    _particleController = AnimationController(
+    _ambientController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 14),
     )..repeat();
-
-    _initializeParticles();
-  }
-
-  void _initializeParticles() {
-    for (int i = 0; i < _particleCount; i++) {
-      _particles.add(
-        _Particle(
-          x: _random.nextDouble(),
-          y: _random.nextDouble(),
-          vx: (_random.nextDouble() - 0.5) * 0.2,
-          vy: (_random.nextDouble() - 0.5) * 0.2,
-          size: _random.nextDouble() * 2 + 1.5,
-        ),
-      );
-    }
   }
 
   @override
   void dispose() {
-    _particleController.dispose();
+    _ambientController.dispose();
     super.dispose();
   }
 
@@ -58,17 +37,14 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
         return Container(
           width: size.width,
           height: size.height,
-          color: Colors.black,
+          color: AppTheme.darkSpace,
           child: AnimatedBuilder(
-            animation: _particleController,
+            animation: _ambientController,
             builder: (context, child) {
               return CustomPaint(
                 size: size,
-                painter: _ParticleNetworkPainter(
-                  particles: _particles,
-                  animationValue: _particleController.value,
-                  size: size,
-                  connectionDistance: _connectionDistance,
+                painter: _AmbientMeshPainter(
+                  progress: _ambientController.value,
                 ),
               );
             },
@@ -79,93 +55,85 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
   }
 }
 
-class _Particle {
-  double x;
-  double y;
-  double vx;
-  double vy;
-  double size;
+class _AmbientMeshPainter extends CustomPainter {
+  final double progress;
 
-  _Particle({
-    required this.x,
-    required this.y,
-    required this.vx,
-    required this.vy,
-    required this.size,
-  });
-}
-
-class _ParticleNetworkPainter extends CustomPainter {
-  final List<_Particle> particles;
-  final double animationValue;
-  final Size size;
-  final double connectionDistance;
-
-  _ParticleNetworkPainter({
-    required this.particles,
-    required this.animationValue,
-    required this.size,
-    required this.connectionDistance,
-  });
+  _AmbientMeshPainter({required this.progress});
 
   @override
-  void paint(Canvas canvas, Size canvasSize) {
-    // Update particle positions
-    for (var particle in particles) {
-      particle.x += particle.vx * 0.01;
-      particle.y += particle.vy * 0.01;
+  void paint(Canvas canvas, Size size) {
+    final double angle = progress * 2 * pi;
 
-      // Wrap around edges
-      if (particle.x < 0) particle.x = 1;
-      if (particle.x > 1) particle.x = 0;
-      if (particle.y < 0) particle.y = 1;
-      if (particle.y > 1) particle.y = 0;
-    }
+    // 1. Subtle Architectural Dot Grid
+    final dotPaint = Paint()
+      ..color = const Color(0x0EFFFFFF)
+      ..style = PaintingStyle.fill;
 
-    // Draw connections (web lines)
-    final connectionPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.5;
-
-    for (int i = 0; i < particles.length; i++) {
-      for (int j = i + 1; j < particles.length; j++) {
-        final p1 = particles[i];
-        final p2 = particles[j];
-
-        final x1 = p1.x * size.width;
-        final y1 = p1.y * size.height;
-        final x2 = p2.x * size.width;
-        final y2 = p2.y * size.height;
-
-        final dx = x2 - x1;
-        final dy = y2 - y1;
-        final distance = sqrt(dx * dx + dy * dy);
-
-        if (distance < connectionDistance) {
-          final opacity = (1 - distance / connectionDistance) * 0.15;
-          connectionPaint.color = AppTheme.neonBlue.withOpacity(opacity);
-
-          canvas.drawLine(Offset(x1, y1), Offset(x2, y2), connectionPaint);
-        }
+    const double step = 36.0;
+    for (double x = 18.0; x < size.width; x += step) {
+      for (double y = 18.0; y < size.height; y += step) {
+        canvas.drawCircle(Offset(x, y), 0.9, dotPaint);
       }
     }
 
-    // Draw particles as small circles
-    final particlePaint = Paint()..style = PaintingStyle.fill;
+    // 2. Large Soft Ambient Light Orbs (Gently breathing/moving)
+    // Orb 1: Primary Indigo (Top Left / Center)
+    final double orb1X = size.width * 0.25 + cos(angle) * 60;
+    final double orb1Y = size.height * 0.20 + sin(angle) * 40;
+    final double orb1Radius = max(size.width, size.height) * 0.40;
 
-    for (var particle in particles) {
-      final x = particle.x * size.width;
-      final y = particle.y * size.height;
+    final Paint orb1Paint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          AppTheme.primary.withValues(alpha: 0.12),
+          AppTheme.primary.withValues(alpha: 0.04),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.45, 1.0],
+      ).createShader(
+        Rect.fromCircle(center: Offset(orb1X, orb1Y), radius: orb1Radius),
+      );
+    canvas.drawCircle(Offset(orb1X, orb1Y), orb1Radius, orb1Paint);
 
-      final pulse = (sin(animationValue * 2 * pi + particle.x * 10) + 1) / 2;
-      particlePaint.color = AppTheme.neonBlue.withOpacity(0.3 + pulse * 0.2);
+    // Orb 2: Secondary Sky Blue (Mid-Right)
+    final double orb2X = size.width * 0.75 - sin(angle) * 70;
+    final double orb2Y = size.height * 0.45 + cos(angle) * 50;
+    final double orb2Radius = max(size.width, size.height) * 0.35;
 
-      canvas.drawCircle(Offset(x, y), particle.size, particlePaint);
-    }
+    final Paint orb2Paint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          AppTheme.secondary.withValues(alpha: 0.09),
+          AppTheme.secondary.withValues(alpha: 0.03),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.5, 1.0],
+      ).createShader(
+        Rect.fromCircle(center: Offset(orb2X, orb2Y), radius: orb2Radius),
+      );
+    canvas.drawCircle(Offset(orb2X, orb2Y), orb2Radius, orb2Paint);
+
+    // Orb 3: Violet Deep Ambient (Bottom-Center / Left)
+    final double orb3X = size.width * 0.40 + sin(angle * 0.8) * 80;
+    final double orb3Y = size.height * 0.80 - cos(angle * 0.8) * 60;
+    final double orb3Radius = max(size.width, size.height) * 0.38;
+
+    final Paint orb3Paint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          const Color(0xFF8B5CF6).withValues(alpha: 0.08),
+          const Color(0xFF8B5CF6).withValues(alpha: 0.02),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.5, 1.0],
+      ).createShader(
+        Rect.fromCircle(center: Offset(orb3X, orb3Y), radius: orb3Radius),
+      );
+    canvas.drawCircle(Offset(orb3X, orb3Y), orb3Radius, orb3Paint);
   }
 
   @override
-  bool shouldRepaint(_ParticleNetworkPainter oldDelegate) {
-    return true;
+  bool shouldRepaint(_AmbientMeshPainter oldDelegate) {
+    return oldDelegate.progress != progress;
   }
 }

@@ -1,1313 +1,612 @@
-import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../widgets/glass_card.dart';
-
-class ExperienceEducationSection extends StatelessWidget {
-  const ExperienceEducationSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 20 : 40,
-        vertical: 60,
-      ),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Text(
-                  'EDUCATION & EXPERIENCE',
-                  style: TextStyle(
-                    fontSize: isMobile ? 28 : 36,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.neonBlue,
-                    letterSpacing: 2,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isDesktop = constraints.maxWidth > 768;
-
-                  if (isDesktop) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Education Section (First)
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Education',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppTheme.neonPurple,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              // BE Education Card
-                              GlassCard(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(18),
-                                      decoration: BoxDecoration(
-                                        gradient: AppTheme.neonGradient,
-                                        borderRadius: BorderRadius.circular(16),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppTheme.neonBlue
-                                                .withOpacity(0.3),
-                                            blurRadius: 15,
-                                            spreadRadius: 0,
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Icon(
-                                        Icons.school_outlined,
-                                        color: Colors.white,
-                                        size: 36,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Bachelor of Engineering',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppTheme.neonBlue,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            'Computer Science Engineering',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: AppTheme.textSecondary,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 16),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.business,
-                                                size: 18,
-                                                color: AppTheme.neonPurple,
-                                              ),
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                'Velammal College of Engineering',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 16),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 14,
-                                                      vertical: 8,
-                                                    ),
-                                                decoration: BoxDecoration(
-                                                  color: AppTheme.neonPurple
-                                                      .withOpacity(0.2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                    color: AppTheme.neonPurple,
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.calendar_today,
-                                                      size: 14,
-                                                      color:
-                                                          AppTheme.neonPurple,
-                                                    ),
-                                                    const SizedBox(width: 6),
-                                                    Text(
-                                                      '2023 – 2027',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color:
-                                                            AppTheme.neonPurple,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(width: 16),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 16,
-                                                      vertical: 8,
-                                                    ),
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      AppTheme.neonBlue
-                                                          .withOpacity(0.3),
-                                                      AppTheme.neonPurple
-                                                          .withOpacity(0.3),
-                                                    ],
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                    color: AppTheme.neonBlue,
-                                                    width: 1.5,
-                                                  ),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppTheme.neonBlue
-                                                          .withOpacity(0.2),
-                                                      blurRadius: 10,
-                                                      spreadRadius: 0,
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Text(
-                                                  'CGPA: 8.65 / 10',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppTheme.neonBlue,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              // HSE Education Card
-                              GlassCard(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(18),
-                                      decoration: BoxDecoration(
-                                        gradient: AppTheme.neonGradient,
-                                        borderRadius: BorderRadius.circular(16),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppTheme.neonBlue
-                                                .withOpacity(0.3),
-                                            blurRadius: 15,
-                                            spreadRadius: 0,
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Icon(
-                                        Icons.school_outlined,
-                                        color: Colors.white,
-                                        size: 36,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'HSE',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppTheme.neonBlue,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            'Computer Science',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: AppTheme.textSecondary,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 16),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.business,
-                                                size: 18,
-                                                color: AppTheme.neonPurple,
-                                              ),
-                                              const SizedBox(width: 8),
-                                              Expanded(
-                                                child: Text(
-                                                  'Akshara Matriculation Higher Secondary School',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                  softWrap: true,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 16),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 14,
-                                                      vertical: 8,
-                                                    ),
-                                                decoration: BoxDecoration(
-                                                  color: AppTheme.neonPurple
-                                                      .withOpacity(0.2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                    color: AppTheme.neonPurple,
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.calendar_today,
-                                                      size: 14,
-                                                      color:
-                                                          AppTheme.neonPurple,
-                                                    ),
-                                                    const SizedBox(width: 6),
-                                                    Text(
-                                                      '2022 – 2023',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color:
-                                                            AppTheme.neonPurple,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(width: 16),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      horizontal: 16,
-                                                      vertical: 8,
-                                                    ),
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      AppTheme.neonBlue
-                                                          .withOpacity(0.3),
-                                                      AppTheme.neonPurple
-                                                          .withOpacity(0.3),
-                                                    ],
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                    color: AppTheme.neonBlue,
-                                                    width: 1.5,
-                                                  ),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppTheme.neonBlue
-                                                          .withOpacity(0.2),
-                                                      blurRadius: 10,
-                                                      spreadRadius: 0,
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Text(
-                                                  '83.67%',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppTheme.neonBlue,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              const _CertificationsCard(),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 40),
-                        // Experience Section (Second)
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Experience',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppTheme.neonPurple,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Timeline indicator
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: 16,
-                                        height: 16,
-                                        decoration: BoxDecoration(
-                                          gradient: AppTheme.neonGradient,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppTheme.neonBlue
-                                                  .withOpacity(0.5),
-                                              blurRadius: 10,
-                                              spreadRadius: 2,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 2,
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              AppTheme.neonBlue.withOpacity(
-                                                0.5,
-                                              ),
-                                              Colors.transparent,
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 24),
-                                  Expanded(
-                                    child: GlassCard(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                  12,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  gradient:
-                                                      AppTheme.neonGradient,
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.work_outline,
-                                                  color: Colors.white,
-                                                  size: 28,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 20),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Flutter Developer Intern',
-                                                      style: TextStyle(
-                                                        fontSize: 22,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            AppTheme.neonBlue,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 6),
-                                                    Text(
-                                                      'AstroWeb Solutions Pvt. Limited',
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 6),
-                                                    Container(
-                                                      padding:
-                                                          const EdgeInsets.symmetric(
-                                                            horizontal: 12,
-                                                            vertical: 6,
-                                                          ),
-                                                      decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                            .neonPurple
-                                                            .withOpacity(0.2),
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                              20,
-                                                            ),
-                                                        border: Border.all(
-                                                          color: AppTheme
-                                                              .neonPurple,
-                                                          width: 1,
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'May 2025 – June 2025',
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: AppTheme
-                                                              .neonPurple,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 28),
-                                          const Divider(
-                                            color: AppTheme.spaceGray,
-                                          ),
-                                          const SizedBox(height: 20),
-                                          _BulletPoint(
-                                            text:
-                                                'Built real-world mobile app features',
-                                          ),
-                                          _BulletPoint(
-                                            text:
-                                                'Integrated APIs and Firebase services',
-                                          ),
-                                          _BulletPoint(
-                                            text:
-                                                'Improved code structure and UI responsiveness',
-                                          ),
-                                          _BulletPoint(
-                                            text:
-                                                'Collaborated in professional development workflow',
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 24),
-                              const _AccomplishmentsCard(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        // Education (First)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Text(
-                                'Education',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppTheme.neonPurple,
-                                  letterSpacing: 1,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            // BE Education Card
-                            GlassCard(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      gradient: AppTheme.neonGradient,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: const Icon(
-                                      Icons.school_outlined,
-                                      color: Colors.white,
-                                      size: 36,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text(
-                                    'Bachelor of Engineering',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppTheme.neonBlue,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Computer Science Engineering',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.textSecondary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.business,
-                                        size: 16,
-                                        color: AppTheme.neonPurple,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          'Velammal College of Engineering',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Wrap(
-                                    spacing: 12,
-                                    runSpacing: 12,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.neonPurple
-                                              .withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.neonPurple,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_today,
-                                              size: 14,
-                                              color: AppTheme.neonPurple,
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              '2023 – 2027',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: AppTheme.neonPurple,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              AppTheme.neonBlue.withOpacity(
-                                                0.3,
-                                              ),
-                                              AppTheme.neonPurple.withOpacity(
-                                                0.3,
-                                              ),
-                                            ],
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.neonBlue,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          'CGPA: 8.65 / 10',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppTheme.neonBlue,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            // HSE Education Card
-                            GlassCard(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      gradient: AppTheme.neonGradient,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: const Icon(
-                                      Icons.school_outlined,
-                                      color: Colors.white,
-                                      size: 36,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text(
-                                    'HSE',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppTheme.neonBlue,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Computer Science',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.textSecondary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.business,
-                                        size: 16,
-                                        color: AppTheme.neonPurple,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          'Akshara Matriculation Higher Secondary School',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.neonPurple
-                                              .withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.neonPurple,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_today,
-                                              size: 14,
-                                              color: AppTheme.neonPurple,
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              '2022 – 2023',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: AppTheme.neonPurple,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              AppTheme.neonBlue.withOpacity(
-                                                0.3,
-                                              ),
-                                              AppTheme.neonPurple.withOpacity(
-                                                0.3,
-                                              ),
-                                            ],
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.neonBlue,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '83.67%',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppTheme.neonBlue,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            const _CertificationsCard(),
-                          ],
-                        ),
-                        const SizedBox(height: 40),
-                        // Experience (Second)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Text(
-                                'Experience',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppTheme.neonPurple,
-                                  letterSpacing: 1,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            GlassCard(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(12),
-                                        decoration: BoxDecoration(
-                                          gradient: AppTheme.neonGradient,
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                        child: const Icon(
-                                          Icons.work_outline,
-                                          color: Colors.white,
-                                          size: 28,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Flutter Developer Intern',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppTheme.neonBlue,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 6),
-                                            Text(
-                                              'AstroWeb Solutions Pvt. Limited',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 6),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 6,
-                                                  ),
-                                              decoration: BoxDecoration(
-                                                color: AppTheme.neonPurple
-                                                    .withOpacity(0.2),
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: Border.all(
-                                                  color: AppTheme.neonPurple,
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              child: Text(
-                                                'May 2025 – June 2025',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: AppTheme.neonPurple,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 28),
-                                  const Divider(color: AppTheme.spaceGray),
-                                  const SizedBox(height: 20),
-                                  _BulletPoint(
-                                    text:
-                                        'Built real-world mobile app features',
-                                  ),
-                                  _BulletPoint(
-                                    text:
-                                        'Integrated APIs and Firebase services',
-                                  ),
-                                  _BulletPoint(
-                                    text:
-                                        'Improved code structure and UI responsiveness',
-                                  ),
-                                  _BulletPoint(
-                                    text:
-                                        'Collaborated in professional development workflow',
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            const _AccomplishmentsCard(),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BulletPoint extends StatelessWidget {
-  final String text;
-
-  const _BulletPoint({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 8, right: 16),
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: AppTheme.neonBlue,
-              shape: BoxShape.circle,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                color: AppTheme.textSecondary,
-                height: 1.6,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class _AccomplishmentsCard extends StatelessWidget {
-  const _AccomplishmentsCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFFD700), Color(0xFFFF8C00)],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFFFD700).withOpacity(0.3),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.emoji_events,
-                  color: Colors.black,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Honors & Hackathons',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.neonBlue,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Competitions & Academic Recognition',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppTheme.textSecondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          const Divider(color: AppTheme.spaceGray),
-          const SizedBox(height: 16),
-          const _AwardRow(
-            title: 'Euphoria 2k25 — AI Code Sprint',
-            award: 'Winner (₹5,000)',
-            isGold: true,
-          ),
-          const _AwardRow(
-            title: 'Euphoria 2k25 — Creative App Sparks',
-            award: 'Runner-Up (₹3,000)',
-            isGold: false,
-          ),
-          const _AwardRow(
-            title: 'Academic Top Scorer (3rd Semester)',
-            award: 'GPA: 9.18',
-            isGold: true,
-          ),
-          const _AwardRow(
-            title: 'Elements 2k24 — Codeathon',
-            award: 'Participant',
-            isGold: false,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AwardRow extends StatelessWidget {
-  final String title;
-  final String award;
-  final bool isGold;
-
-  const _AwardRow({
-    required this.title,
-    required this.award,
-    required this.isGold,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            isGold ? Icons.military_tech : Icons.workspace_premium,
-            color: isGold ? const Color(0xFFFFD700) : AppTheme.neonPurple,
-            size: 20,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: (isGold ? const Color(0xFFFFD700) : AppTheme.neonPurple)
-                  .withOpacity(0.15),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isGold ? const Color(0xFFFFD700) : AppTheme.neonPurple,
-                width: 1,
-              ),
-            ),
-            child: Text(
-              award,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: isGold ? const Color(0xFFFFD700) : AppTheme.neonPurple,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CertificationsCard extends StatelessWidget {
-  const _CertificationsCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  gradient: AppTheme.neonGradient,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.neonBlue.withOpacity(0.3),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.verified,
-                  color: Colors.white,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Certifications',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.neonBlue,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Professional & Academic Credentials',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppTheme.textSecondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          const Divider(color: AppTheme.spaceGray),
-          const SizedBox(height: 16),
-          const _CertItem(
-            title: 'Flutter & Dart Development',
-            issuer: 'Udemy',
-            icon: Icons.flutter_dash,
-          ),
-          const _CertItem(
-            title: 'SQL and Relational Databases',
-            issuer: 'IBM',
-            icon: Icons.storage,
-          ),
-          const _CertItem(
-            title: 'Cloud Computing',
-            issuer: 'NPTEL (IIT)',
-            icon: Icons.cloud_done,
-          ),
-          const _CertItem(
-            title: 'Cloud Computing',
-            issuer: 'Wipro',
-            icon: Icons.cloud_queue,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CertItem extends StatelessWidget {
-  final String title;
-  final String issuer;
-  final IconData icon;
-
-  const _CertItem({
-    required this.title,
-    required this.issuer,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: AppTheme.neonBlue.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, size: 16, color: AppTheme.neonBlue),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: AppTheme.spaceGray,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: AppTheme.neonBlue.withOpacity(0.3),
-                width: 1,
-              ),
-            ),
-            child: Text(
-              issuer,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: AppTheme.neonBlue,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
+import '../widgets/glass_card.dart';
+
+class ExperienceEducationSection extends StatelessWidget {
+  const ExperienceEducationSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 960;
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 20 : 40,
+        vertical: 80,
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1140),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildSectionHeader(),
+              const SizedBox(height: 48),
+              if (isMobile)
+                _buildMobileLayout()
+              else
+                _buildDesktopLayout(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader() {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppTheme.amber.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppTheme.amber.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          child: const Text(
+            'JOURNEY & CREDENTIALS',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.amber,
+              letterSpacing: 1.5,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          'Education, Experience & Recognition',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w800,
+            color: AppTheme.textPrimary,
+            letterSpacing: -0.5,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          'Academic excellence, real-world development, and competitive hackathon achievements.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 15,
+            color: AppTheme.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Left Column: Education & Certifications
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSubheader('Education & Certifications', Icons.school_outlined),
+              const SizedBox(height: 18),
+              _buildBECard(),
+              const SizedBox(height: 16),
+              _buildHSCCard(),
+              const SizedBox(height: 16),
+              _buildCertificationsCard(),
+            ],
+          ),
+        ),
+        const SizedBox(width: 28),
+        // Right Column: Experience & Honors
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSubheader('Experience & Honors', Icons.work_outline),
+              const SizedBox(height: 18),
+              _buildExperienceCard(),
+              const SizedBox(height: 16),
+              _buildHonorsCard(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSubheader('Education & Certifications', Icons.school_outlined),
+        const SizedBox(height: 18),
+        _buildBECard(),
+        const SizedBox(height: 16),
+        _buildHSCCard(),
+        const SizedBox(height: 16),
+        _buildCertificationsCard(),
+        const SizedBox(height: 36),
+        _buildSubheader('Experience & Honors', Icons.work_outline),
+        const SizedBox(height: 18),
+        _buildExperienceCard(),
+        const SizedBox(height: 16),
+        _buildHonorsCard(),
+      ],
+    );
+  }
+
+  Widget _buildSubheader(String title, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, size: 20, color: AppTheme.primaryLight),
+        const SizedBox(width: 10),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.textPrimary,
+            letterSpacing: -0.2,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBECard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.school, color: AppTheme.primaryLight, size: 22),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bachelor of Engineering (B.E.)',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Computer Science and Engineering',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Velammal College of Engineering and Technology, Madurai',
+            style: TextStyle(
+              fontSize: 14.5,
+              fontWeight: FontWeight.w500,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              _buildBadge('2023 – 2027 (Expected)', AppTheme.textSecondary),
+              _buildBadge('CGPA: 8.65 / 10', AppTheme.primaryLight, isHighlighted: true),
+              _buildBadge('Sem 3 GPA: 9.18', AppTheme.emerald),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHSCCard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.secondary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.menu_book, color: AppTheme.secondary, size: 22),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Higher Secondary Certificate (HSC)',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Computer Science Stream',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Akshara Matriculation Higher Secondary School, Madurai',
+            style: TextStyle(
+              fontSize: 14.5,
+              fontWeight: FontWeight.w500,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              _buildBadge('2021 – 2023', AppTheme.textSecondary),
+              _buildBadge('Score: 83.67%', AppTheme.secondary, isHighlighted: true),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExperienceCard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.business_center, color: AppTheme.primaryLight, size: 22),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Flutter Developer Intern',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'AstroWeb Solutions Pvt. Limited',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          _buildBadge('May 2025 – June 2025', AppTheme.primaryLight),
+          const SizedBox(height: 18),
+          const Divider(color: AppTheme.borderSubtle),
+          const SizedBox(height: 14),
+          _buildBulletItem('Engineered core mobile app features and responsive UI components using Flutter.'),
+          _buildBulletItem('Integrated REST APIs, Firebase Authentication, and Cloud Firestore services.'),
+          _buildBulletItem('Participated in agile sprints, code reviews, and performance optimizations with senior developers.'),
+          _buildBulletItem('Collaborated closely on UI debugging, state management refactoring, and release staging.'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHonorsCard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(24),
+      borderColor: AppTheme.amber.withValues(alpha: 0.3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.amber.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.emoji_events, color: AppTheme.amber, size: 22),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Honors & Hackathon Awards',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Competitive programming & innovation',
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          _buildAwardRow(
+            title: 'Euphoria 2k25 — AI Code Sprint',
+            award: 'Winner (₹5,000)',
+            icon: Icons.military_tech,
+            color: AppTheme.amber,
+          ),
+          _buildAwardRow(
+            title: 'Euphoria 2k25 — Creative App Sparks',
+            award: 'Runner-Up (₹3,000)',
+            icon: Icons.workspace_premium,
+            color: AppTheme.secondary,
+          ),
+          _buildAwardRow(
+            title: 'Academic Top Scorer (Semester 3)',
+            award: 'GPA: 9.18',
+            icon: Icons.star_outline,
+            color: AppTheme.primaryLight,
+          ),
+          _buildAwardRow(
+            title: 'Elements 2k24 — Codeathon',
+            award: 'Participant',
+            icon: Icons.code,
+            color: AppTheme.textSecondary,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCertificationsCard() {
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.emerald.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.verified, color: AppTheme.emerald, size: 22),
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Professional Certifications',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Verified technical credentials',
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          _buildCertRow('Flutter & Dart Development', 'Udemy', Icons.flutter_dash),
+          _buildCertRow('SQL and Relational Databases', 'IBM', Icons.storage_outlined),
+          _buildCertRow('Cloud Computing', 'NPTEL (IIT)', Icons.cloud_done_outlined),
+          _buildCertRow('Cloud Computing', 'Wipro', Icons.cloud_queue_outlined),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBadge(String text, Color color, {bool isHighlighted = false}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: isHighlighted
+            ? color.withValues(alpha: 0.15)
+            : AppTheme.spaceGray,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isHighlighted
+              ? color.withValues(alpha: 0.4)
+              : AppTheme.borderSubtle,
+          width: 1,
+        ),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12.5,
+          fontWeight: isHighlighted ? FontWeight.w700 : FontWeight.w500,
+          color: isHighlighted ? color : AppTheme.textSecondary,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBulletItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6, right: 12),
+            width: 5,
+            height: 5,
+            decoration: const BoxDecoration(
+              color: AppTheme.primaryLight,
+              shape: BoxShape.circle,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppTheme.textSecondary,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAwardRow({
+    required String title,
+    required String award,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: color),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppTheme.textPrimary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: color.withValues(alpha: 0.3)),
+            ),
+            child: Text(
+              award,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCertRow(String title, String issuer, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          Icon(icon, size: 16, color: AppTheme.primaryLight),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 13.5,
+                color: AppTheme.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: AppTheme.spaceGray,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: AppTheme.borderSubtle),
+            ),
+            child: Text(
+              issuer,
+              style: const TextStyle(
+                fontSize: 11.5,
+                color: AppTheme.textPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
