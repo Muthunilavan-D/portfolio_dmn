@@ -67,12 +67,23 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: AppTheme.primary.withValues(alpha: 0.12),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0x336366F1),
+                Color(0x22A855F7),
+              ],
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.primaryLight.withValues(alpha: 0.35),
+              color: AppTheme.primaryLight.withValues(alpha: 0.45),
               width: 1,
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x336366F1),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Text(
             'FEATURED PORTFOLIO',
@@ -124,22 +135,30 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 duration: const Duration(milliseconds: 180),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
+                  gradient: isSelected
+                      ? const LinearGradient(
+                          colors: [
+                            Color(0xFF6366F1),
+                            Color(0xFFA855F7),
+                          ],
+                        )
+                      : null,
                   color: isSelected
-                      ? AppTheme.primary.withValues(alpha: 0.22)
-                      : AppTheme.surfaceDark.withValues(alpha: 0.6),
+                      ? null
+                      : AppTheme.surfaceDark.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isSelected
-                        ? AppTheme.primaryLight
+                        ? Colors.white.withValues(alpha: 0.45)
                         : AppTheme.borderSubtle,
                     width: 1,
                   ),
                   boxShadow: [
                     if (isSelected)
-                      BoxShadow(
-                        color: AppTheme.primary.withValues(alpha: 0.25),
-                        blurRadius: 10,
-                        offset: const Offset(0, 2),
+                      const BoxShadow(
+                        color: Color(0x666366F1),
+                        blurRadius: 14,
+                        offset: Offset(0, 3),
                       ),
                   ],
                 ),
@@ -149,7 +168,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                     fontSize: 13,
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     color: isSelected
-                        ? AppTheme.primaryLight
+                        ? Colors.white
                         : AppTheme.textSecondary,
                   ),
                 ),
@@ -165,7 +184,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: EdgeInsets.all(isMobile ? 20 : 30),
-      borderColor: AppTheme.primary.withValues(alpha: 0.45),
+      glowColor: const Color(0xFF818CF8),
+      borderColor: const Color(0xFF818CF8).withValues(alpha: 0.55),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -176,11 +196,16 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: AppTheme.emerald.withValues(alpha: 0.12),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0x3310B981),
+                      Color(0x2206B6D4),
+                    ],
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: AppTheme.emerald.withValues(alpha: 0.35),
-                    width: 1,
+                    color: AppTheme.emerald.withValues(alpha: 0.45),
+                    width: 1.2,
                   ),
                 ),
                 child: Row(
@@ -244,7 +269,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             borderRadius: BorderRadius.circular(12),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: AppTheme.borderSubtle),
+                border: Border.all(
+                  color: const Color(0xFF818CF8).withValues(alpha: 0.4),
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Image.asset(
@@ -265,13 +292,20 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             ),
           ),
           const SizedBox(height: 22),
-          // Key Highlights
+          // Key Highlights with Matching Color Layers
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: AppTheme.spaceGray.withValues(alpha: 0.6),
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.surfaceElevated.withValues(alpha: 0.8),
+                  AppTheme.spaceGray.withValues(alpha: 0.7),
+                ],
+              ),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppTheme.borderSubtle),
+              border: Border.all(
+                color: const Color(0xFF6366F1).withValues(alpha: 0.35),
+              ),
             ),
             child: Wrap(
               spacing: 24,
@@ -281,16 +315,19 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   icon: Icons.analytics_outlined,
                   title: 'Early Delay Prediction',
                   desc: 'Deterministic risk formula + SHAP feature importance',
+                  color: const Color(0xFFA855F7), // Violet
                 ),
                 _buildHighlightItem(
                   icon: Icons.account_tree_outlined,
                   title: 'Dependency Prioritization',
                   desc: 'Directs teams to complete blocking prerequisite tasks',
+                  color: const Color(0xFF06B6D4), // Cyan
                 ),
                 _buildHighlightItem(
                   icon: Icons.groups_outlined,
                   title: 'Multi-Role Workspaces',
                   desc: 'Tailored dashboards for Students, Guides, and HODs',
+                  color: const Color(0xFF10B981), // Emerald
                 ),
               ],
             ),
@@ -307,7 +344,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               'Groq Cloud (Llama 3.3)',
               'Python (SHAP)',
               'Vite',
-            ].map((t) => _TechTag(label: t)).toList(),
+            ].map((t) => _TechTag(label: t, color: const Color(0xFF818CF8))).toList(),
           ),
           const SizedBox(height: 24),
           // Action Buttons
@@ -337,6 +374,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     required IconData icon,
     required String title,
     required String desc,
+    required Color color,
   }) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 300),
@@ -344,7 +382,15 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: AppTheme.primaryLight),
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: color.withValues(alpha: 0.35)),
+            ),
+            child: Icon(icon, size: 17, color: color),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -386,7 +432,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         githubUrl: 'https://github.com/Muthunilavan-D/FitTrack.git',
         linkedinUrl:
             'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-firebase-ai-activity-7304894778985361408-vMVe',
-        filterCategoryIndex: 2, // Flutter Mobile
+        accentColor: const Color(0xFF10B981), // Emerald
+        filterCategoryIndex: 2,
       ),
       _ProjectData(
         title: 'PricePulse — Price Tracking App',
@@ -398,7 +445,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         githubUrl: 'https://github.com/Muthunilavan-D/Pricepulse.git',
         linkedinUrl:
             'https://www.linkedin.com/posts/d-mn-92a1b7341_release-price-pulse-v10-muthunilavan-d-activity-7418546470263373824-iAm1',
-        filterCategoryIndex: 3, // FinTech & Web
+        accentColor: const Color(0xFFF59E0B), // Amber Gold
+        filterCategoryIndex: 3,
       ),
       _ProjectData(
         title: 'Commitment Tracker — AI Task Manager',
@@ -410,7 +458,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         githubUrl: 'https://github.com/Kishorets05/AI-Commitment-Tracker.git',
         linkedinUrl:
             'https://www.linkedin.com/posts/d-mn-92a1b7341_ai-machinelearning-nlp-activity-7418544623360458752-4eU7',
-        filterCategoryIndex: 1, // AI & Systems
+        accentColor: const Color(0xFFA855F7), // Violet
+        filterCategoryIndex: 1,
       ),
       _ProjectData(
         title: 'NewzSphere — Real-Time News App',
@@ -422,7 +471,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         githubUrl: 'https://github.com/Muthunilavan-D/NewzSphere.git',
         linkedinUrl:
             'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-flutterweb-newsapp-activity-7338821423643209730-1tbN',
-        filterCategoryIndex: 2, // Flutter Mobile
+        accentColor: const Color(0xFF0EA5E9), // Sky Blue
+        filterCategoryIndex: 2,
       ),
     ];
 
@@ -457,6 +507,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               thumbnail: project.thumbnail,
               githubUrl: project.githubUrl,
               linkedinUrl: project.linkedinUrl,
+              accentColor: project.accentColor,
             );
           }).toList(),
         );
@@ -473,6 +524,7 @@ class _ProjectData {
   final String thumbnail;
   final String githubUrl;
   final String linkedinUrl;
+  final Color accentColor;
   final int filterCategoryIndex;
 
   _ProjectData({
@@ -483,6 +535,7 @@ class _ProjectData {
     required this.thumbnail,
     required this.githubUrl,
     required this.linkedinUrl,
+    required this.accentColor,
     required this.filterCategoryIndex,
   });
 }
@@ -495,6 +548,7 @@ class _ProjectCard extends StatelessWidget {
   final String thumbnail;
   final String githubUrl;
   final String linkedinUrl;
+  final Color accentColor;
   final double cardWidth;
 
   const _ProjectCard({
@@ -505,6 +559,7 @@ class _ProjectCard extends StatelessWidget {
     required this.thumbnail,
     required this.githubUrl,
     required this.linkedinUrl,
+    required this.accentColor,
     required this.cardWidth,
   });
 
@@ -521,6 +576,8 @@ class _ProjectCard extends StatelessWidget {
       width: cardWidth,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(22),
+      glowColor: accentColor,
+      borderColor: accentColor.withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -531,7 +588,9 @@ class _ProjectCard extends StatelessWidget {
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: AppTheme.borderSubtle),
+                border: Border.all(
+                  color: accentColor.withValues(alpha: 0.35),
+                ),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(
@@ -552,10 +611,10 @@ class _ProjectCard extends StatelessWidget {
           // Category tag
           Text(
             category.toUpperCase(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w700,
-              color: AppTheme.primaryLight,
+              color: accentColor,
               letterSpacing: 0.8,
             ),
           ),
@@ -585,7 +644,7 @@ class _ProjectCard extends StatelessWidget {
           Wrap(
             spacing: 6,
             runSpacing: 6,
-            children: techStack.map((t) => _TechTag(label: t)).toList(),
+            children: techStack.map((t) => _TechTag(label: t, color: accentColor)).toList(),
           ),
           const SizedBox(height: 20),
           // Action Buttons - perfectly aligned
@@ -596,6 +655,7 @@ class _ProjectCard extends StatelessWidget {
                   text: 'GitHub',
                   icon: Icons.code,
                   isOutlined: true,
+                  customColor: accentColor,
                   padding: const EdgeInsets.symmetric(vertical: 11),
                   onPressed: () => _launchURL(githubUrl),
                 ),
@@ -607,7 +667,7 @@ class _ProjectCard extends StatelessWidget {
                     text: 'LinkedIn',
                     icon: Icons.work_outline,
                     isOutlined: true,
-                    customColor: AppTheme.secondary,
+                    customColor: accentColor,
                     padding: const EdgeInsets.symmetric(vertical: 11),
                     onPressed: () => _launchURL(linkedinUrl),
                   ),
@@ -623,8 +683,12 @@ class _ProjectCard extends StatelessWidget {
 
 class _TechTag extends StatelessWidget {
   final String label;
+  final Color color;
 
-  const _TechTag({required this.label});
+  const _TechTag({
+    required this.label,
+    this.color = AppTheme.primaryLight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -634,16 +698,16 @@ class _TechTag extends StatelessWidget {
         color: AppTheme.spaceGray.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: AppTheme.borderSubtle,
+          color: color.withValues(alpha: 0.28),
           width: 1,
         ),
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: AppTheme.textSecondary,
+          color: color.withValues(alpha: 0.9),
         ),
       ),
     );

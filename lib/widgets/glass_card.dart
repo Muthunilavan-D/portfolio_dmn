@@ -11,6 +11,8 @@ class GlassCard extends StatefulWidget {
   final Color? borderColor;
   final Color? backgroundColor;
   final double borderRadius;
+  final LinearGradient? borderGradient;
+  final Color? glowColor;
 
   const GlassCard({
     super.key,
@@ -23,6 +25,8 @@ class GlassCard extends StatefulWidget {
     this.borderColor,
     this.backgroundColor,
     this.borderRadius = 16.0,
+    this.borderGradient,
+    this.glowColor,
   });
 
   @override
@@ -40,7 +44,7 @@ class _GlassCardState extends State<GlassCard>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 180),
+      duration: const Duration(milliseconds: 200),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.015).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
@@ -55,6 +59,8 @@ class _GlassCardState extends State<GlassCard>
 
   @override
   Widget build(BuildContext context) {
+    final effectiveGlowColor = widget.glowColor ?? AppTheme.primary;
+
     return MouseRegion(
       cursor: widget.onTap != null
           ? SystemMouseCursors.click
@@ -75,23 +81,31 @@ class _GlassCardState extends State<GlassCard>
             return Transform.scale(
               scale: _scaleAnimation.value,
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
+                duration: const Duration(milliseconds: 200),
                 width: widget.width,
                 height: widget.height,
                 margin: widget.margin ?? const EdgeInsets.all(8),
                 padding: widget.padding ?? const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: widget.backgroundColor ??
-                      (_isHovered
-                          ? AppTheme.surfaceElevated.withValues(alpha: 0.90)
-                          : AppTheme.surfaceDark.withValues(alpha: 0.75)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      _isHovered
+                          ? AppTheme.surfaceElevated.withValues(alpha: 0.92)
+                          : AppTheme.surfaceDark.withValues(alpha: 0.80),
+                      _isHovered
+                          ? AppTheme.spaceGray.withValues(alpha: 0.88)
+                          : const Color(0xFF0A0F1F).withValues(alpha: 0.75),
+                    ],
+                  ),
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   border: Border.all(
                     color: widget.borderColor ??
                         (_isHovered
-                            ? AppTheme.primaryLight.withValues(alpha: 0.5)
+                            ? effectiveGlowColor.withValues(alpha: 0.65)
                             : AppTheme.borderSubtle),
-                    width: 1.2,
+                    width: _isHovered ? 1.5 : 1.0,
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -101,9 +115,9 @@ class _GlassCardState extends State<GlassCard>
                     ),
                     if (_isHovered)
                       BoxShadow(
-                        color: AppTheme.primary.withValues(alpha: 0.12),
-                        blurRadius: 20,
-                        spreadRadius: 0,
+                        color: effectiveGlowColor.withValues(alpha: 0.16),
+                        blurRadius: 24,
+                        spreadRadius: 1,
                       ),
                   ],
                 ),

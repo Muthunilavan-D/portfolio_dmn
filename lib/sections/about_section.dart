@@ -41,12 +41,23 @@ class AboutSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: AppTheme.primary.withValues(alpha: 0.12),
+            gradient: LinearGradient(
+              colors: [
+                AppTheme.primary.withValues(alpha: 0.18),
+                AppTheme.secondary.withValues(alpha: 0.12),
+              ],
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.primaryLight.withValues(alpha: 0.35),
+              color: AppTheme.primaryLight.withValues(alpha: 0.45),
               width: 1,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.primary.withValues(alpha: 0.2),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Text(
             'ABOUT ME',
@@ -83,47 +94,45 @@ class AboutSection extends StatelessWidget {
   }
 
   Widget _buildDesktopCards() {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Expanded(
-            child: _AboutCard(
-              icon: Icons.lightbulb_outline,
-              title: 'Engineering Philosophy',
-              subtitle: 'Consistency over shortcuts',
-              description:
-                  'I learn best by building real products end-to-end. I prioritize clean code architecture, intuitive user flows, and measurable reliability. I care deeply about getting better every single day.',
-              tags: ['Clean Architecture', 'Predictable State', 'High Reliability'],
-              accentColor: AppTheme.primary,
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Expanded(
+          child: _AboutCard(
+            icon: Icons.lightbulb_outline,
+            title: 'Engineering Philosophy',
+            subtitle: 'Consistency over shortcuts',
+            description:
+                'I learn best by building real products end-to-end. I prioritize clean code architecture, intuitive user flows, and measurable reliability. I care deeply about getting better every single day.',
+            tags: ['Clean Architecture', 'Predictable State', 'High Reliability'],
+            accentColor: Color(0xFF818CF8), // Indigo
           ),
-          SizedBox(width: 20),
-          Expanded(
-            child: _AboutCard(
-              icon: Icons.hub_outlined,
-              title: 'Full-Stack & AI Focus',
-              subtitle: 'End-to-end system design',
-              description:
-                  'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
-              tags: ['Flutter Web/Mobile', 'Node.js & MongoDB', 'Explainable AI'],
-              accentColor: AppTheme.secondary,
-            ),
+        ),
+        SizedBox(width: 20),
+        Expanded(
+          child: _AboutCard(
+            icon: Icons.hub_outlined,
+            title: 'Full-Stack & AI Focus',
+            subtitle: 'End-to-end system design',
+            description:
+                'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
+            tags: ['Flutter Web/Mobile', 'Node.js & MongoDB', 'Explainable AI'],
+            accentColor: Color(0xFF06B6D4), // Cyan
           ),
-          SizedBox(width: 20),
-          Expanded(
-            child: _AboutCard(
-              icon: Icons.school_outlined,
-              title: 'Education & Growth',
-              subtitle: 'Velammal College of Engineering',
-              description:
-                  'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA and 9.18 in 3rd semester. Passionate about collaborative development, hackathons, and high-impact systems.',
-              tags: ['8.65 CGPA', 'Sem 3 GPA 9.18', 'Hackathon Winner'],
-              accentColor: AppTheme.emerald,
-            ),
+        ),
+        SizedBox(width: 20),
+        Expanded(
+          child: _AboutCard(
+            icon: Icons.school_outlined,
+            title: 'Education & Growth',
+            subtitle: 'Velammal College of Engineering',
+            description:
+                'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA and 9.18 in 3rd semester. Passionate about collaborative development, hackathons, and high-impact systems.',
+            tags: ['8.65 CGPA', 'Sem 3 GPA 9.18', 'Hackathon Winner'],
+            accentColor: Color(0xFF10B981), // Emerald
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -137,7 +146,7 @@ class AboutSection extends StatelessWidget {
           description:
               'I learn best by building real products end-to-end. I prioritize clean code architecture, intuitive user flows, and measurable reliability. I care deeply about getting better every single day.',
           tags: ['Clean Architecture', 'Predictable State', 'High Reliability'],
-          accentColor: AppTheme.primary,
+          accentColor: Color(0xFF818CF8),
         ),
         SizedBox(height: 16),
         _AboutCard(
@@ -147,7 +156,7 @@ class AboutSection extends StatelessWidget {
           description:
               'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
           tags: ['Flutter Web/Mobile', 'Node.js & MongoDB', 'Explainable AI'],
-          accentColor: AppTheme.secondary,
+          accentColor: Color(0xFF06B6D4),
         ),
         SizedBox(height: 16),
         _AboutCard(
@@ -157,7 +166,7 @@ class AboutSection extends StatelessWidget {
           description:
               'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA and 9.18 in 3rd semester. Passionate about collaborative development, hackathons, and high-impact systems.',
           tags: ['8.65 CGPA', 'Sem 3 GPA 9.18', 'Hackathon Winner'],
-          accentColor: AppTheme.emerald,
+          accentColor: Color(0xFF10B981),
         ),
       ],
     );
@@ -186,18 +195,32 @@ class _AboutCard extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(26),
+      glowColor: accentColor,
+      borderColor: accentColor.withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.14),
+              gradient: LinearGradient(
+                colors: [
+                  accentColor.withValues(alpha: 0.22),
+                  accentColor.withValues(alpha: 0.08),
+                ],
+              ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: accentColor.withValues(alpha: 0.35),
-                width: 1,
+                color: accentColor.withValues(alpha: 0.5),
+                width: 1.2,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Icon(icon, color: accentColor, size: 24),
           ),
@@ -235,21 +258,21 @@ class _AboutCard extends StatelessWidget {
             runSpacing: 6,
             children: tags.map((t) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: AppTheme.spaceGray,
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                    color: AppTheme.borderSubtle,
+                    color: accentColor.withValues(alpha: 0.35),
                     width: 1,
                   ),
                 ),
                 child: Text(
                   t,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11.5,
-                    fontWeight: FontWeight.w500,
-                    color: AppTheme.textSecondary,
+                    fontWeight: FontWeight.w600,
+                    color: accentColor,
                   ),
                 ),
               );

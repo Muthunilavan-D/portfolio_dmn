@@ -57,12 +57,23 @@ class _SkillsSectionState extends State<SkillsSection> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: AppTheme.secondary.withValues(alpha: 0.12),
+            gradient: LinearGradient(
+              colors: [
+                AppTheme.secondary.withValues(alpha: 0.20),
+                const Color(0xFF06B6D4).withValues(alpha: 0.12),
+              ],
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.secondary.withValues(alpha: 0.35),
+              color: AppTheme.secondary.withValues(alpha: 0.45),
               width: 1,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.secondary.withValues(alpha: 0.2),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Text(
             'SKILLS & TOOLKIT',
@@ -114,24 +125,32 @@ class _SkillsSectionState extends State<SkillsSection> {
               borderRadius: BorderRadius.circular(20),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 decoration: BoxDecoration(
+                  gradient: isSelected
+                      ? const LinearGradient(
+                          colors: [
+                            Color(0xFF6366F1),
+                            Color(0xFF06B6D4),
+                          ],
+                        )
+                      : null,
                   color: isSelected
-                      ? AppTheme.primary.withValues(alpha: 0.20)
-                      : AppTheme.surfaceDark.withValues(alpha: 0.6),
+                      ? null
+                      : AppTheme.surfaceDark.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isSelected
-                        ? AppTheme.primaryLight
+                        ? Colors.white.withValues(alpha: 0.4)
                         : AppTheme.borderSubtle,
                     width: 1,
                   ),
                   boxShadow: [
                     if (isSelected)
-                      BoxShadow(
-                        color: AppTheme.primary.withValues(alpha: 0.25),
-                        blurRadius: 10,
-                        offset: const Offset(0, 2),
+                      const BoxShadow(
+                        color: Color(0x666366F1),
+                        blurRadius: 14,
+                        offset: Offset(0, 3),
                       ),
                   ],
                 ),
@@ -141,7 +160,7 @@ class _SkillsSectionState extends State<SkillsSection> {
                     fontSize: 13,
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     color: isSelected
-                        ? AppTheme.primaryLight
+                        ? Colors.white
                         : AppTheme.textSecondary,
                   ),
                 ),
@@ -158,7 +177,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'Mobile & Web Platforms',
         icon: Icons.phone_android_outlined,
-        accentColor: AppTheme.primary,
+        accentColor: const Color(0xFF818CF8), // Indigo
         categoryIndex: 1,
         skills: const [
           'Flutter (Mobile & Web)',
@@ -172,7 +191,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'Backend & Databases',
         icon: Icons.storage_outlined,
-        accentColor: AppTheme.secondary,
+        accentColor: const Color(0xFF06B6D4), // Cyan
         categoryIndex: 2,
         skills: const [
           'Node.js & Express.js',
@@ -186,7 +205,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'AI & Data Intelligence',
         icon: Icons.psychology_outlined,
-        accentColor: AppTheme.emerald,
+        accentColor: const Color(0xFFA855F7), // Violet
         categoryIndex: 3,
         skills: const [
           'Explainable AI (SHAP)',
@@ -200,7 +219,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'Programming Languages',
         icon: Icons.code_outlined,
-        accentColor: AppTheme.primaryLight,
+        accentColor: const Color(0xFFF43F5E), // Rose
         categoryIndex: 4,
         skills: const [
           'Java (OOP & System Design)',
@@ -214,7 +233,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'Tools & Cloud Deployment',
         icon: Icons.cloud_done_outlined,
-        accentColor: AppTheme.amber,
+        accentColor: const Color(0xFFF59E0B), // Amber
         categoryIndex: 5,
         skills: const [
           'Git & GitHub Workflows',
@@ -228,7 +247,7 @@ class _SkillsSectionState extends State<SkillsSection> {
       _SkillData(
         title: 'Core CS Foundations',
         icon: Icons.developer_board_outlined,
-        accentColor: AppTheme.purple,
+        accentColor: const Color(0xFF10B981), // Emerald
         categoryIndex: 6,
         skills: const [
           'Object-Oriented Design (OOP)',
@@ -312,6 +331,8 @@ class _SkillCard extends StatelessWidget {
       width: width,
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
+      glowColor: accentColor,
+      borderColor: accentColor.withValues(alpha: 0.35),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 220),
         child: Column(
@@ -322,12 +343,24 @@ class _SkillCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: accentColor.withValues(alpha: 0.15),
+                    gradient: LinearGradient(
+                      colors: [
+                        accentColor.withValues(alpha: 0.22),
+                        accentColor.withValues(alpha: 0.08),
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: accentColor.withValues(alpha: 0.35),
-                      width: 1,
+                      color: accentColor.withValues(alpha: 0.5),
+                      width: 1.2,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: accentColor.withValues(alpha: 0.25),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Icon(icon, color: accentColor, size: 20),
                 ),
@@ -350,7 +383,10 @@ class _SkillCard extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: skills.map((skill) {
-                return _InteractiveSkillChip(skill: skill);
+                return _InteractiveSkillChip(
+                  skill: skill,
+                  accentColor: accentColor,
+                );
               }).toList(),
             ),
           ],
@@ -362,8 +398,12 @@ class _SkillCard extends StatelessWidget {
 
 class _InteractiveSkillChip extends StatefulWidget {
   final String skill;
+  final Color accentColor;
 
-  const _InteractiveSkillChip({required this.skill});
+  const _InteractiveSkillChip({
+    required this.skill,
+    required this.accentColor,
+  });
 
   @override
   State<_InteractiveSkillChip> createState() => _InteractiveSkillChipState();
@@ -382,20 +422,20 @@ class _InteractiveSkillChipState extends State<_InteractiveSkillChip> {
         padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
         decoration: BoxDecoration(
           color: _isHovered
-              ? AppTheme.primary.withValues(alpha: 0.20)
+              ? widget.accentColor.withValues(alpha: 0.25)
               : AppTheme.spaceGray.withValues(alpha: 0.85),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: _isHovered
-                ? AppTheme.primaryLight
-                : AppTheme.borderSubtle,
-            width: 1,
+                ? widget.accentColor
+                : widget.accentColor.withValues(alpha: 0.22),
+            width: 1.2,
           ),
           boxShadow: [
             if (_isHovered)
               BoxShadow(
-                color: AppTheme.primary.withValues(alpha: 0.2),
-                blurRadius: 8,
+                color: widget.accentColor.withValues(alpha: 0.35),
+                blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
           ],
@@ -404,7 +444,7 @@ class _InteractiveSkillChipState extends State<_InteractiveSkillChip> {
           widget.skill,
           style: TextStyle(
             fontSize: 12.5,
-            color: _isHovered ? AppTheme.textPrimary : AppTheme.textSecondary,
+            color: _isHovered ? Colors.white : AppTheme.textSecondary,
             fontWeight: _isHovered ? FontWeight.w600 : FontWeight.w500,
           ),
         ),

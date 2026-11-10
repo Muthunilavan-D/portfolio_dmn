@@ -204,17 +204,22 @@ class _HeroSectionState extends State<HeroSection>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
       decoration: BoxDecoration(
-        color: AppTheme.emerald.withValues(alpha: 0.12),
+        gradient: LinearGradient(
+          colors: [
+            AppTheme.emerald.withValues(alpha: 0.16),
+            const Color(0xFF06B6D4).withValues(alpha: 0.12),
+          ],
+        ),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: AppTheme.emerald.withValues(alpha: 0.4),
-          width: 1,
+          color: AppTheme.emerald.withValues(alpha: 0.5),
+          width: 1.2,
         ),
         boxShadow: const [
           BoxShadow(
             color: Color(0x3310B981),
-            blurRadius: 12,
-            offset: Offset(0, 2),
+            blurRadius: 14,
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -274,7 +279,7 @@ class _HeroSectionState extends State<HeroSection>
           "Hi, I'm Muthunilavan D",
           textAlign: isMobile ? TextAlign.center : TextAlign.start,
           style: TextStyle(
-            fontSize: isMobile ? 32 : 48,
+            fontSize: isMobile ? 32 : 50,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
             letterSpacing: -0.6,
@@ -285,16 +290,17 @@ class _HeroSectionState extends State<HeroSection>
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
             colors: [
-              AppTheme.primaryLight,
-              AppTheme.secondary,
+              Color(0xFF818CF8), // Soft Indigo
+              Color(0xFF38BDF8), // Electric Cyan
+              Color(0xFFC084FC), // Luminous Violet
             ],
           ).createShader(bounds),
           child: Text(
             'Flutter & Full-Stack AI Engineer',
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
             style: TextStyle(
-              fontSize: isMobile ? 22 : 32,
-              fontWeight: FontWeight.w700,
+              fontSize: isMobile ? 22 : 33,
+              fontWeight: FontWeight.w800,
               color: Colors.white,
               letterSpacing: -0.3,
               height: 1.25,
@@ -349,14 +355,27 @@ class _HeroSectionState extends State<HeroSection>
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
             decoration: BoxDecoration(
-              color: AppTheme.surfaceDark.withValues(alpha: 0.8),
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.surfaceElevated.withValues(alpha: 0.9),
+                  AppTheme.surfaceDark.withValues(alpha: 0.8),
+                ],
+              ),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 color: _copiedEmail
                     ? AppTheme.emerald
-                    : AppTheme.borderSubtle,
-                width: 1,
+                    : AppTheme.primaryLight.withValues(alpha: 0.35),
+                width: 1.2,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: (_copiedEmail ? AppTheme.emerald : AppTheme.primary)
+                      .withValues(alpha: 0.15),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -366,7 +385,7 @@ class _HeroSectionState extends State<HeroSection>
                   size: 14,
                   color: _copiedEmail
                       ? AppTheme.emerald
-                      : AppTheme.primaryLight,
+                      : AppTheme.secondary,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -376,7 +395,7 @@ class _HeroSectionState extends State<HeroSection>
                     fontWeight: FontWeight.w600,
                     color: _copiedEmail
                         ? AppTheme.emerald
-                        : AppTheme.textSecondary,
+                        : AppTheme.textPrimary,
                   ),
                 ),
               ],
@@ -391,6 +410,7 @@ class _HeroSectionState extends State<HeroSection>
     return Stack(
       clipBehavior: Clip.none,
       children: [
+        // Outer glowing halo
         Container(
           width: size,
           height: size,
@@ -400,26 +420,32 @@ class _HeroSectionState extends State<HeroSection>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                AppTheme.primary,
-                AppTheme.secondary,
+                Color(0xFF6366F1), // Electric Indigo
+                Color(0xFF06B6D4), // Cyan
+                Color(0xFFA855F7), // Violet
               ],
             ),
             boxShadow: [
               BoxShadow(
-                color: AppTheme.primary.withValues(alpha: 0.35),
-                blurRadius: 36,
+                color: AppTheme.primary.withValues(alpha: 0.45),
+                blurRadius: 40,
+                spreadRadius: 4,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: AppTheme.secondary.withValues(alpha: 0.25),
+                blurRadius: 25,
                 spreadRadius: 2,
-                offset: const Offset(0, 10),
               ),
             ],
           ),
-          padding: const EdgeInsets.all(3.5),
+          padding: const EdgeInsets.all(4),
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: AppTheme.darkSpace,
             ),
-            padding: const EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3.5),
             child: ClipOval(
               child: Image.asset(
                 'assets/my_avatar.png',
@@ -440,21 +466,26 @@ class _HeroSectionState extends State<HeroSection>
         ),
         // Interactive Floating pill badge
         Positioned(
-          bottom: 6,
-          right: 6,
+          bottom: 8,
+          right: 8,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
             decoration: BoxDecoration(
-              color: AppTheme.surfaceDark.withValues(alpha: 0.95),
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFF1E293B),
+                  Color(0xFF0F172A),
+                ],
+              ),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: AppTheme.primaryLight.withValues(alpha: 0.5),
-                width: 1,
+                color: AppTheme.secondary.withValues(alpha: 0.6),
+                width: 1.2,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.4),
-                  blurRadius: 10,
+                  color: AppTheme.secondary.withValues(alpha: 0.3),
+                  blurRadius: 14,
                   offset: const Offset(0, 4),
                 ),
               ],
@@ -464,14 +495,14 @@ class _HeroSectionState extends State<HeroSection>
               children: [
                 Icon(
                   Icons.verified,
-                  size: 14,
-                  color: AppTheme.primaryLight,
+                  size: 15,
+                  color: AppTheme.secondaryLight,
                 ),
                 SizedBox(width: 6),
                 Text(
                   'B.E. CSE • 2027',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.5,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.textPrimary,
                     letterSpacing: 0.3,
@@ -487,25 +518,54 @@ class _HeroSectionState extends State<HeroSection>
 
   Widget _buildMetricBar(bool isMobile) {
     final metrics = [
-      {'val': '5+', 'label': 'Projects Shipped', 'icon': Icons.folder_outlined},
-      {'val': '8.65', 'label': 'B.E. CGPA (9.18 Sem 3)', 'icon': Icons.school_outlined},
-      {'val': 'Winner', 'label': 'Euphoria AI Sprint', 'icon': Icons.emoji_events_outlined},
-      {'val': 'Full-Stack', 'label': 'Flutter • Node • XAI', 'icon': Icons.layers_outlined},
+      {
+        'val': '5+',
+        'label': 'Projects Shipped',
+        'sub': 'Flutter, Node & XAI',
+        'icon': Icons.folder_outlined,
+        'color': const Color(0xFF6366F1), // Indigo
+      },
+      {
+        'val': '8.65',
+        'label': 'B.E. CGPA',
+        'sub': 'Sem 3 GPA: 9.18',
+        'icon': Icons.school_outlined,
+        'color': const Color(0xFF06B6D4), // Cyan
+      },
+      {
+        'val': 'Winner',
+        'label': 'Euphoria AI Sprint',
+        'sub': '1st Prize Hackathon',
+        'icon': Icons.emoji_events_outlined,
+        'color': const Color(0xFFF59E0B), // Amber Gold
+      },
+      {
+        'val': 'AstroWeb',
+        'label': 'Flutter Intern',
+        'sub': 'Mobile & Cloud APIs',
+        'icon': Icons.layers_outlined,
+        'color': const Color(0xFF10B981), // Emerald
+      },
     ];
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        color: AppTheme.surfaceDark.withValues(alpha: 0.65),
+        gradient: LinearGradient(
+          colors: [
+            AppTheme.surfaceElevated.withValues(alpha: 0.8),
+            AppTheme.surfaceDark.withValues(alpha: 0.8),
+          ],
+        ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppTheme.borderSubtle,
-          width: 1,
+          color: AppTheme.borderHighlight.withValues(alpha: 0.4),
+          width: 1.2,
         ),
         boxShadow: const [
           BoxShadow(
             color: Color(0x33000000),
-            blurRadius: 16,
+            blurRadius: 18,
             offset: Offset(0, 4),
           ),
         ],
@@ -516,23 +576,31 @@ class _HeroSectionState extends State<HeroSection>
         spacing: 24,
         runSpacing: 16,
         children: metrics.map((m) {
+          final accent = m['color'] as Color;
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.15),
+                  color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: AppTheme.primary.withValues(alpha: 0.3),
+                    color: accent.withValues(alpha: 0.4),
                     width: 1,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: accent.withValues(alpha: 0.25),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Icon(
                   m['icon'] as IconData,
-                  size: 18,
-                  color: AppTheme.primaryLight,
+                  size: 20,
+                  color: accent,
                 ),
               ),
               const SizedBox(width: 12),
@@ -542,16 +610,25 @@ class _HeroSectionState extends State<HeroSection>
                   Text(
                     m['val'] as String,
                     style: const TextStyle(
-                      fontSize: 16.5,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textPrimary,
                     ),
                   ),
                   Text(
                     m['label'] as String,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
                       color: AppTheme.textSecondary,
+                    ),
+                  ),
+                  Text(
+                    m['sub'] as String,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: accent.withValues(alpha: 0.85),
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],

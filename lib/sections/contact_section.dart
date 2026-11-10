@@ -204,12 +204,23 @@ class _ContactSectionState extends State<ContactSection> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: AppTheme.emerald.withValues(alpha: 0.12),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0x3310B981),
+                Color(0x2206B6D4),
+              ],
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.emerald.withValues(alpha: 0.35),
+              color: AppTheme.emerald.withValues(alpha: 0.45),
               width: 1,
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x3310B981),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Text(
             'GET IN TOUCH',
@@ -252,7 +263,7 @@ class _ContactSectionState extends State<ContactSection> {
           icon: Icons.email_outlined,
           title: 'Direct Email (Click to copy & mail)',
           value: 'muthunilavand@gmail.com',
-          accentColor: AppTheme.primary,
+          accentColor: const Color(0xFF818CF8), // Indigo
           onTap: () {
             _copyToClipboard('muthunilavand@gmail.com', 'email');
             _launchURL('mailto:muthunilavand@gmail.com');
@@ -263,7 +274,7 @@ class _ContactSectionState extends State<ContactSection> {
           icon: Icons.phone_outlined,
           title: 'Phone / WhatsApp (Click to copy & call)',
           value: '+91 9047807547',
-          accentColor: AppTheme.secondary,
+          accentColor: const Color(0xFF06B6D4), // Cyan
           onTap: () {
             _copyToClipboard('+919047807547', 'phone number');
             _launchURL('tel:+919047807547');
@@ -274,15 +285,15 @@ class _ContactSectionState extends State<ContactSection> {
           icon: Icons.location_on_outlined,
           title: 'Location',
           value: 'Madurai, Tamil Nadu, India',
-          accentColor: AppTheme.emerald,
+          accentColor: const Color(0xFF10B981), // Emerald
           onTap: null,
         ),
         const SizedBox(height: 16),
         _buildInfoCard(
           icon: Icons.code,
-          title: 'GitHub & Portfolio Code',
+          title: 'GitHub Profile',
           value: 'github.com/Muthunilavan-D',
-          accentColor: AppTheme.primaryLight,
+          accentColor: const Color(0xFFA855F7), // Violet
           onTap: () => _launchURL('https://github.com/Muthunilavan-D'),
         ),
       ],
@@ -299,18 +310,32 @@ class _ContactSectionState extends State<ContactSection> {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(20),
+      glowColor: accentColor,
+      borderColor: accentColor.withValues(alpha: 0.35),
       onTap: onTap,
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.15),
+              gradient: LinearGradient(
+                colors: [
+                  accentColor.withValues(alpha: 0.22),
+                  accentColor.withValues(alpha: 0.08),
+                ],
+              ),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: accentColor.withValues(alpha: 0.35),
-                width: 1,
+                color: accentColor.withValues(alpha: 0.45),
+                width: 1.2,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.25),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Icon(icon, color: accentColor, size: 22),
           ),
@@ -340,10 +365,10 @@ class _ContactSectionState extends State<ContactSection> {
             ),
           ),
           if (onTap != null)
-            const Icon(
+            Icon(
               Icons.arrow_outward,
               size: 16,
-              color: AppTheme.textMuted,
+              color: accentColor.withValues(alpha: 0.8),
             ),
         ],
       ),
@@ -354,6 +379,8 @@ class _ContactSectionState extends State<ContactSection> {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(32),
+      glowColor: const Color(0xFF818CF8),
+      borderColor: const Color(0xFF818CF8).withValues(alpha: 0.35),
       child: Form(
         key: _formKey,
         child: Column(
@@ -471,7 +498,7 @@ class _ContactSectionState extends State<ContactSection> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppTheme.primaryLight, width: 1.5),
+              borderSide: const BorderSide(color: Color(0xFF818CF8), width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

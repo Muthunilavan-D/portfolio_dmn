@@ -41,12 +41,23 @@ class ExperienceEducationSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: AppTheme.amber.withValues(alpha: 0.12),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0x33F59E0B),
+                Color(0x22F43F5E),
+              ],
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.amber.withValues(alpha: 0.35),
+              color: AppTheme.amber.withValues(alpha: 0.45),
               width: 1,
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x33F59E0B),
+                blurRadius: 10,
+              ),
+            ],
           ),
           child: const Text(
             'JOURNEY & CREDENTIALS',
@@ -91,7 +102,7 @@ class ExperienceEducationSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSubheader('Education & Certifications', Icons.school_outlined),
+              _buildSubheader('Education & Certifications', Icons.school_outlined, const Color(0xFF06B6D4)),
               const SizedBox(height: 18),
               _buildBECard(),
               const SizedBox(height: 16),
@@ -107,7 +118,7 @@ class ExperienceEducationSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSubheader('Experience & Honors', Icons.work_outline),
+              _buildSubheader('Experience & Honors', Icons.work_outline, const Color(0xFFF59E0B)),
               const SizedBox(height: 18),
               _buildExperienceCard(),
               const SizedBox(height: 16),
@@ -123,7 +134,7 @@ class ExperienceEducationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSubheader('Education & Certifications', Icons.school_outlined),
+        _buildSubheader('Education & Certifications', Icons.school_outlined, const Color(0xFF06B6D4)),
         const SizedBox(height: 18),
         _buildBECard(),
         const SizedBox(height: 16),
@@ -131,7 +142,7 @@ class ExperienceEducationSection extends StatelessWidget {
         const SizedBox(height: 16),
         _buildCertificationsCard(),
         const SizedBox(height: 36),
-        _buildSubheader('Experience & Honors', Icons.work_outline),
+        _buildSubheader('Experience & Honors', Icons.work_outline, const Color(0xFFF59E0B)),
         const SizedBox(height: 18),
         _buildExperienceCard(),
         const SizedBox(height: 16),
@@ -140,11 +151,19 @@ class ExperienceEducationSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSubheader(String title, IconData icon) {
+  Widget _buildSubheader(String title, IconData icon, Color color) {
     return Row(
       children: [
-        Icon(icon, size: 20, color: AppTheme.primaryLight),
-        const SizedBox(width: 10),
+        Container(
+          padding: const EdgeInsets.all(7),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.16),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withValues(alpha: 0.35)),
+          ),
+          child: Icon(icon, size: 18, color: color),
+        ),
+        const SizedBox(width: 12),
         Text(
           title,
           style: const TextStyle(
@@ -162,6 +181,8 @@ class ExperienceEducationSection extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
+      glowColor: const Color(0xFF818CF8),
+      borderColor: const Color(0xFF818CF8).withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -170,10 +191,13 @@ class ExperienceEducationSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.15),
+                  gradient: const LinearGradient(
+                    colors: [Color(0x336366F1), Color(0x184F46E5)],
+                  ),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0x66818CF8)),
                 ),
-                child: const Icon(Icons.school, color: AppTheme.primaryLight, size: 22),
+                child: const Icon(Icons.school, color: Color(0xFF818CF8), size: 22),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -216,8 +240,8 @@ class ExperienceEducationSection extends StatelessWidget {
             runSpacing: 8,
             children: [
               _buildBadge('2023 – 2027 (Expected)', AppTheme.textSecondary),
-              _buildBadge('CGPA: 8.65 / 10', AppTheme.primaryLight, isHighlighted: true),
-              _buildBadge('Sem 3 GPA: 9.18', AppTheme.emerald),
+              _buildBadge('CGPA: 8.65 / 10', const Color(0xFF06B6D4), isHighlighted: true),
+              _buildBadge('Sem 3 GPA: 9.18', const Color(0xFF10B981)),
             ],
           ),
         ],
@@ -229,6 +253,8 @@ class ExperienceEducationSection extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
+      glowColor: const Color(0xFF06B6D4),
+      borderColor: const Color(0xFF06B6D4).withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -237,10 +263,13 @@ class ExperienceEducationSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.secondary.withValues(alpha: 0.15),
+                  gradient: const LinearGradient(
+                    colors: [Color(0x3306B6D4), Color(0x180EA5E9)],
+                  ),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0x6606B6D4)),
                 ),
-                child: const Icon(Icons.menu_book, color: AppTheme.secondary, size: 22),
+                child: const Icon(Icons.menu_book, color: Color(0xFF06B6D4), size: 22),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -283,7 +312,7 @@ class ExperienceEducationSection extends StatelessWidget {
             runSpacing: 8,
             children: [
               _buildBadge('2021 – 2023', AppTheme.textSecondary),
-              _buildBadge('Score: 83.67%', AppTheme.secondary, isHighlighted: true),
+              _buildBadge('Score: 83.67%', const Color(0xFF06B6D4), isHighlighted: true),
             ],
           ),
         ],
@@ -295,6 +324,8 @@ class ExperienceEducationSection extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
+      glowColor: const Color(0xFF818CF8),
+      borderColor: const Color(0xFF818CF8).withValues(alpha: 0.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -303,10 +334,13 @@ class ExperienceEducationSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.15),
+                  gradient: const LinearGradient(
+                    colors: [Color(0x336366F1), Color(0x184F46E5)],
+                  ),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0x66818CF8)),
                 ),
-                child: const Icon(Icons.business_center, color: AppTheme.primaryLight, size: 22),
+                child: const Icon(Icons.business_center, color: Color(0xFF818CF8), size: 22),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -335,7 +369,7 @@ class ExperienceEducationSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          _buildBadge('May 2025 – June 2025', AppTheme.primaryLight),
+          _buildBadge('May 2025 – June 2025', const Color(0xFF818CF8)),
           const SizedBox(height: 16),
           const Divider(color: AppTheme.borderSubtle),
           const SizedBox(height: 12),
@@ -352,7 +386,8 @@ class ExperienceEducationSection extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
-      borderColor: AppTheme.amber.withValues(alpha: 0.4),
+      glowColor: const Color(0xFFF59E0B),
+      borderColor: const Color(0xFFF59E0B).withValues(alpha: 0.45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -361,10 +396,19 @@ class ExperienceEducationSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.amber.withValues(alpha: 0.15),
+                  gradient: const LinearGradient(
+                    colors: [Color(0x33F59E0B), Color(0x18D97706)],
+                  ),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0x66F59E0B)),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x33F59E0B),
+                      blurRadius: 10,
+                    ),
+                  ],
                 ),
-                child: const Icon(Icons.emoji_events, color: AppTheme.amber, size: 22),
+                child: const Icon(Icons.emoji_events, color: Color(0xFFF59E0B), size: 22),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -397,19 +441,19 @@ class ExperienceEducationSection extends StatelessWidget {
             title: 'Euphoria 2k25 — AI Code Sprint',
             award: 'Winner (₹5,000)',
             icon: Icons.military_tech,
-            color: AppTheme.amber,
+            color: const Color(0xFFF59E0B),
           ),
           _buildAwardRow(
             title: 'Euphoria 2k25 — Creative App Sparks',
             award: 'Runner-Up (₹3,000)',
             icon: Icons.workspace_premium,
-            color: AppTheme.secondary,
+            color: const Color(0xFF06B6D4),
           ),
           _buildAwardRow(
             title: 'Academic Top Scorer (Semester 3)',
             award: 'GPA: 9.18',
             icon: Icons.star_outline,
-            color: AppTheme.primaryLight,
+            color: const Color(0xFF818CF8),
           ),
           _buildAwardRow(
             title: 'Elements 2k24 — Codeathon',
@@ -426,6 +470,8 @@ class ExperienceEducationSection extends StatelessWidget {
     return GlassCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.all(24),
+      glowColor: const Color(0xFF10B981),
+      borderColor: const Color(0xFF10B981).withValues(alpha: 0.35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -434,10 +480,13 @@ class ExperienceEducationSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.emerald.withValues(alpha: 0.15),
+                  gradient: const LinearGradient(
+                    colors: [Color(0x3310B981), Color(0x18059669)],
+                  ),
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0x6610B981)),
                 ),
-                child: const Icon(Icons.verified, color: AppTheme.emerald, size: 22),
+                child: const Icon(Icons.verified, color: Color(0xFF10B981), size: 22),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -466,10 +515,10 @@ class ExperienceEducationSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
-          _buildCertRow('Flutter & Dart Development', 'Udemy', Icons.flutter_dash),
-          _buildCertRow('SQL and Relational Databases', 'IBM', Icons.storage_outlined),
-          _buildCertRow('Cloud Computing', 'NPTEL (IIT)', Icons.cloud_done_outlined),
-          _buildCertRow('Cloud Computing', 'Wipro', Icons.cloud_queue_outlined),
+          _buildCertRow('Flutter & Dart Development', 'Udemy', Icons.flutter_dash, const Color(0xFF818CF8)),
+          _buildCertRow('SQL and Relational Databases', 'IBM', Icons.storage_outlined, const Color(0xFF06B6D4)),
+          _buildCertRow('Cloud Computing', 'NPTEL (IIT)', Icons.cloud_done_outlined, const Color(0xFF10B981)),
+          _buildCertRow('Cloud Computing', 'Wipro', Icons.cloud_queue_outlined, const Color(0xFFF59E0B)),
         ],
       ),
     );
@@ -480,14 +529,14 @@ class ExperienceEducationSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: isHighlighted
-            ? color.withValues(alpha: 0.15)
+            ? color.withValues(alpha: 0.18)
             : AppTheme.spaceGray,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isHighlighted
-              ? color.withValues(alpha: 0.4)
+              ? color.withValues(alpha: 0.5)
               : AppTheme.borderSubtle,
-          width: 1,
+          width: 1.2,
         ),
       ),
       child: Text(
@@ -512,7 +561,7 @@ class ExperienceEducationSection extends StatelessWidget {
             width: 5,
             height: 5,
             decoration: const BoxDecoration(
-              color: AppTheme.primaryLight,
+              color: Color(0xFF818CF8),
               shape: BoxShape.circle,
             ),
           ),
@@ -556,9 +605,9 @@ class ExperienceEducationSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15),
+              color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: color.withValues(alpha: 0.35)),
+              border: Border.all(color: color.withValues(alpha: 0.45)),
             ),
             child: Text(
               award,
@@ -574,12 +623,12 @@ class ExperienceEducationSection extends StatelessWidget {
     );
   }
 
-  Widget _buildCertRow(String title, String issuer, IconData icon) {
+  Widget _buildCertRow(String title, String issuer, IconData icon, Color color) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: AppTheme.primaryLight),
+          Icon(icon, size: 16, color: color),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -596,13 +645,13 @@ class ExperienceEducationSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppTheme.spaceGray,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: AppTheme.borderSubtle),
+              border: Border.all(color: color.withValues(alpha: 0.35)),
             ),
             child: Text(
               issuer,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 11.5,
-                color: AppTheme.textPrimary,
+                color: color,
                 fontWeight: FontWeight.w600,
               ),
             ),
