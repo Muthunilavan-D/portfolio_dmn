@@ -296,7 +296,7 @@ class _HeroSectionState extends State<HeroSection>
             ],
           ).createShader(bounds),
           child: Text(
-            'Flutter & Full-Stack AI Engineer',
+            'Flutter & Full-Stack Developer',
             textAlign: isMobile ? TextAlign.center : TextAlign.start,
             style: TextStyle(
               fontSize: isMobile ? 22 : 33,
@@ -313,7 +313,7 @@ class _HeroSectionState extends State<HeroSection>
 
   Widget _buildTagline({required bool isMobile}) {
     return Text(
-      'Computer Science Engineering student at Velammal College of Engineering & Technology. Focused on engineering high-performance mobile systems with Flutter, scalable backends, and explainable AI solutions.',
+      'Computer Science Engineering student at Velammal College of Engineering & Technology. Focused on engineering high-performance mobile applications with Flutter, scalable backends, and exploring modern AI integrations.',
       textAlign: isMobile ? TextAlign.center : TextAlign.start,
       style: TextStyle(
         fontSize: isMobile ? 15 : 16.5,
@@ -521,22 +521,22 @@ class _HeroSectionState extends State<HeroSection>
       {
         'val': '5+',
         'label': 'Projects Shipped',
-        'sub': 'Flutter, Node & AI',
+        'sub': 'Flutter, Web & APIs',
         'icon': Icons.folder_outlined,
         'color': const Color(0xFF6366F1), // Indigo
       },
       {
         'val': 'Full-Stack',
         'label': 'Cross-Platform',
-        'sub': 'Mobile, Web & APIs',
+        'sub': 'Mobile & Web Apps',
         'icon': Icons.layers_outlined,
         'color': const Color(0xFF06B6D4), // Cyan
       },
       {
-        'val': 'AI & XAI',
-        'label': 'Applied Intelligence',
-        'sub': 'SHAP & LLM Workflows',
-        'icon': Icons.psychology_outlined,
+        'val': 'Modern Tech',
+        'label': 'Clean Architecture',
+        'sub': 'REST, Mongo & AI APIs',
+        'icon': Icons.hub_outlined,
         'color': const Color(0xFFA855F7), // Violet
       },
       {

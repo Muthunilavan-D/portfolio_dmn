@@ -363,155 +363,331 @@ class _LiveAuroraParticlePainter extends CustomPainter {
     }
   }
 
-  /// Anime-style diagonal comets with tapered luminous trails and stardust sparkles
+  /// Realistic anime celestial comets with organic asymmetric tails,
+  /// aerodynamic plasma heads, gravitational curvature, and full-span travel.
   void _drawAnimeComets(Canvas canvas, Size size) {
-    // Comet 1: Primary brilliant celestial comet (sweeps top-right to bottom-left)
-    _renderComet(
+    // Comet 1: The Great Celestial Meteor (sweeps top-right across full screen to bottom-left)
+    _renderRealisticComet(
       canvas: canvas,
       size: size,
       startProgress: 0.05,
-      durationProgress: 0.14,
-      start: Offset(size.width * 0.95, size.height * -0.05),
-      end: Offset(size.width * 0.05, size.height * 0.75),
+      durationProgress: 0.18,
+      start: Offset(size.width * 1.06, -size.height * 0.05),
+      end: Offset(-size.width * 0.10, size.height * 1.06),
+      arcOffset: Offset(-size.width * 0.05, size.height * 0.04),
       headColor: Colors.white,
-      trailColor: const Color(0xFF38BDF8), // Cyan
-      dustColor: const Color(0xFFA855F7), // Violet
-      tailLength: 280.0,
-      headRadius: 3.5,
+      ionColor: const Color(0xFF67E8F9), // Electric Cyan
+      trailColor: const Color(0xFF38BDF8), // Sky Blue
+      dustColor: const Color(0xFFA855F7), // Cosmic Violet
+      tailLength: max(size.width, size.height) * 0.32,
+      headRadius: 3.6,
+      leewardBias: 1.0, // Curves and spreads organically toward leeward side
     );
 
-    // Comet 2: Twin secondary shooting star (sweeps top-left to bottom-right)
-    _renderComet(
+    // Comet 2: Swift Amethyst Shooting Star (sweeps top-left across full screen to bottom-right)
+    _renderRealisticComet(
       canvas: canvas,
       size: size,
-      startProgress: 0.40,
-      durationProgress: 0.12,
-      start: Offset(size.width * 0.15, size.height * -0.05),
-      end: Offset(size.width * 0.85, size.height * 0.65),
+      startProgress: 0.42,
+      durationProgress: 0.16,
+      start: Offset(-size.width * 0.08, size.height * 0.04),
+      end: Offset(size.width * 1.10, size.height * 1.02),
+      arcOffset: Offset(size.width * 0.04, size.height * 0.05),
       headColor: Colors.white,
+      ionColor: const Color(0xFFE0E7FF), // Bright Indigo
       trailColor: const Color(0xFF818CF8), // Indigo
       dustColor: const Color(0xFFEC4899), // Rose
-      tailLength: 220.0,
-      headRadius: 2.8,
+      tailLength: max(size.width, size.height) * 0.26,
+      headRadius: 3.0,
+      leewardBias: -1.0,
     );
 
-    // Comet 3: Swift midnight meteor (sweeps upper right quadrant)
-    _renderComet(
+    // Comet 3: Midnight Emerald Bolide (sweeps upper right across full screen to bottom-left)
+    _renderRealisticComet(
       canvas: canvas,
       size: size,
-      startProgress: 0.72,
-      durationProgress: 0.11,
-      start: Offset(size.width * 0.85, size.height * 0.15),
-      end: Offset(size.width * 0.20, size.height * 0.85),
+      startProgress: 0.74,
+      durationProgress: 0.17,
+      start: Offset(size.width * 0.88, -size.height * 0.06),
+      end: Offset(-size.width * 0.08, size.height * 1.08),
+      arcOffset: Offset(-size.width * 0.06, size.height * 0.03),
       headColor: Colors.white,
-      trailColor: const Color(0xFF06B6D4), // Turquoise
+      ionColor: const Color(0xFF6EE7B7), // Mint
+      trailColor: const Color(0xFF06B6D4), // Cyan
       dustColor: const Color(0xFF10B981), // Emerald
-      tailLength: 240.0,
-      headRadius: 3.0,
+      tailLength: max(size.width, size.height) * 0.28,
+      headRadius: 3.2,
+      leewardBias: 1.0,
     );
   }
 
-  void _renderComet({
+  void _renderRealisticComet({
     required Canvas canvas,
     required Size size,
     required double startProgress,
     required double durationProgress,
     required Offset start,
     required Offset end,
+    required Offset arcOffset,
     required Color headColor,
+    required Color ionColor,
     required Color trailColor,
     required Color dustColor,
     required double tailLength,
     required double headRadius,
+    required double leewardBias,
   }) {
-    // Check if comet is currently in its active streak window
+    // Check active window
     double t = (progress - startProgress) / durationProgress;
     if (t < 0.0 || t > 1.0) return;
 
-    // Smooth movement along diagonal
-    final double headX = start.dx + (end.dx - start.dx) * t;
-    final double headY = start.dy + (end.dy - start.dy) * t;
+    // 1. Natural Gravitational Arc (Quadratic Bézier Trajectory)
+    final Offset midControl = Offset(
+      (start.dx + end.dx) * 0.5 + arcOffset.dx,
+      (start.dy + end.dy) * 0.5 + arcOffset.dy,
+    );
 
-    // Movement unit vector
-    final double dx = end.dx - start.dx;
-    final double dy = end.dy - start.dy;
-    final double dist = sqrt(dx * dx + dy * dy);
-    if (dist == 0) return;
-    final double dirX = dx / dist;
-    final double dirY = dy / dist;
+    final double omt = 1.0 - t;
+    final double headX =
+        omt * omt * start.dx + 2 * omt * t * midControl.dx + t * t * end.dx;
+    final double headY =
+        omt * omt * start.dy + 2 * omt * t * midControl.dy + t * t * end.dy;
 
-    // Perpendicular unit vector
+    // Tangent velocity vector at current t: B'(t) = 2(1-t)(P1-P0) + 2t(P2-P1)
+    final double vx =
+        2 * omt * (midControl.dx - start.dx) + 2 * t * (end.dx - midControl.dx);
+    final double vy =
+        2 * omt * (midControl.dy - start.dy) + 2 * t * (end.dy - midControl.dy);
+    final double speed = sqrt(vx * vx + vy * vy);
+    if (speed <= 0.001) return;
+
+    final double dirX = vx / speed;
+    final double dirY = vy / speed;
     final double perpX = -dirY;
     final double perpY = dirX;
 
-    // Smooth fade in / out envelope
-    final double cometAlpha = sin(t * pi);
-    if (cometAlpha <= 0.01) return;
+    // 2. Realistic Incandescent Alpha Envelope:
+    // Stays brilliantly bright across 88% of the path, and only dissolves near the very end!
+    double cometAlpha;
+    if (t < 0.08) {
+      // Rapid atmospheric entry ignition
+      cometAlpha = (t / 0.08);
+    } else if (t < 0.88) {
+      // Sustained bright incandescent burn with natural ablation shimmer
+      final double microFlicker = 0.94 + 0.06 * sin(t * 45.0);
+      cometAlpha = microFlicker;
+    } else {
+      // Terminal burnout only in the final 12% near the very bottom/end
+      final double fade = (1.0 - t) / 0.12;
+      cometAlpha = (fade * fade).clamp(0.0, 1.0);
+    }
 
-    // Tail end position
-    final double currentTailLength = tailLength * (0.8 + 0.4 * sin(t * pi));
-    final double tailEndX = headX - dirX * currentTailLength;
-    final double tailEndY = headY - dirY * currentTailLength;
+    if (cometAlpha <= 0.005) return;
 
-    // 1. Tapered Anime Tail Polygon
-    final path = Path();
-    const double headWidth = 3.6;
-    path.moveTo(tailEndX, tailEndY);
-    path.lineTo(headX + perpX * headWidth, headY + perpY * headWidth);
-    path.lineTo(headX + dirX * 3.0, headY + dirY * 3.0);
-    path.lineTo(headX - perpX * headWidth, headY - perpY * headWidth);
-    path.close();
+    final double currentTailLength =
+        tailLength * (0.85 + 0.30 * sin(t * pi * 0.9));
 
-    final tailPaint = Paint()
+    // 3. Asymmetric Organic Vapor Plume (Multi-Segment Mesh)
+    // Leeward side has higher turbulent expansion and wave drift than windward side
+    const int segments = 6;
+    final List<Offset> leftPoints = [];
+    final List<Offset> rightPoints = [];
+
+    for (int i = 0; i <= segments; i++) {
+      final double s = i / segments.toDouble();
+      final double d = currentTailLength * s;
+
+      // Organic expansion and taper curves
+      final double taper = (1.0 - s * s);
+      final double leftWidth =
+          (headRadius * (0.8 + 2.2 * s) * taper).clamp(0.0, 40.0);
+      final double rightWidth =
+          (headRadius * (1.6 + 5.2 * s) * taper).clamp(0.0, 60.0);
+
+      // Atmospheric shear wave flutter
+      final double flutter = sin(s * 7.0 + t * 18.0) * (3.0 * s);
+
+      final double pX = headX - dirX * d;
+      final double pY = headY - dirY * d;
+
+      if (leewardBias >= 0) {
+        // Right side is leeward (wider + flutter)
+        leftPoints.add(Offset(
+          pX - perpX * leftWidth,
+          pY - perpY * leftWidth,
+        ));
+        rightPoints.add(Offset(
+          pX + perpX * (rightWidth + flutter),
+          pY + perpY * (rightWidth + flutter),
+        ));
+      } else {
+        // Left side is leeward (wider + flutter)
+        leftPoints.add(Offset(
+          pX - perpX * (rightWidth + flutter),
+          pY - perpY * (rightWidth + flutter),
+        ));
+        rightPoints.add(Offset(
+          pX + perpX * leftWidth,
+          pY + perpY * leftWidth,
+        ));
+      }
+    }
+
+    // Assemble asymmetric closed path
+    final Path tailPath = Path();
+    tailPath.moveTo(headX, headY);
+    for (final pt in rightPoints) {
+      tailPath.lineTo(pt.dx, pt.dy);
+    }
+    for (int i = leftPoints.length - 1; i >= 0; i--) {
+      tailPath.lineTo(leftPoints[i].dx, leftPoints[i].dy);
+    }
+    tailPath.close();
+
+    final Offset tailEnd = Offset(
+      headX - dirX * currentTailLength,
+      headY - dirY * currentTailLength,
+    );
+
+    final Paint tailPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Colors.transparent,
-          trailColor.withValues(alpha: 0.25 * cometAlpha),
-          trailColor.withValues(alpha: 0.85 * cometAlpha),
           headColor.withValues(alpha: 0.95 * cometAlpha),
+          trailColor.withValues(alpha: 0.70 * cometAlpha),
+          dustColor.withValues(alpha: 0.30 * cometAlpha),
+          Colors.transparent,
         ],
-        stops: const [0.0, 0.4, 0.85, 1.0],
-      ).createShader(Rect.fromPoints(Offset(tailEndX, tailEndY), Offset(headX, headY)))
+        stops: const [0.0, 0.25, 0.65, 1.0],
+      ).createShader(Rect.fromPoints(Offset(headX, headY), tailEnd))
       ..style = PaintingStyle.fill;
 
-    canvas.drawPath(path, tailPaint);
+    canvas.drawPath(tailPath, tailPaint);
 
-    // 2. Head Radiant Core Glow
-    final Paint headGlow = Paint()
+    // 4. Razor-Sharp Ultra-Bright Ion Needle (Central Plasma Stream)
+    final Paint ionPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          Colors.white.withValues(alpha: 1.0 * cometAlpha),
+          ionColor.withValues(alpha: 0.85 * cometAlpha),
+          trailColor.withValues(alpha: 0.40 * cometAlpha),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.20, 0.60, 1.0],
+      ).createShader(Rect.fromPoints(
+        Offset(headX, headY),
+        Offset(headX - dirX * (currentTailLength * 0.75),
+            headY - dirY * (currentTailLength * 0.75)),
+      ))
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawLine(
+      Offset(headX, headY),
+      Offset(headX - dirX * (currentTailLength * 0.75),
+          headY - dirY * (currentTailLength * 0.75)),
+      ionPaint,
+    );
+
+    // 5. Asymmetric Organic Stardust & Ablation Embers (18 distinct sparks)
+    final Paint sparkPaint = Paint()..style = PaintingStyle.fill;
+    for (int i = 0; i < 18; i++) {
+      // Deterministic pseudo-random seed per spark index
+      final double seed1 = ((i * 37.17) % 1.0);
+      final double seed2 = ((i * 91.53) % 1.0);
+      final double sFrac = (i + 1) / 19.0;
+
+      // Asymmetric lateral drift: biased toward leeward side
+      final double lateralOffset =
+          (seed1 - (leewardBias > 0 ? 0.30 : 0.70)) * (10.0 + 32.0 * sFrac);
+      final double lag =
+          currentTailLength * sFrac + (seed2 - 0.5) * 14.0;
+
+      final double spX = headX - dirX * lag + perpX * lateralOffset;
+      final double spY = headY - dirY * lag + perpY * lateralOffset;
+
+      // Micro-shimmer for individual burning embers
+      final double emberPulse = 0.6 + 0.4 * sin(t * 35.0 + i * 2.5);
+      final double sparkAlpha =
+          ((1.0 - sFrac) * cometAlpha * emberPulse).clamp(0.0, 1.0);
+      final double sparkRadius =
+          (0.8 + seed1 * 1.6) * (1.0 - sFrac * 0.55);
+
+      // Color shifts from incandescent white to ion to cooling ember
+      Color spColor;
+      if (sFrac < 0.25) {
+        spColor = Colors.white;
+      } else if (sFrac < 0.60) {
+        spColor = (i % 2 == 0) ? ionColor : trailColor;
+      } else {
+        spColor = dustColor;
+      }
+
+      sparkPaint.color = spColor.withValues(alpha: sparkAlpha);
+      canvas.drawCircle(Offset(spX, spY), sparkRadius, sparkPaint);
+    }
+
+    // 6. Aerodynamic Oblong Plasma Head (Teardrop / Rotated Ellipse)
+    canvas.save();
+    canvas.translate(headX, headY);
+    final double headingAngle = atan2(dirY, dirX);
+    canvas.rotate(headingAngle);
+
+    // Forward shockwave glow (offset slightly in front)
+    final Paint shockPaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          headColor.withValues(alpha: 1.0 * cometAlpha),
-          trailColor.withValues(alpha: 0.7 * cometAlpha),
+          headColor.withValues(alpha: 0.90 * cometAlpha),
+          ionColor.withValues(alpha: 0.60 * cometAlpha),
           Colors.transparent,
         ],
-        stops: const [0.0, 0.35, 1.0],
-      ).createShader(Rect.fromCircle(center: Offset(headX, headY), radius: headRadius * 4));
+        stops: const [0.0, 0.40, 1.0],
+      ).createShader(Rect.fromCircle(
+          center: const Offset(1.5, 0), radius: headRadius * 3.5));
 
-    canvas.drawCircle(Offset(headX, headY), headRadius * 4, headGlow);
+    canvas.drawCircle(const Offset(1.5, 0), headRadius * 3.5, shockPaint);
 
-    // Inner bright white core
-    final Paint corePaint = Paint()
+    // Oblong teardrop incandescent core (compressed horizontally, stretched along heading)
+    final Paint coreGlow = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          Colors.white.withValues(alpha: 1.0 * cometAlpha),
+          ionColor.withValues(alpha: 0.75 * cometAlpha),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.50, 1.0],
+      ).createShader(Rect.fromCenter(
+        center: Offset.zero,
+        width: headRadius * 4.5,
+        height: headRadius * 2.8,
+      ));
+
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset.zero,
+        width: headRadius * 4.5,
+        height: headRadius * 2.8,
+      ),
+      coreGlow,
+    );
+
+    // Pure incandescent white nucleus
+    final Paint nucleusPaint = Paint()
       ..color = Colors.white.withValues(alpha: cometAlpha)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(headX, headY), headRadius, corePaint);
 
-    // 3. Stardust Trail Sparkles
-    final dustPaint = Paint()..style = PaintingStyle.fill;
-    for (int i = 1; i <= 7; i++) {
-      final double fraction = i / 8.0;
-      final double d = currentTailLength * fraction;
-      final double jitter = sin((t * 20) + i) * 5.0;
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: const Offset(0.5, 0),
+        width: headRadius * 2.2,
+        height: headRadius * 1.5,
+      ),
+      nucleusPaint,
+    );
 
-      final double sX = headX - dirX * d + perpX * jitter;
-      final double sY = headY - dirY * d + perpY * jitter;
-
-      final double dustAlpha = ((1.0 - fraction) * cometAlpha * 0.8).clamp(0.0, 1.0);
-      dustPaint.color = (i % 2 == 0 ? dustColor : trailColor).withValues(alpha: dustAlpha);
-
-      canvas.drawCircle(Offset(sX, sY), 1.2 * (1.0 - fraction * 0.5), dustPaint);
-    }
+    canvas.restore();
   }
 
   @override

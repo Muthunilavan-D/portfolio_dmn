@@ -112,11 +112,11 @@ class AboutSection extends StatelessWidget {
         Expanded(
           child: _AboutCard(
             icon: Icons.hub_outlined,
-            title: 'Full-Stack & AI Focus',
+            title: 'Full-Stack Development',
             subtitle: 'End-to-end system design',
             description:
-                'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
-            tags: ['Flutter Web/Mobile', 'Node.js & MongoDB', 'Explainable AI'],
+                'Bridging responsive, performant Flutter applications with scalable Node.js/Express and MongoDB backends. Passionate about clean REST architectures, intuitive UX, and exploring modern AI integrations.',
+            tags: ['Flutter (Mobile & Web)', 'Node.js & Express', 'AI Integrations'],
             accentColor: Color(0xFF06B6D4), // Cyan
           ),
         ),
@@ -151,11 +151,11 @@ class AboutSection extends StatelessWidget {
         SizedBox(height: 16),
         _AboutCard(
           icon: Icons.hub_outlined,
-          title: 'Full-Stack & AI Focus',
+          title: 'Full-Stack Development',
           subtitle: 'End-to-end system design',
           description:
-              'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
-          tags: ['Flutter Web/Mobile', 'Node.js & MongoDB', 'Explainable AI'],
+              'Bridging responsive, performant Flutter applications with scalable Node.js/Express and MongoDB backends. Passionate about clean REST architectures, intuitive UX, and exploring modern AI integrations.',
+          tags: ['Flutter (Mobile & Web)', 'Node.js & Express', 'AI Integrations'],
           accentColor: Color(0xFF06B6D4),
         ),
         SizedBox(height: 16),

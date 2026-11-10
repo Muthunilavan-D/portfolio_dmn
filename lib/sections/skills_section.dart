@@ -16,7 +16,7 @@ class _SkillsSectionState extends State<SkillsSection> {
     'All (6)',
     'Mobile & Web',
     'Backend & DB',
-    'AI & Systems',
+    'AI & APIs',
     'Languages',
     'Cloud & Tools',
     'Core CS',
@@ -203,7 +203,7 @@ class _SkillsSectionState extends State<SkillsSection> {
         ],
       ),
       _SkillData(
-        title: 'AI & Data Intelligence',
+        title: 'AI & API Integrations',
         icon: Icons.psychology_outlined,
         accentColor: const Color(0xFFA855F7), // Violet
         categoryIndex: 3,
