@@ -127,8 +127,8 @@ class AboutSection extends StatelessWidget {
             title: 'Education & Growth',
             subtitle: 'Velammal College of Engineering',
             description:
-                'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA and 9.18 in 3rd semester. Passionate about collaborative development, hackathons, and high-impact systems.',
-            tags: ['8.65 CGPA', 'Sem 3 GPA 9.18', 'Hackathon Winner'],
+                'Pursuing B.E. in Computer Science (2023–2027) at Velammal College of Engineering and Technology. Passionate about core CS fundamentals, clean software architecture, and collaborative problem-solving.',
+            tags: ['CS Fundamentals', 'Clean Code', 'Continuous Learning'],
             accentColor: Color(0xFF10B981), // Emerald
           ),
         ),
@@ -164,8 +164,8 @@ class AboutSection extends StatelessWidget {
           title: 'Education & Growth',
           subtitle: 'Velammal College of Engineering',
           description:
-              'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA and 9.18 in 3rd semester. Passionate about collaborative development, hackathons, and high-impact systems.',
-          tags: ['8.65 CGPA', 'Sem 3 GPA 9.18', 'Hackathon Winner'],
+              'Pursuing B.E. in Computer Science (2023–2027) at Velammal College of Engineering and Technology. Passionate about core CS fundamentals, clean software architecture, and collaborative problem-solving.',
+          tags: ['CS Fundamentals', 'Clean Code', 'Continuous Learning'],
           accentColor: Color(0xFF10B981),
         ),
       ],

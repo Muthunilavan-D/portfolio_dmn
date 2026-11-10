@@ -24,7 +24,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
       duration: const Duration(seconds: 20),
     )..repeat();
 
-    // Generate 55 dynamic particles with colorful hues
+    // 55 dynamic particles with astrological / cosmic hues
     final colors = [
       const Color(0xFF818CF8), // Indigo
       const Color(0xFF38BDF8), // Cyan
@@ -140,7 +140,7 @@ class _LiveAuroraParticlePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final double angle = progress * 2 * pi;
 
-    // 1. Vibrant Multi-Color Layered Aurora Nebulae (Living fluid background)
+    // 1. Vibrant Multi-Color Layered Aurora Nebulae (Living fluid galaxy background)
     // Layer A: Royal Indigo Glow (Top Left)
     final double aX = size.width * 0.20 + cos(angle) * 110;
     final double aY = size.height * 0.20 + sin(angle) * 70;
@@ -222,7 +222,10 @@ class _LiveAuroraParticlePainter extends CustomPainter {
     // 3. Interactive Living Constellation Network
     _drawConstellationNetwork(canvas, size);
 
-    // 4. Interactive Mouse-Following Aurora Glow
+    // 4. Anime Comets / Shooting Stars Moving Diagonally Across the Sky
+    _drawAnimeComets(canvas, size);
+
+    // 5. Interactive Mouse-Following Aurora Glow
     if (mousePosition != null) {
       final double cursorRadius = 340.0;
       final Paint mousePaint = Paint()
@@ -357,6 +360,157 @@ class _LiveAuroraParticlePainter extends CustomPainter {
           canvas.drawLine(p, mousePosition!, linePaint);
         }
       }
+    }
+  }
+
+  /// Anime-style diagonal comets with tapered luminous trails and stardust sparkles
+  void _drawAnimeComets(Canvas canvas, Size size) {
+    // Comet 1: Primary brilliant celestial comet (sweeps top-right to bottom-left)
+    _renderComet(
+      canvas: canvas,
+      size: size,
+      startProgress: 0.05,
+      durationProgress: 0.14,
+      start: Offset(size.width * 0.95, size.height * -0.05),
+      end: Offset(size.width * 0.05, size.height * 0.75),
+      headColor: Colors.white,
+      trailColor: const Color(0xFF38BDF8), // Cyan
+      dustColor: const Color(0xFFA855F7), // Violet
+      tailLength: 280.0,
+      headRadius: 3.5,
+    );
+
+    // Comet 2: Twin secondary shooting star (sweeps top-left to bottom-right)
+    _renderComet(
+      canvas: canvas,
+      size: size,
+      startProgress: 0.40,
+      durationProgress: 0.12,
+      start: Offset(size.width * 0.15, size.height * -0.05),
+      end: Offset(size.width * 0.85, size.height * 0.65),
+      headColor: Colors.white,
+      trailColor: const Color(0xFF818CF8), // Indigo
+      dustColor: const Color(0xFFEC4899), // Rose
+      tailLength: 220.0,
+      headRadius: 2.8,
+    );
+
+    // Comet 3: Swift midnight meteor (sweeps upper right quadrant)
+    _renderComet(
+      canvas: canvas,
+      size: size,
+      startProgress: 0.72,
+      durationProgress: 0.11,
+      start: Offset(size.width * 0.85, size.height * 0.15),
+      end: Offset(size.width * 0.20, size.height * 0.85),
+      headColor: Colors.white,
+      trailColor: const Color(0xFF06B6D4), // Turquoise
+      dustColor: const Color(0xFF10B981), // Emerald
+      tailLength: 240.0,
+      headRadius: 3.0,
+    );
+  }
+
+  void _renderComet({
+    required Canvas canvas,
+    required Size size,
+    required double startProgress,
+    required double durationProgress,
+    required Offset start,
+    required Offset end,
+    required Color headColor,
+    required Color trailColor,
+    required Color dustColor,
+    required double tailLength,
+    required double headRadius,
+  }) {
+    // Check if comet is currently in its active streak window
+    double t = (progress - startProgress) / durationProgress;
+    if (t < 0.0 || t > 1.0) return;
+
+    // Smooth movement along diagonal
+    final double headX = start.dx + (end.dx - start.dx) * t;
+    final double headY = start.dy + (end.dy - start.dy) * t;
+
+    // Movement unit vector
+    final double dx = end.dx - start.dx;
+    final double dy = end.dy - start.dy;
+    final double dist = sqrt(dx * dx + dy * dy);
+    if (dist == 0) return;
+    final double dirX = dx / dist;
+    final double dirY = dy / dist;
+
+    // Perpendicular unit vector
+    final double perpX = -dirY;
+    final double perpY = dirX;
+
+    // Smooth fade in / out envelope
+    final double cometAlpha = sin(t * pi);
+    if (cometAlpha <= 0.01) return;
+
+    // Tail end position
+    final double currentTailLength = tailLength * (0.8 + 0.4 * sin(t * pi));
+    final double tailEndX = headX - dirX * currentTailLength;
+    final double tailEndY = headY - dirY * currentTailLength;
+
+    // 1. Tapered Anime Tail Polygon
+    final path = Path();
+    const double headWidth = 3.6;
+    path.moveTo(tailEndX, tailEndY);
+    path.lineTo(headX + perpX * headWidth, headY + perpY * headWidth);
+    path.lineTo(headX + dirX * 3.0, headY + dirY * 3.0);
+    path.lineTo(headX - perpX * headWidth, headY - perpY * headWidth);
+    path.close();
+
+    final tailPaint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Colors.transparent,
+          trailColor.withValues(alpha: 0.25 * cometAlpha),
+          trailColor.withValues(alpha: 0.85 * cometAlpha),
+          headColor.withValues(alpha: 0.95 * cometAlpha),
+        ],
+        stops: const [0.0, 0.4, 0.85, 1.0],
+      ).createShader(Rect.fromPoints(Offset(tailEndX, tailEndY), Offset(headX, headY)))
+      ..style = PaintingStyle.fill;
+
+    canvas.drawPath(path, tailPaint);
+
+    // 2. Head Radiant Core Glow
+    final Paint headGlow = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          headColor.withValues(alpha: 1.0 * cometAlpha),
+          trailColor.withValues(alpha: 0.7 * cometAlpha),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.35, 1.0],
+      ).createShader(Rect.fromCircle(center: Offset(headX, headY), radius: headRadius * 4));
+
+    canvas.drawCircle(Offset(headX, headY), headRadius * 4, headGlow);
+
+    // Inner bright white core
+    final Paint corePaint = Paint()
+      ..color = Colors.white.withValues(alpha: cometAlpha)
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(Offset(headX, headY), headRadius, corePaint);
+
+    // 3. Stardust Trail Sparkles
+    final dustPaint = Paint()..style = PaintingStyle.fill;
+    for (int i = 1; i <= 7; i++) {
+      final double fraction = i / 8.0;
+      final double d = currentTailLength * fraction;
+      final double jitter = sin((t * 20) + i) * 5.0;
+
+      final double sX = headX - dirX * d + perpX * jitter;
+      final double sY = headY - dirY * d + perpY * jitter;
+
+      final double dustAlpha = ((1.0 - fraction) * cometAlpha * 0.8).clamp(0.0, 1.0);
+      dustPaint.color = (i % 2 == 0 ? dustColor : trailColor).withValues(alpha: dustAlpha);
+
+      canvas.drawCircle(Offset(sX, sY), 1.2 * (1.0 - fraction * 0.5), dustPaint);
     }
   }
 

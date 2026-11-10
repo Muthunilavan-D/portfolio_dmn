@@ -313,7 +313,7 @@ class _HeroSectionState extends State<HeroSection>
 
   Widget _buildTagline({required bool isMobile}) {
     return Text(
-      'Computer Science Engineering student at Velammal (CGPA 8.65, 3rd sem 9.18) crafting production-ready mobile apps with Flutter and full-stack web platforms powered by Explainable AI (XAI) and modern backends.',
+      'Computer Science Engineering student at Velammal College of Engineering & Technology. Focused on engineering high-performance mobile systems with Flutter, scalable backends, and explainable AI solutions.',
       textAlign: isMobile ? TextAlign.center : TextAlign.start,
       style: TextStyle(
         fontSize: isMobile ? 15 : 16.5,
@@ -521,29 +521,29 @@ class _HeroSectionState extends State<HeroSection>
       {
         'val': '5+',
         'label': 'Projects Shipped',
-        'sub': 'Flutter, Node & XAI',
+        'sub': 'Flutter, Node & AI',
         'icon': Icons.folder_outlined,
         'color': const Color(0xFF6366F1), // Indigo
       },
       {
-        'val': '8.65',
-        'label': 'B.E. CGPA',
-        'sub': 'Sem 3 GPA: 9.18',
-        'icon': Icons.school_outlined,
+        'val': 'Full-Stack',
+        'label': 'Cross-Platform',
+        'sub': 'Mobile, Web & APIs',
+        'icon': Icons.layers_outlined,
         'color': const Color(0xFF06B6D4), // Cyan
       },
       {
-        'val': 'Winner',
-        'label': 'Euphoria AI Sprint',
-        'sub': '1st Prize Hackathon',
-        'icon': Icons.emoji_events_outlined,
-        'color': const Color(0xFFF59E0B), // Amber Gold
+        'val': 'AI & XAI',
+        'label': 'Applied Intelligence',
+        'sub': 'SHAP & LLM Workflows',
+        'icon': Icons.psychology_outlined,
+        'color': const Color(0xFFA855F7), // Violet
       },
       {
         'val': 'AstroWeb',
         'label': 'Flutter Intern',
-        'sub': 'Mobile & Cloud APIs',
-        'icon': Icons.layers_outlined,
+        'sub': 'Commercial Experience',
+        'icon': Icons.business_center_outlined,
         'color': const Color(0xFF10B981), // Emerald
       },
     ];
