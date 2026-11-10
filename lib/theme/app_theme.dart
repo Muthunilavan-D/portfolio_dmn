@@ -2,46 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Ultra-modern Dark Palette (Obsidian & Electric Indigo / Sky / Emerald)
-  static const Color darkSpace = Color(0xFF090A10); // Rich obsidian background
-  static const Color deepSpace = Color(0xFF0E111B); // Elevated surface
-  static const Color surfaceDark = Color(0xFF141726); // Card background
-  static const Color surfaceElevated = Color(0xFF1A1F33); // Hover / active card
-  static const Color spaceGray = Color(0xFF161928); // Component background
+  // Ultra-refined Executive Monochrome / Carbon Dark Theme
+  // (Zero neon, zero garish glows - Linear / Vercel / Apple Developer inspired)
+  static const Color darkSpace = Color(0xFF09090B); // Pure deep zinc background
+  static const Color deepSpace = Color(0xFF0E0E11); // Sub-canvas surface
+  static const Color surfaceDark = Color(0xFF141417); // Card base surface
+  static const Color surfaceElevated = Color(0xFF1A1A1E); // Elevated / hover surface
+  static const Color spaceGray = Color(0xFF121215); // Secondary component surface
 
-  // Modern Refined Accents
-  static const Color primary = Color(0xFF6366F1); // Electric Indigo
-  static const Color primaryLight = Color(0xFF818CF8); // Soft Indigo
-  static const Color primaryDark = Color(0xFF4F46E5); // Deep Indigo
-  static const Color secondary = Color(0xFF38BDF8); // Sky Blue / Cyan
-  static const Color emerald = Color(0xFF10B981); // Mint Emerald (Live / Status)
-  static const Color amber = Color(0xFFF59E0B); // Warm Amber (Awards / Honors)
-  static const Color rose = Color(0xFFF43F5E); // Subtle Rose
+  // Refined Monochromatic Accents
+  static const Color primary = Color(0xFFFFFFFF); // Stark white primary
+  static const Color primaryLight = Color(0xFFE4E4E7); // Zinc 200
+  static const Color primaryDark = Color(0xFFA1A1AA); // Zinc 400
+  static const Color secondary = Color(0xFF71717A); // Zinc 500
+  
+  // Subtle status tones (restrained, desaturated, non-neon)
+  static const Color emerald = Color(0xFF22C55E); // Subtle desaturated indicator
+  static const Color amber = Color(0xFFD4D4D8); // Titanium silver for honors
+  static const Color rose = Color(0xFFEF4444); // Restrained error state
 
-  // Backwards-compatible aliases with modern refined hues
-  static const Color neonBlue = Color(0xFF6366F1); // Replaced harsh cyan with modern Indigo
-  static const Color neonPurple = Color(0xFF38BDF8); // Replaced harsh magenta with Sky Blue
-  static const Color neonPink = Color(0xFFEC4899); // Soft modern pink
-  static const Color glassWhite = Color(0x0FFFFFFF); // Subtle white glass
+  // Backwards-compatible aliases - all remapped to sophisticated zinc / silver
+  static const Color neonBlue = Color(0xFFFAFAFA); // Remapped: Stark white
+  static const Color neonPurple = Color(0xFFD4D4D8); // Remapped: Titanium zinc
+  static const Color neonPink = Color(0xFFA1A1AA); // Remapped: Slate zinc
+  static const Color glassWhite = Color(0x0AFFFFFF);
 
-  // Borders & Dividers
-  static const Color borderSubtle = Color(0x1FFFFFFF); // 12% white hairline
-  static const Color borderMedium = Color(0x336366F1); // Subtle indigo border
-  static const Color borderHighlight = Color(0x66818CF8); // Glowing border
+  // Borders & Dividers (Crisp 1px architectural lines)
+  static const Color borderSubtle = Color(0xFF27272A); // Zinc 800 hairline
+  static const Color borderMedium = Color(0xFF3F3F46); // Zinc 700 hover border
+  static const Color borderHighlight = Color(0xFF52525B); // Zinc 600
 
-  // Text Colors (High contrast, zero eye-strain)
-  static const Color textPrimary = Color(0xFFF8FAFC); // Slate 50
-  static const Color textSecondary = Color(0xFF94A3B8); // Slate 400
-  static const Color textMuted = Color(0xFF64748B); // Slate 500
-  static const Color textTertiary = Color(0xFFCBD5E1); // Slate 300
+  // High-Readability Monochrome Typography
+  static const Color textPrimary = Color(0xFFFAFAFA); // Zinc 50
+  static const Color textSecondary = Color(0xFFA1A1AA); // Zinc 400
+  static const Color textMuted = Color(0xFF71717A); // Zinc 500
+  static const Color textTertiary = Color(0xFFD4D4D8); // Zinc 300
 
-  // Gradients
+  // Subtle natural dark gradients (Zero neon color bleed)
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0xFF6366F1),
-      Color(0xFF4F46E5),
+      Color(0xFFFFFFFF),
+      Color(0xFFE4E4E7),
     ],
   );
 
@@ -49,8 +52,8 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0xFF6366F1),
-      Color(0xFF38BDF8),
+      Color(0xFF27272A),
+      Color(0xFF18181B),
     ],
   );
 
@@ -58,19 +61,17 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0x1FFFFFFF),
-      Color(0x08FFFFFF),
+      Color(0xFF141417),
+      Color(0xFF0F0F12),
     ],
   );
 
-  // Backwards-compatible gradients
   static const LinearGradient spaceGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0xFF090A10),
-      Color(0xFF0E111B),
-      Color(0xFF141726),
+      Color(0xFF09090B),
+      Color(0xFF09090B),
     ],
   );
 
@@ -78,23 +79,23 @@ class AppTheme {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color(0xFF6366F1),
-      Color(0xFF38BDF8),
+      Color(0xFF27272A),
+      Color(0xFF18181B),
     ],
   );
 
   static BoxDecoration glassmorphism = BoxDecoration(
-    color: surfaceDark.withValues(alpha: 0.7),
-    borderRadius: BorderRadius.circular(16),
+    color: surfaceDark,
+    borderRadius: BorderRadius.circular(12),
     border: Border.all(
       color: borderSubtle,
       width: 1,
     ),
     boxShadow: const [
       BoxShadow(
-        color: Color(0x26000000),
-        blurRadius: 20,
-        offset: Offset(0, 8),
+        color: Color(0x40000000),
+        blurRadius: 16,
+        offset: Offset(0, 4),
       ),
     ],
   );
@@ -105,8 +106,8 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: darkSpace,
       colorScheme: const ColorScheme.dark(
-        primary: primary,
-        secondary: secondary,
+        primary: Color(0xFFFAFAFA),
+        secondary: Color(0xFFA1A1AA),
         surface: surfaceDark,
       ),
       textTheme: GoogleFonts.plusJakartaSansTextTheme().apply(

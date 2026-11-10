@@ -21,18 +21,18 @@ class ProjectsSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
-        vertical: 80,
+        vertical: 70,
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1140),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSectionHeader(),
-              const SizedBox(height: 48),
-              _buildFeaturedProjIntel(isMobile),
               const SizedBox(height: 36),
+              _buildFeaturedProjIntel(isMobile),
+              const SizedBox(height: 32),
               _buildProjectsGrid(context),
             ],
           ),
@@ -43,45 +43,41 @@ class ProjectsSection extends StatelessWidget {
 
   Widget _buildSectionHeader() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: AppTheme.primary.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AppTheme.primaryLight.withValues(alpha: 0.3),
-              width: 1,
-            ),
+            color: AppTheme.surfaceElevated,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: AppTheme.borderSubtle),
           ),
           child: const Text(
-            'FEATURED PORTFOLIO',
+            'SELECTED WORKS',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: AppTheme.primaryLight,
-              letterSpacing: 1.5,
+              color: AppTheme.textSecondary,
+              letterSpacing: 0.8,
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Text(
-          'Crafted With Code, Data & Purpose',
-          textAlign: TextAlign.center,
+          'Featured Systems & Applications',
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
             letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         const Text(
-          'Real-world applications spanning AI-driven decision systems, mobile utilities, and full-stack platforms.',
-          textAlign: TextAlign.center,
+          'Production mobile apps, machine intelligence platforms, and full-stack software built end-to-end.',
           style: TextStyle(
             fontSize: 15,
-            color: AppTheme.textSecondary,
+            color: AppTheme.textMuted,
           ),
         ),
       ],
@@ -91,8 +87,8 @@ class ProjectsSection extends StatelessWidget {
   Widget _buildFeaturedProjIntel(bool isMobile) {
     return GlassCard(
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(28),
-      borderColor: AppTheme.primary.withValues(alpha: 0.4),
+      padding: EdgeInsets.all(isMobile ? 20 : 28),
+      borderColor: AppTheme.borderMedium,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -101,14 +97,11 @@ class ProjectsSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppTheme.emerald.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: AppTheme.emerald.withValues(alpha: 0.3),
-                    width: 1,
-                  ),
+                  color: AppTheme.surfaceElevated,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: AppTheme.borderMedium),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -117,18 +110,18 @@ class ProjectsSection extends StatelessWidget {
                       width: 6,
                       height: 6,
                       decoration: const BoxDecoration(
-                        color: AppTheme.emerald,
+                        color: Color(0xFF22C55E),
                         shape: BoxShape.circle,
                       ),
                     ),
                     const SizedBox(width: 8),
                     const Text(
-                      'LATEST CAPSTONE • OCTOBER 2026',
+                      '01 / FLAGSHIP CAPSTONE • OCTOBER 2026',
                       style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.emerald,
-                        letterSpacing: 0.5,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                        letterSpacing: 0.6,
                       ),
                     ),
                   ],
@@ -136,52 +129,52 @@ class ProjectsSection extends StatelessWidget {
               ),
               if (!isMobile)
                 const Text(
-                  'Featured Project',
+                  'Academic Intelligence Platform',
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 12,
                     color: AppTheme.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
           // Project Title & Subtitle
           const Text(
             'ProjIntel — AI-Assisted Academic Project Management System',
             style: TextStyle(
-              fontSize: 26,
+              fontSize: 24,
               fontWeight: FontWeight.w800,
               color: AppTheme.textPrimary,
               letterSpacing: -0.3,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           const Text(
             'An Explainable AI (XAI) and LLM-assisted academic platform for students, faculty guides, and department administrators featuring early milestone delay-risk prediction and dependency-aware task prioritization.',
             style: TextStyle(
-              fontSize: 15.5,
+              fontSize: 15,
               color: AppTheme.textSecondary,
               height: 1.6,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 22),
           // Banner Image
           ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: AppTheme.borderSubtle),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: Image.asset(
                 'assets/ProjIntel.png',
                 width: double.infinity,
-                height: isMobile ? 220 : 360,
+                height: isMobile ? 200 : 340,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    height: 220,
+                    height: 200,
                     color: AppTheme.surfaceElevated,
                     child: const Center(
                       child: Icon(Icons.image, size: 48, color: AppTheme.textMuted),
@@ -191,13 +184,13 @@ class ProjectsSection extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 24),
-          // Key Highlights
+          const SizedBox(height: 22),
+          // Key Architecture Highlights
           Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppTheme.spaceGray.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(12),
+              color: AppTheme.surfaceElevated,
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(color: AppTheme.borderSubtle),
             ),
             child: Wrap(
@@ -205,46 +198,46 @@ class ProjectsSection extends StatelessWidget {
               runSpacing: 14,
               children: [
                 _buildHighlightItem(
-                  icon: Icons.analytics_outlined,
-                  title: 'Early Delay Prediction',
-                  desc: 'Deterministic risk formula + SHAP feature importance',
+                  number: 'A',
+                  title: 'Early Delay-Risk Prediction',
+                  desc: 'Deterministic scoring formula + SHAP feature importance explanation',
                 ),
                 _buildHighlightItem(
-                  icon: Icons.account_tree_outlined,
+                  number: 'B',
                   title: 'Dependency Prioritization',
-                  desc: 'Directs teams to complete blocking prerequisite tasks',
+                  desc: 'Directs teams to resolve prerequisite bottlenecks first',
                 ),
                 _buildHighlightItem(
-                  icon: Icons.groups_outlined,
-                  title: 'Multi-Role Workspaces',
-                  desc: 'Tailored dashboards for Students, Guides, and HODs',
+                  number: 'C',
+                  title: 'Role-Based Workspaces',
+                  desc: 'Dedicated portals for Students, Faculty Guides, and HODs',
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
           // Tech Stack Badges
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            spacing: 6,
+            runSpacing: 6,
             children: const [
               'React 19',
               'Node.js & Express',
               'MongoDB',
-              'Groq Cloud (Llama 3.3)',
+              'Groq Cloud (LLaMA 3.3)',
               'Python (SHAP)',
               'Vite',
             ].map((t) => _TechTag(label: t)).toList(),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 22),
           // Action Buttons
           Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
               GlowButton(
-                text: 'Live Demo',
-                icon: Icons.rocket_launch,
+                text: 'Live Platform',
+                icon: Icons.open_in_new,
                 onPressed: () => _launchURL('https://proj-intel.vercel.app'),
               ),
               GlowButton(
@@ -261,18 +254,33 @@ class ProjectsSection extends StatelessWidget {
   }
 
   Widget _buildHighlightItem({
-    required IconData icon,
+    required String number,
     required String title,
     required String desc,
   }) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 300),
+      constraints: const BoxConstraints(maxWidth: 310),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: AppTheme.primaryLight),
-          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppTheme.surfaceDark,
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: AppTheme.borderSubtle),
+            ),
+            child: Text(
+              number,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.textPrimary,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,7 +288,7 @@ class ProjectsSection extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 13.5,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: AppTheme.textPrimary,
                   ),
@@ -290,7 +298,8 @@ class ProjectsSection extends StatelessWidget {
                   desc,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: AppTheme.textSecondary,
+                    color: AppTheme.textMuted,
+                    height: 1.4,
                   ),
                 ),
               ],
@@ -305,16 +314,16 @@ class ProjectsSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cardWidth = constraints.maxWidth > 900
-            ? (constraints.maxWidth - 20) / 2
+            ? (constraints.maxWidth - 16) / 2
             : constraints.maxWidth;
 
         return Wrap(
-          spacing: 20,
-          runSpacing: 20,
-          alignment: WrapAlignment.center,
+          spacing: 16,
+          runSpacing: 16,
           children: [
             _ProjectCard(
-              title: 'FitTrack — AI Fitness Tracker',
+              number: '02',
+              title: 'FitTrack — AI Fitness Analytics',
               category: 'Flutter • AI Health',
               cardWidth: cardWidth,
               description:
@@ -326,7 +335,8 @@ class ProjectsSection extends StatelessWidget {
                   'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-firebase-ai-activity-7304894778985361408-vMVe',
             ),
             _ProjectCard(
-              title: 'PricePulse — Price Tracking App',
+              number: '03',
+              title: 'PricePulse — Price Tracking Engine',
               category: 'Mobile • FinTech & Scrapers',
               cardWidth: cardWidth,
               description:
@@ -338,8 +348,9 @@ class ProjectsSection extends StatelessWidget {
                   'https://www.linkedin.com/posts/d-mn-92a1b7341_release-price-pulse-v10-muthunilavan-d-activity-7418546470263373824-iAm1',
             ),
             _ProjectCard(
+              number: '04',
               title: 'Commitment Tracker — AI Task Manager',
-              category: 'Machine Learning • Web App',
+              category: 'Machine Learning • Web UI',
               cardWidth: cardWidth,
               description:
                   'Smart task prioritization web engine using Natural Language Processing and machine learning to evaluate task urgency and provide transparent recommendations.',
@@ -350,8 +361,9 @@ class ProjectsSection extends StatelessWidget {
                   'https://www.linkedin.com/posts/d-mn-92a1b7341_ai-machinelearning-nlp-activity-7418544623360458752-4eU7',
             ),
             _ProjectCard(
-              title: 'NewzSphere — Real-Time News App',
-              category: 'Flutter • REST API',
+              number: '05',
+              title: 'NewzSphere — Real-Time News Client',
+              category: 'Flutter • REST Architecture',
               cardWidth: cardWidth,
               description:
                   'Clean news app providing live global headlines organized by categories with in-app WebView rendering for distraction-free reading.',
@@ -369,6 +381,7 @@ class ProjectsSection extends StatelessWidget {
 }
 
 class _ProjectCard extends StatelessWidget {
+  final String number;
   final String title;
   final String category;
   final String description;
@@ -379,6 +392,7 @@ class _ProjectCard extends StatelessWidget {
   final double cardWidth;
 
   const _ProjectCard({
+    required this.number,
     required this.title,
     required this.category,
     required this.description,
@@ -401,19 +415,19 @@ class _ProjectCard extends StatelessWidget {
     return GlassCard(
       width: cardWidth,
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Thumbnail
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             child: Container(
-              height: 200,
+              height: 190,
               width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(color: AppTheme.borderSubtle),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(6),
               ),
               child: Image.asset(
                 thumbnail,
@@ -429,46 +443,59 @@ class _ProjectCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 18),
-          // Category tag
-          Text(
-            category.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w700,
-              color: AppTheme.primaryLight,
-              letterSpacing: 0.8,
-            ),
+          const SizedBox(height: 16),
+          // Category tag with Number
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                category.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.textSecondary,
+                  letterSpacing: 0.6,
+                ),
+              ),
+              Text(
+                number,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.textMuted,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 6),
           // Title
           Text(
             title,
             style: const TextStyle(
-              fontSize: 19,
+              fontSize: 17,
               fontWeight: FontWeight.w700,
               color: AppTheme.textPrimary,
               letterSpacing: -0.2,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           // Description
           Text(
             description,
             style: const TextStyle(
-              fontSize: 14,
-              color: AppTheme.textSecondary,
-              height: 1.55,
+              fontSize: 13.5,
+              color: AppTheme.textMuted,
+              height: 1.5,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           // Tech stack tags
           Wrap(
             spacing: 6,
             runSpacing: 6,
             children: techStack.map((t) => _TechTag(label: t)).toList(),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
           // Action Buttons
           Row(
             children: [
@@ -477,19 +504,18 @@ class _ProjectCard extends StatelessWidget {
                   text: 'GitHub',
                   icon: Icons.code,
                   isOutlined: true,
-                  padding: const EdgeInsets.symmetric(vertical: 11),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   onPressed: () => _launchURL(githubUrl),
                 ),
               ),
               if (linkedinUrl.isNotEmpty) ...[
-                const SizedBox(width: 10),
+                const SizedBox(width: 8),
                 Expanded(
                   child: GlowButton(
-                    text: 'LinkedIn',
-                    icon: Icons.work_outline,
+                    text: 'Post',
+                    icon: Icons.open_in_new,
                     isOutlined: true,
-                    customColor: AppTheme.secondary,
-                    padding: const EdgeInsets.symmetric(vertical: 11),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     onPressed: () => _launchURL(linkedinUrl),
                   ),
                 ),
@@ -510,10 +536,10 @@ class _TechTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: AppTheme.spaceGray.withValues(alpha: 0.8),
-        borderRadius: BorderRadius.circular(6),
+        color: AppTheme.surfaceElevated,
+        borderRadius: BorderRadius.circular(4),
         border: Border.all(
           color: AppTheme.borderSubtle,
           width: 1,
@@ -522,7 +548,7 @@ class _TechTag extends StatelessWidget {
       child: Text(
         label,
         style: const TextStyle(
-          fontSize: 12,
+          fontSize: 11.5,
           fontWeight: FontWeight.w500,
           color: AppTheme.textSecondary,
         ),

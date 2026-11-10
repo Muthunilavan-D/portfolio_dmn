@@ -22,92 +22,51 @@ class GlassCard extends StatefulWidget {
     this.height,
     this.borderColor,
     this.backgroundColor,
-    this.borderRadius = 18.0,
+    this.borderRadius = 12.0,
   });
 
   @override
   State<GlassCard> createState() => _GlassCardState();
 }
 
-class _GlassCardState extends State<GlassCard>
-    with SingleTickerProviderStateMixin {
+class _GlassCardState extends State<GlassCard> {
   bool _isHovered = false;
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 180),
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.01).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final effectiveBorderColor = widget.borderColor ??
+        (_isHovered ? AppTheme.borderMedium : AppTheme.borderSubtle);
+    final effectiveBgColor = widget.backgroundColor ??
+        (_isHovered ? AppTheme.surfaceElevated : AppTheme.surfaceDark);
+
     return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
+      cursor: widget.onTap != null ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedBuilder(
-          animation: _scaleAnimation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _scaleAnimation.value,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                width: widget.width,
-                height: widget.height,
-                margin: widget.margin ?? const EdgeInsets.all(12),
-                padding: widget.padding ?? const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: widget.backgroundColor ??
-                      (_isHovered
-                          ? AppTheme.surfaceElevated.withValues(alpha: 0.85)
-                          : AppTheme.surfaceDark.withValues(alpha: 0.70)),
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
-                  border: Border.all(
-                    color: widget.borderColor ??
-                        (_isHovered
-                            ? AppTheme.primaryLight.withValues(alpha: 0.5)
-                            : AppTheme.borderSubtle),
-                    width: 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: _isHovered ? 0.35 : 0.20),
-                      blurRadius: _isHovered ? 24 : 16,
-                      offset: const Offset(0, 8),
-                    ),
-                    if (_isHovered)
-                      BoxShadow(
-                        color: AppTheme.primary.withValues(alpha: 0.08),
-                        blurRadius: 20,
-                        spreadRadius: 0,
-                      ),
-                  ],
-                ),
-                child: widget.child,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 140),
+          width: widget.width,
+          height: widget.height,
+          margin: widget.margin ?? const EdgeInsets.all(8),
+          padding: widget.padding ?? const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: effectiveBgColor,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            border: Border.all(
+              color: effectiveBorderColor,
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: _isHovered ? 0.45 : 0.25),
+                blurRadius: _isHovered ? 20 : 12,
+                offset: const Offset(0, 4),
               ),
-            );
-          },
+            ],
+          ),
+          child: widget.child,
         ),
       ),
     );

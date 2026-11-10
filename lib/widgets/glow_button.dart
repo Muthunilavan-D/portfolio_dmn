@@ -28,7 +28,21 @@ class _GlowButtonState extends State<GlowButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = widget.customColor ?? AppTheme.primary;
+    // Primary Style: Stark White button with Jet-Black text (Vercel / Linear executive aesthetic)
+    // Secondary / Outlined Style: Dark Zinc surface with crisp hairline border
+    final isPrimary = !widget.isOutlined;
+
+    final Color bgColor = isPrimary
+        ? (_isHovered ? const Color(0xFFE4E4E7) : Colors.white)
+        : (_isHovered ? AppTheme.surfaceElevated : AppTheme.surfaceDark);
+
+    final Color textColor = isPrimary
+        ? const Color(0xFF09090B)
+        : (_isHovered ? Colors.white : AppTheme.textPrimary);
+
+    final Color borderColor = isPrimary
+        ? (_isHovered ? const Color(0xFFD4D4D8) : Colors.white)
+        : (_isHovered ? AppTheme.borderHighlight : AppTheme.borderSubtle);
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -37,42 +51,19 @@ class _GlowButtonState extends State<GlowButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 140),
           padding: widget.padding ??
-              const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           decoration: BoxDecoration(
-            gradient: widget.isOutlined
-                ? null
-                : LinearGradient(
-                    colors: [
-                      accent,
-                      accent == AppTheme.primary
-                          ? AppTheme.primaryDark
-                          : accent.withValues(alpha: 0.8),
-                    ],
-                  ),
-            color: widget.isOutlined
-                ? (_isHovered
-                    ? accent.withValues(alpha: 0.15)
-                    : AppTheme.surfaceDark.withValues(alpha: 0.7))
-                : null,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: widget.isOutlined
-                  ? (_isHovered ? accent : AppTheme.borderSubtle)
-                  : (_isHovered
-                      ? Colors.white.withValues(alpha: 0.4)
-                      : Colors.white.withValues(alpha: 0.15)),
-              width: 1,
-            ),
+            color: bgColor,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: borderColor, width: 1),
             boxShadow: [
-              if (!widget.isOutlined)
-                BoxShadow(
-                  color: accent.withValues(alpha: _isHovered ? 0.35 : 0.15),
-                  blurRadius: _isHovered ? 20 : 12,
-                  offset: const Offset(0, 4),
-                ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: isPrimary ? 0.3 : 0.15),
+                blurRadius: _isHovered ? 12 : 6,
+                offset: const Offset(0, 2),
+              ),
             ],
           ),
           child: Row(
@@ -82,22 +73,18 @@ class _GlowButtonState extends State<GlowButton> {
               if (widget.icon != null) ...[
                 Icon(
                   widget.icon,
-                  color: widget.isOutlined
-                      ? (_isHovered ? accent : AppTheme.textPrimary)
-                      : Colors.white,
-                  size: 18,
+                  color: textColor,
+                  size: 16,
                 ),
                 const SizedBox(width: 8),
               ],
               Text(
                 widget.text,
                 style: TextStyle(
-                  color: widget.isOutlined
-                      ? (_isHovered ? accent : AppTheme.textPrimary)
-                      : Colors.white,
-                  fontSize: 15,
+                  color: textColor,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
+                  letterSpacing: -0.1,
                 ),
               ),
             ],

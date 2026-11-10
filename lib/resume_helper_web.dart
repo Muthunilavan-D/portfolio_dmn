@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, deprecated_member_use
 // Web-only implementation for resume download
 import 'dart:html' as html;
 

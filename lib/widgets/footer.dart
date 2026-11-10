@@ -16,7 +16,7 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 48),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppTheme.darkSpace,
         border: Border(
           top: BorderSide(
@@ -39,7 +39,7 @@ class Footer extends StatelessWidget {
                     onPressed: () =>
                         _launchURL('https://github.com/Muthunilavan-D'),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 12),
                   _FooterSocialButton(
                     icon: Icons.work_outline,
                     tooltip: 'LinkedIn',
@@ -47,7 +47,7 @@ class Footer extends StatelessWidget {
                       'https://www.linkedin.com/in/d-mn-92a1b7341',
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 12),
                   _FooterSocialButton(
                     icon: Icons.mail_outline,
                     tooltip: 'Email',
@@ -56,34 +56,37 @@ class Footer extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               const Text(
                 '© 2026 Muthunilavan D. All rights reserved.',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13.5,
                   color: AppTheme.textSecondary,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(height: 8),
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 4,
                 children: [
                   Container(
                     width: 6,
                     height: 6,
                     decoration: const BoxDecoration(
-                      color: AppTheme.emerald,
+                      color: Color(0xFF22C55E),
                       shape: BoxShape.circle,
                     ),
                   ),
-                  const SizedBox(width: 8),
                   const Text(
-                    'Built with Flutter Web & Clean Architecture',
+                    'Built with Flutter Web • Clean Architecture • Pure Carbon Monochrome',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 12.5,
                       color: AppTheme.textMuted,
-                      letterSpacing: 0.2,
+                      letterSpacing: 0.1,
                     ),
                   ),
                 ],
@@ -123,24 +126,20 @@ class _FooterSocialButtonState extends State<_FooterSocialButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.all(10),
+          duration: const Duration(milliseconds: 140),
+          padding: const EdgeInsets.all(9),
           decoration: BoxDecoration(
-            color: _isHovered
-                ? AppTheme.primary.withValues(alpha: 0.15)
-                : AppTheme.surfaceDark,
-            borderRadius: BorderRadius.circular(10),
+            color: _isHovered ? AppTheme.surfaceElevated : AppTheme.surfaceDark,
+            borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: _isHovered
-                  ? AppTheme.primaryLight.withValues(alpha: 0.4)
-                  : AppTheme.borderSubtle,
+              color: _isHovered ? AppTheme.borderMedium : AppTheme.borderSubtle,
               width: 1,
             ),
           ),
           child: Icon(
             widget.icon,
-            size: 20,
-            color: _isHovered ? AppTheme.primaryLight : AppTheme.textSecondary,
+            size: 17,
+            color: _isHovered ? AppTheme.textPrimary : AppTheme.textSecondary,
           ),
         ),
       ),

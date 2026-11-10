@@ -12,16 +12,16 @@ class SkillsSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
-        vertical: 80,
+        vertical: 70,
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1140),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSectionHeader(),
-              const SizedBox(height: 48),
+              const SizedBox(height: 36),
               _buildSkillsGrid(context),
             ],
           ),
@@ -32,45 +32,41 @@ class SkillsSection extends StatelessWidget {
 
   Widget _buildSectionHeader() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: AppTheme.secondary.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AppTheme.secondary.withValues(alpha: 0.3),
-              width: 1,
-            ),
+            color: AppTheme.surfaceElevated,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: AppTheme.borderSubtle),
           ),
           child: const Text(
-            'SKILLS & TOOLKIT',
+            'TECHNICAL MATRIX',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: AppTheme.secondary,
-              letterSpacing: 1.5,
+              color: AppTheme.textSecondary,
+              letterSpacing: 0.8,
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Text(
-          'Technologies & Architectural Capabilities',
-          textAlign: TextAlign.center,
+          'Languages, Frameworks & Infrastructure',
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
             letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         const Text(
-          'A modern stack focused on mobile fluency, scalable web services, and AI decision systems.',
-          textAlign: TextAlign.center,
+          'A modern stack focused on mobile fluency, scalable web services, and machine intelligence.',
           style: TextStyle(
             fontSize: 15,
-            color: AppTheme.textSecondary,
+            color: AppTheme.textMuted,
           ),
         ),
       ],
@@ -81,62 +77,57 @@ class SkillsSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cardWidth = constraints.maxWidth > 1024
-            ? (constraints.maxWidth - 40) / 3
+            ? (constraints.maxWidth - 32) / 3
             : constraints.maxWidth > 680
-                ? (constraints.maxWidth - 20) / 2
+                ? (constraints.maxWidth - 16) / 2
                 : constraints.maxWidth;
 
         return Wrap(
-          spacing: 20,
-          runSpacing: 20,
-          alignment: WrapAlignment.center,
+          spacing: 16,
+          runSpacing: 16,
           children: [
             _SkillCard(
-              title: 'Mobile & Web Platforms',
-              icon: Icons.phone_android_outlined,
-              accentColor: AppTheme.primary,
+              category: '01 / MOBILE & WEB',
+              title: 'Client Architecture',
               skills: const [
                 'Flutter (Mobile & Web)',
                 'Dart',
                 'React 19 & Vite',
-                'Material 3 & Responsive UI',
+                'Material 3 & Responsive Design',
                 'Provider & Riverpod',
-                'HTML5 & Modern CSS',
+                'Clean Architecture & MVVM',
               ],
               width: cardWidth,
             ),
             _SkillCard(
-              title: 'Backend & Databases',
-              icon: Icons.storage_outlined,
-              accentColor: AppTheme.secondary,
+              category: '02 / BACKEND & DATA',
+              title: 'Server & Databases',
               skills: const [
                 'Node.js & Express.js',
                 'MongoDB & Mongoose',
                 'Firebase Auth & Firestore',
                 'MySQL & Relational DBs',
-                'RESTful API Architecture',
-                'Web Scraping & Automation',
+                'RESTful API Engineering',
+                'Cron Automation & Scraping',
               ],
               width: cardWidth,
             ),
             _SkillCard(
-              title: 'AI & Data Intelligence',
-              icon: Icons.psychology_outlined,
-              accentColor: AppTheme.emerald,
+              category: '03 / AI & SYSTEMS',
+              title: 'Applied Intelligence',
               skills: const [
                 'Explainable AI (SHAP)',
-                'Groq Cloud LLM Integration',
+                'Groq Cloud (LLaMA 3.3)',
                 'Google Gemini API',
-                'NLP & Text Classification',
                 'Predictive Risk Modeling',
-                'Rule-based Hybrid Logic',
+                'NLP & Text Classification',
+                'Hybrid Decision Rules',
               ],
               width: cardWidth,
             ),
             _SkillCard(
-              title: 'Programming Languages',
-              icon: Icons.code_outlined,
-              accentColor: AppTheme.primaryLight,
+              category: '04 / LANGUAGES',
+              title: 'Core Programming',
               skills: const [
                 'Java (OOP & System Design)',
                 'Dart',
@@ -148,30 +139,28 @@ class SkillsSection extends StatelessWidget {
               width: cardWidth,
             ),
             _SkillCard(
-              title: 'Tools & Cloud Deployment',
-              icon: Icons.cloud_done_outlined,
-              accentColor: AppTheme.amber,
+              category: '05 / DEVOPS & TOOLS',
+              title: 'Engineering Toolkit',
               skills: const [
                 'Git & GitHub Workflows',
                 'Postman API Testing',
                 'Vercel & Render Deployment',
-                'VS Code & Android Studio',
-                'Figma UI/UX Prototyping',
-                'Notion Project Mgmt',
+                'Android Studio & VS Code',
+                'Figma UI/UX Specifications',
+                'Notion Project Workspaces',
               ],
               width: cardWidth,
             ),
             _SkillCard(
-              title: 'Core CS Foundations',
-              icon: Icons.developer_board_outlined,
-              accentColor: AppTheme.secondary,
+              category: '06 / FOUNDATIONS',
+              title: 'Computer Science Core',
               skills: const [
-                'Object-Oriented Design (OOP)',
-                'Clean Architecture & MVVM',
+                'Object-Oriented Design',
+                'Data Structures & Algorithms',
                 'Cloud Computing (NPTEL/Wipro)',
+                'Database Management Systems',
                 'Operating Systems & Networks',
-                'Offline-First Design (Hive)',
-                'SDLC & Agile Development',
+                'Agile Sprint Lifecycles',
               ],
               width: cardWidth,
             ),
@@ -183,16 +172,14 @@ class SkillsSection extends StatelessWidget {
 }
 
 class _SkillCard extends StatelessWidget {
+  final String category;
   final String title;
-  final IconData icon;
-  final Color accentColor;
   final List<String> skills;
   final double width;
 
   const _SkillCard({
+    required this.category,
     required this.title,
-    required this.icon,
-    required this.accentColor,
     required this.skills,
     required this.width,
   });
@@ -202,48 +189,39 @@ class _SkillCard extends StatelessWidget {
     return GlassCard(
       width: width,
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(22),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: accentColor.withValues(alpha: 0.3),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(icon, color: accentColor, size: 20),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.textPrimary,
-                    letterSpacing: -0.2,
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            category,
+            style: const TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.textSecondary,
+              letterSpacing: 0.8,
+            ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 6),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.textPrimary,
+              letterSpacing: -0.2,
+            ),
+          ),
+          const SizedBox(height: 16),
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            spacing: 6,
+            runSpacing: 6,
             children: skills.map((skill) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
-                  color: AppTheme.spaceGray.withValues(alpha: 0.8),
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppTheme.surfaceElevated,
+                  borderRadius: BorderRadius.circular(6),
                   border: Border.all(
                     color: AppTheme.borderSubtle,
                     width: 1,
@@ -252,8 +230,8 @@ class _SkillCard extends StatelessWidget {
                 child: Text(
                   skill,
                   style: const TextStyle(
-                    fontSize: 12.5,
-                    color: AppTheme.textSecondary,
+                    fontSize: 12,
+                    color: AppTheme.textPrimary,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

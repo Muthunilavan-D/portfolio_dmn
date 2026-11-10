@@ -58,7 +58,7 @@ class _ContactSectionState extends State<ContactSection> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Opening your email client...'),
-                  backgroundColor: AppTheme.primary,
+                  backgroundColor: AppTheme.surfaceElevated,
                   behavior: SnackBarBehavior.floating,
                   duration: Duration(seconds: 2),
                 ),
@@ -99,7 +99,7 @@ class _ContactSectionState extends State<ContactSection> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Opening your email client...'),
-                  backgroundColor: AppTheme.primary,
+                  backgroundColor: AppTheme.surfaceElevated,
                   behavior: SnackBarBehavior.floating,
                   duration: Duration(seconds: 2),
                 ),
@@ -139,21 +139,21 @@ class _ContactSectionState extends State<ContactSection> {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
-        vertical: 80,
+        vertical: 70,
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1140),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSectionHeader(),
-              const SizedBox(height: 48),
+              const SizedBox(height: 36),
               if (isMobile)
                 Column(
                   children: [
                     _buildContactInfo(),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20),
                     _buildFormCard(),
                   ],
                 )
@@ -162,7 +162,7 @@ class _ContactSectionState extends State<ContactSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(flex: 4, child: _buildContactInfo()),
-                    const SizedBox(width: 32),
+                    const SizedBox(width: 24),
                     Expanded(flex: 6, child: _buildFormCard()),
                   ],
                 ),
@@ -175,45 +175,41 @@ class _ContactSectionState extends State<ContactSection> {
 
   Widget _buildSectionHeader() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: AppTheme.emerald.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AppTheme.emerald.withValues(alpha: 0.3),
-              width: 1,
-            ),
+            color: AppTheme.surfaceElevated,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: AppTheme.borderSubtle),
           ),
           child: const Text(
-            'GET IN TOUCH',
+            'COMMUNICATION',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: AppTheme.emerald,
-              letterSpacing: 1.5,
+              color: AppTheme.textSecondary,
+              letterSpacing: 0.8,
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Text(
           "Let's Build Something Impactful",
-          textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
             letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         const Text(
-          'Open for software roles, internships, open source, or technical discussions.',
-          textAlign: TextAlign.center,
+          'Open for software roles, internships, open source initiatives, and technical discussions.',
           style: TextStyle(
             fontSize: 15,
-            color: AppTheme.textSecondary,
+            color: AppTheme.textMuted,
           ),
         ),
       ],
@@ -227,31 +223,27 @@ class _ContactSectionState extends State<ContactSection> {
           icon: Icons.email_outlined,
           title: 'Direct Email',
           value: 'muthunilavand@gmail.com',
-          accentColor: AppTheme.primary,
           onTap: () => _launchURL('mailto:muthunilavand@gmail.com'),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         _buildInfoCard(
           icon: Icons.phone_outlined,
           title: 'Phone / WhatsApp',
           value: '+91 9047807547',
-          accentColor: AppTheme.secondary,
           onTap: () => _launchURL('tel:+919047807547'),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         _buildInfoCard(
           icon: Icons.location_on_outlined,
           title: 'Location',
           value: 'Madurai, Tamil Nadu, India',
-          accentColor: AppTheme.emerald,
           onTap: null,
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         _buildInfoCard(
           icon: Icons.code,
-          title: 'GitHub & Portfolio Code',
+          title: 'GitHub Profile',
           value: 'github.com/Muthunilavan-D',
-          accentColor: AppTheme.primaryLight,
           onTap: () => _launchURL('https://github.com/Muthunilavan-D'),
         ),
       ],
@@ -262,28 +254,24 @@ class _ContactSectionState extends State<ContactSection> {
     required IconData icon,
     required String title,
     required String value,
-    required Color accentColor,
     VoidCallback? onTap,
   }) {
     return GlassCard(
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(18),
       onTap: onTap,
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: accentColor.withValues(alpha: 0.3),
-                width: 1,
-              ),
+              color: AppTheme.surfaceElevated,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: AppTheme.borderSubtle),
             ),
-            child: Icon(icon, color: accentColor, size: 22),
+            child: Icon(icon, color: AppTheme.textPrimary, size: 18),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,16 +279,16 @@ class _ContactSectionState extends State<ContactSection> {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 12.5,
+                    fontSize: 12,
                     color: AppTheme.textMuted,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 2),
                 Text(
                   value,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 14.5,
                     color: AppTheme.textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
@@ -311,7 +299,7 @@ class _ContactSectionState extends State<ContactSection> {
           if (onTap != null)
             const Icon(
               Icons.arrow_outward,
-              size: 16,
+              size: 15,
               color: AppTheme.textMuted,
             ),
         ],
@@ -322,29 +310,29 @@ class _ContactSectionState extends State<ContactSection> {
   Widget _buildFormCard() {
     return GlassCard(
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(28),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Send a Message',
+              'Send a Direct Message',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 19,
                 fontWeight: FontWeight.w700,
                 color: AppTheme.textPrimary,
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             const Text(
-              "I'll get back to you as soon as possible.",
+              "I'll get back to you promptly.",
               style: TextStyle(
-                fontSize: 14,
-                color: AppTheme.textSecondary,
+                fontSize: 13.5,
+                color: AppTheme.textMuted,
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             _buildTextField(
               controller: _nameController,
               label: 'Your Name',
@@ -352,7 +340,7 @@ class _ContactSectionState extends State<ContactSection> {
               icon: Icons.person_outline,
               validator: (v) => v == null || v.isEmpty ? 'Please enter your name' : null,
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             _buildTextField(
               controller: _emailController,
               label: 'Email Address',
@@ -364,15 +352,15 @@ class _ContactSectionState extends State<ContactSection> {
                 return null;
               },
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             _buildTextField(
               controller: _subjectController,
               label: 'Subject',
-              hint: 'Collaboration or Opportunity',
+              hint: 'Opportunity / Project Collaboration',
               icon: Icons.chat_bubble_outline,
               validator: (v) => v == null || v.isEmpty ? 'Please enter a subject' : null,
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             _buildTextField(
               controller: _messageController,
               label: 'Message',
@@ -381,7 +369,7 @@ class _ContactSectionState extends State<ContactSection> {
               maxLines: 4,
               validator: (v) => v == null || v.isEmpty ? 'Please enter your message' : null,
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: GlowButton(
@@ -410,44 +398,44 @@ class _ContactSectionState extends State<ContactSection> {
         Text(
           label,
           style: const TextStyle(
-            fontSize: 13.5,
+            fontSize: 13,
             fontWeight: FontWeight.w600,
             color: AppTheme.textPrimary,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         TextFormField(
           controller: controller,
           maxLines: maxLines,
           validator: validator,
           style: const TextStyle(
-            fontSize: 14.5,
+            fontSize: 14,
             color: AppTheme.textPrimary,
           ),
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(
-              fontSize: 14,
+              fontSize: 13.5,
               color: AppTheme.textMuted,
             ),
-            prefixIcon: Icon(icon, size: 18, color: AppTheme.textMuted),
+            prefixIcon: Icon(icon, size: 17, color: AppTheme.textMuted),
             filled: true,
-            fillColor: AppTheme.spaceGray.withValues(alpha: 0.8),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            fillColor: AppTheme.surfaceElevated,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(color: AppTheme.borderSubtle),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppTheme.primaryLight, width: 1.5),
+              borderRadius: BorderRadius.circular(6),
+              borderSide: const BorderSide(color: AppTheme.borderMedium, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(color: AppTheme.rose),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(color: AppTheme.rose, width: 1.5),
             ),
           ),

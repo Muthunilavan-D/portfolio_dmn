@@ -12,16 +12,16 @@ class AboutSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 40,
-        vertical: 80,
+        vertical: 70,
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1140),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSectionHeader(),
-              const SizedBox(height: 48),
+              const SizedBox(height: 36),
               if (isMobile)
                 _buildMobileCards()
               else
@@ -35,45 +35,41 @@ class AboutSection extends StatelessWidget {
 
   Widget _buildSectionHeader() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: AppTheme.primary.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AppTheme.primaryLight.withValues(alpha: 0.3),
-              width: 1,
-            ),
+            color: AppTheme.surfaceElevated,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: AppTheme.borderSubtle),
           ),
           child: const Text(
-            'ABOUT ME',
+            'ENGINEERING PHILOSOPHY',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: AppTheme.primaryLight,
-              letterSpacing: 1.5,
+              color: AppTheme.textSecondary,
+              letterSpacing: 0.8,
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Text(
-          'Driven by Curiosity, Built for Impact',
-          textAlign: TextAlign.center,
+          'Driven by Architecture. Tested in Production.',
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
             letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         const Text(
-          'How I approach problem solving, architecture, and shipping scalable software.',
-          textAlign: TextAlign.center,
+          'How I approach system design, software engineering fundamentals, and high-impact problem solving.',
           style: TextStyle(
             fontSize: 15,
-            color: AppTheme.textSecondary,
+            color: AppTheme.textMuted,
           ),
         ),
       ],
@@ -81,40 +77,56 @@ class AboutSection extends StatelessWidget {
   }
 
   Widget _buildDesktopCards() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
-        Expanded(
-          child: _AboutCard(
-            icon: Icons.lightbulb_outline,
-            title: 'Engineering Philosophy',
-            subtitle: 'Consistency over shortcuts',
-            description:
-                'I learn best by building real products end-to-end. I prioritize clean code architecture, intuitive user flows, and measurable reliability. I care deeply about getting better every single day.',
-            accentColor: AppTheme.primary,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Expanded(
+              child: _AboutCard(
+                number: '01',
+                title: 'System Craftsmanship',
+                subtitle: 'Clean Architecture & Predictability',
+                description:
+                    'I believe software quality is defined by clarity, maintainability, and predictable state. I build systems end-to-end, separating business logic cleanly from delivery mechanisms.',
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _AboutCard(
+                number: '02',
+                title: 'Cross-Platform Flutter',
+                subtitle: 'Pixel-perfect mobile & web systems',
+                description:
+                    'Deep expertise in Flutter and Dart, building responsive applications with robust offline-first caching, reactive state management (Provider/Riverpod), and native integrations.',
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _AboutCard(
-            icon: Icons.hub_outlined,
-            title: 'Full-Stack & AI Focus',
-            subtitle: 'End-to-end system design',
-            description:
-                'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
-            accentColor: AppTheme.secondary,
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _AboutCard(
-            icon: Icons.school_outlined,
-            title: 'Education & Growth',
-            subtitle: 'Velammal College of Engineering',
-            description:
-                'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA. Passionate about collaborative development, participating in hackathons, and solving high-impact problems.',
-            accentColor: AppTheme.emerald,
-          ),
+        const SizedBox(height: 16),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Expanded(
+              child: _AboutCard(
+                number: '03',
+                title: 'Backend & Data Services',
+                subtitle: 'Scalable APIs & Datastores',
+                description:
+                    'Designing robust RESTful services using Node.js, Express, MongoDB, and Firebase. Focused on low-latency response times, schema integrity, and secure authentication pipelines.',
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _AboutCard(
+                number: '04',
+                title: 'Explainable AI (XAI)',
+                subtitle: 'Transparent machine intelligence',
+                description:
+                    'Pioneering Explainable AI in academic workflows using SHAP values and modern LLM orchestration (Groq Cloud, Gemini API) to provide actionable, auditable risk evaluations.',
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -122,32 +134,37 @@ class AboutSection extends StatelessWidget {
 
   Widget _buildMobileCards() {
     return Column(
-      children: [
+      children: const [
         _AboutCard(
-          icon: Icons.lightbulb_outline,
-          title: 'Engineering Philosophy',
-          subtitle: 'Consistency over shortcuts',
+          number: '01',
+          title: 'System Craftsmanship',
+          subtitle: 'Clean Architecture & Predictability',
           description:
-              'I learn best by building real products end-to-end. I prioritize clean code architecture, intuitive user flows, and measurable reliability. I care deeply about getting better every single day.',
-          accentColor: AppTheme.primary,
+              'I believe software quality is defined by clarity, maintainability, and predictable state. I build systems end-to-end, separating business logic cleanly from delivery mechanisms.',
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 12),
         _AboutCard(
-          icon: Icons.hub_outlined,
-          title: 'Full-Stack & AI Focus',
-          subtitle: 'End-to-end system design',
+          number: '02',
+          title: 'Cross-Platform Flutter',
+          subtitle: 'Pixel-perfect mobile & web systems',
           description:
-              'Bridging performant cross-platform Flutter applications with scalable Node.js/Express and MongoDB backends. Experienced with Explainable AI (SHAP) and LLM-assisted decision workflows.',
-          accentColor: AppTheme.secondary,
+              'Deep expertise in Flutter and Dart, building responsive applications with robust offline-first caching, reactive state management (Provider/Riverpod), and native integrations.',
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 12),
         _AboutCard(
-          icon: Icons.school_outlined,
-          title: 'Education & Growth',
-          subtitle: 'Velammal College of Engineering',
+          number: '03',
+          title: 'Backend & Data Services',
+          subtitle: 'Scalable APIs & Datastores',
           description:
-              'Pursuing B.E. in Computer Science (2023–2027) with an 8.65 CGPA. Passionate about collaborative development, participating in hackathons, and solving high-impact problems.',
-          accentColor: AppTheme.emerald,
+              'Designing robust RESTful services using Node.js, Express, MongoDB, and Firebase. Focused on low-latency response times, schema integrity, and secure authentication pipelines.',
+        ),
+        SizedBox(height: 12),
+        _AboutCard(
+          number: '04',
+          title: 'Explainable AI (XAI)',
+          subtitle: 'Transparent machine intelligence',
+          description:
+              'Pioneering Explainable AI in academic workflows using SHAP values and modern LLM orchestration (Groq Cloud, Gemini API) to provide actionable, auditable risk evaluations.',
         ),
       ],
     );
@@ -155,66 +172,74 @@ class AboutSection extends StatelessWidget {
 }
 
 class _AboutCard extends StatelessWidget {
-  final IconData icon;
+  final String number;
   final String title;
   final String subtitle;
   final String description;
-  final Color accentColor;
 
   const _AboutCard({
-    required this.icon,
+    required this.number,
     required this.title,
     required this.subtitle,
     required this.description,
-    required this.accentColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(28),
+      padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: accentColor.withValues(alpha: 0.3),
-                width: 1,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                number,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.textSecondary,
+                  letterSpacing: 1.0,
+                ),
               ),
-            ),
-            child: Icon(icon, color: accentColor, size: 24),
+              Container(
+                width: 6,
+                height: 6,
+                decoration: const BoxDecoration(
+                  color: AppTheme.borderMedium,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: 16),
           Text(
             title,
             style: const TextStyle(
-              fontSize: 19,
+              fontSize: 18,
               fontWeight: FontWeight.w700,
               color: AppTheme.textPrimary,
               letterSpacing: -0.2,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: accentColor,
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w500,
+              color: AppTheme.textSecondary,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             description,
             style: const TextStyle(
-              fontSize: 14.5,
-              color: AppTheme.textSecondary,
-              height: 1.65,
+              fontSize: 14,
+              color: AppTheme.textMuted,
+              height: 1.6,
             ),
           ),
         ],

@@ -64,8 +64,8 @@ class _HeroSectionState extends State<HeroSection> {
     if (widget.scrollController != null) {
       widget.scrollController!.animateTo(
         offset,
-        duration: const Duration(milliseconds: 700),
-        curve: Curves.easeInOutCubic,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOutCubic,
       );
     }
   }
@@ -77,8 +77,8 @@ class _HeroSectionState extends State<HeroSection> {
     return Container(
       constraints: const BoxConstraints(minHeight: 740),
       padding: EdgeInsets.only(
-        top: isMobile ? 100 : 130,
-        bottom: 60,
+        top: isMobile ? 90 : 130,
+        bottom: 50,
         left: isMobile ? 20 : 40,
         right: isMobile ? 20 : 40,
       ),
@@ -92,7 +92,7 @@ class _HeroSectionState extends State<HeroSection> {
                 _buildMobileLayout(context)
               else
                 _buildDesktopLayout(context),
-              const SizedBox(height: 50),
+              const SizedBox(height: 48),
               _buildMetricBar(isMobile),
             ],
           ),
@@ -105,28 +105,28 @@ class _HeroSectionState extends State<HeroSection> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Left Column: Content
+        // Left Column: Editorial Information
         Expanded(
           flex: 6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildAvailabilityPill(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               _buildHeadline(isMobile: false),
               const SizedBox(height: 18),
               _buildTagline(isMobile: false),
-              const SizedBox(height: 36),
+              const SizedBox(height: 32),
               _buildActionButtons(isMobile: false),
             ],
           ),
         ),
         const SizedBox(width: 48),
-        // Right Column: Avatar
+        // Right Column: Executive Portrait Card
         Expanded(
           flex: 4,
           child: Center(
-            child: _buildAvatar(size: 260),
+            child: _buildPortraitCard(isMobile: false),
           ),
         ),
       ],
@@ -137,14 +137,14 @@ class _HeroSectionState extends State<HeroSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildAvatar(size: 190),
+        _buildPortraitCard(isMobile: true),
         const SizedBox(height: 28),
         _buildAvailabilityPill(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 18),
         _buildHeadline(isMobile: true),
-        const SizedBox(height: 16),
+        const SizedBox(height: 14),
         _buildTagline(isMobile: true),
-        const SizedBox(height: 30),
+        const SizedBox(height: 28),
         _buildActionButtons(isMobile: true),
       ],
     );
@@ -152,12 +152,12 @@ class _HeroSectionState extends State<HeroSection> {
 
   Widget _buildAvailabilityPill() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: AppTheme.emerald.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(30),
+        color: AppTheme.surfaceDark,
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.emerald.withValues(alpha: 0.35),
+          color: AppTheme.borderSubtle,
           width: 1,
         ),
       ),
@@ -168,25 +168,18 @@ class _HeroSectionState extends State<HeroSection> {
             width: 7,
             height: 7,
             decoration: const BoxDecoration(
-              color: AppTheme.emerald,
+              color: Color(0xFF22C55E),
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x6610B981),
-                  blurRadius: 6,
-                  spreadRadius: 1,
-                ),
-              ],
             ),
           ),
           const SizedBox(width: 8),
           const Text(
-            'Available for Roles & Collaborations',
+            'AVAILABLE FOR ROLES & COLLABORATIONS',
             style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.emerald,
-              letterSpacing: 0.3,
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.textPrimary,
+              letterSpacing: 0.6,
             ),
           ),
         ],
@@ -200,34 +193,26 @@ class _HeroSectionState extends State<HeroSection> {
           isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
         Text(
-          "Hi, I'm Muthunilavan D",
+          'Muthunilavan D.',
           textAlign: isMobile ? TextAlign.center : TextAlign.start,
           style: TextStyle(
-            fontSize: isMobile ? 32 : 48,
+            fontSize: isMobile ? 36 : 52,
             fontWeight: FontWeight.w800,
             color: AppTheme.textPrimary,
-            letterSpacing: -0.5,
-            height: 1.15,
+            letterSpacing: -1.0,
+            height: 1.1,
           ),
         ),
         const SizedBox(height: 8),
-        ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-            colors: [
-              AppTheme.primaryLight,
-              AppTheme.secondary,
-            ],
-          ).createShader(bounds),
-          child: Text(
-            'Flutter & Full-Stack AI Engineer',
-            textAlign: isMobile ? TextAlign.center : TextAlign.start,
-            style: TextStyle(
-              fontSize: isMobile ? 22 : 32,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              letterSpacing: -0.3,
-              height: 1.25,
-            ),
+        Text(
+          'Software Engineer & Full-Stack AI Developer',
+          textAlign: isMobile ? TextAlign.center : TextAlign.start,
+          style: TextStyle(
+            fontSize: isMobile ? 20 : 26,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.textSecondary,
+            letterSpacing: -0.3,
+            height: 1.25,
           ),
         ),
       ],
@@ -236,13 +221,15 @@ class _HeroSectionState extends State<HeroSection> {
 
   Widget _buildTagline({required bool isMobile}) {
     return Text(
-      'Computer Science Engineering student crafting production-ready mobile apps with Flutter and full-stack web platforms powered by Explainable AI (XAI) and modern backends.',
+      'Computer Science Engineering student at Velammal (CGPA 8.65, 3rd sem 9.18). '
+      'Building high-performance cross-platform applications with Flutter and end-to-end web platforms '
+      'powered by Explainable AI (SHAP), Node.js, and modern distributed architecture.',
       textAlign: isMobile ? TextAlign.center : TextAlign.start,
       style: TextStyle(
-        fontSize: isMobile ? 15 : 17,
-        color: AppTheme.textSecondary,
+        fontSize: isMobile ? 14.5 : 16,
+        color: AppTheme.textMuted,
         height: 1.6,
-        letterSpacing: 0.2,
+        letterSpacing: 0.1,
       ),
     );
   }
@@ -255,8 +242,8 @@ class _HeroSectionState extends State<HeroSection> {
       children: [
         GlowButton(
           text: 'Explore Projects',
-          icon: Icons.rocket_launch_outlined,
-          onPressed: () => _scrollTo(1400),
+          icon: Icons.arrow_downward,
+          onPressed: () => _scrollTo(1200),
         ),
         GlowButton(
           text: 'Download Resume',
@@ -265,7 +252,7 @@ class _HeroSectionState extends State<HeroSection> {
           onPressed: _downloadResume,
         ),
         GlowButton(
-          text: 'Contact Me',
+          text: 'Contact',
           icon: Icons.mail_outline,
           isOutlined: true,
           onPressed: () => _scrollTo(3200),
@@ -274,117 +261,121 @@ class _HeroSectionState extends State<HeroSection> {
     );
   }
 
-  Widget _buildAvatar({required double size}) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                AppTheme.primary,
-                AppTheme.secondary,
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.primary.withValues(alpha: 0.25),
-                blurRadius: 36,
-                spreadRadius: 2,
-                offset: const Offset(0, 10),
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.all(3),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppTheme.darkSpace,
-            ),
-            padding: const EdgeInsets.all(3),
-            child: ClipOval(
-              child: Image.asset(
-                'assets/my_avatar.png',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: AppTheme.surfaceDark,
-                    child: const Icon(
-                      Icons.person,
-                      size: 80,
-                      color: AppTheme.textMuted,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
+  Widget _buildPortraitCard({required bool isMobile}) {
+    final double cardWidth = isMobile ? 220 : 280;
+
+    return Container(
+      width: cardWidth,
+      decoration: BoxDecoration(
+        color: AppTheme.surfaceDark,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppTheme.borderSubtle,
+          width: 1,
         ),
-        // Floating pill micro-badge
-        Positioned(
-          bottom: 4,
-          right: 4,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: AppTheme.surfaceDark.withValues(alpha: 0.95),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppTheme.primary.withValues(alpha: 0.4),
-                width: 1,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x60000000),
+            blurRadius: 20,
+            offset: Offset(0, 8),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              color: AppTheme.surfaceElevated,
+              child: AspectRatio(
+                aspectRatio: 1.0,
+                child: Image.asset(
+                  'assets/my_avatar.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: AppTheme.surfaceDark,
+                      child: const Icon(
+                        Icons.person,
+                        size: 80,
+                        color: AppTheme.textMuted,
+                      ),
+                    );
+                  },
+                ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.4),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
             ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(
-                  Icons.verified,
-                  size: 14,
-                  color: AppTheme.primaryLight,
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Muthunilavan D.',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: AppTheme.textPrimary,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        'B.E. CSE • 2023–2027',
+                        style: TextStyle(
+                          fontSize: 10.5,
+                          color: AppTheme.textMuted,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(width: 6),
-                Text(
-                  'B.E. CSE • 2027',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimary,
-                    letterSpacing: 0.3,
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppTheme.surfaceElevated,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: AppTheme.borderSubtle),
+                  ),
+                  child: const Text(
+                    '8.65 CGPA',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.textPrimary,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _buildMetricBar(bool isMobile) {
     final metrics = [
-      {'val': '5+', 'label': 'Projects Shipped', 'icon': Icons.folder_outlined},
-      {'val': '8.65', 'label': 'B.E. CGPA (9.18 Sem 3)', 'icon': Icons.school_outlined},
-      {'val': 'Winner', 'label': 'Euphoria AI Sprint', 'icon': Icons.emoji_events_outlined},
-      {'val': 'Full-Stack', 'label': 'Flutter • Node • XAI', 'icon': Icons.layers_outlined},
+      {'val': '5+', 'label': 'Shipped Projects', 'sub': 'Flutter, Node, XAI'},
+      {'val': '8.65', 'label': 'B.E. CGPA', 'sub': 'Sem 3 GPA: 9.18'},
+      {'val': '1st Place', 'label': 'Euphoria AI Sprint', 'sub': 'Hackathon Winner'},
+      {'val': 'AstroWeb', 'label': 'Flutter Intern', 'sub': 'Mobile & Cloud APIs'},
     ];
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        color: AppTheme.surfaceDark.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16),
+        color: AppTheme.surfaceDark,
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: AppTheme.borderSubtle,
           width: 1,
@@ -400,15 +391,11 @@ class _HeroSectionState extends State<HeroSection> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                width: 3,
+                height: 36,
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  m['icon'] as IconData,
-                  size: 18,
-                  color: AppTheme.primaryLight,
+                  color: AppTheme.borderMedium,
+                  borderRadius: BorderRadius.circular(2),
                 ),
               ),
               const SizedBox(width: 12),
@@ -418,16 +405,25 @@ class _HeroSectionState extends State<HeroSection> {
                   Text(
                     m['val'] as String,
                     style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
                       color: AppTheme.textPrimary,
+                      letterSpacing: -0.2,
                     ),
                   ),
                   Text(
                     m['label'] as String,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
                       color: AppTheme.textSecondary,
+                    ),
+                  ),
+                  Text(
+                    m['sub'] as String,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppTheme.textMuted,
                     ),
                   ),
                 ],

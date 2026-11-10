@@ -67,11 +67,11 @@ class _HeaderNavState extends State<HeaderNav> {
       if (box != null) {
         final position = box.localToGlobal(Offset.zero);
         final offset =
-            widget.scrollController.offset + position.dy - 90;
+            widget.scrollController.offset + position.dy - 80;
         widget.scrollController.animateTo(
           offset,
-          duration: const Duration(milliseconds: 700),
-          curve: Curves.easeInOutCubic,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeOutCubic,
         );
       }
     }
@@ -96,36 +96,36 @@ class _HeaderNavState extends State<HeaderNav> {
           vertical: 12,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
             child: Container(
               padding: EdgeInsets.symmetric(
-                horizontal: isMobile ? 16 : 24,
-                vertical: 12,
+                horizontal: isMobile ? 16 : 20,
+                vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: AppTheme.surfaceDark.withValues(alpha: 0.85),
-                borderRadius: BorderRadius.circular(16),
+                color: AppTheme.darkSpace.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: AppTheme.borderSubtle,
                   width: 1,
                 ),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.35),
-                    blurRadius: 24,
-                    offset: const Offset(0, 8),
+                    color: Color(0x40000000),
+                    blurRadius: 16,
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Logo with refined branding and active indicator
+                  // Minimalist Executive Branding
                   InkWell(
                     onTap: () => _scrollToSection(0),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(6),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
@@ -138,34 +138,39 @@ class _HeaderNavState extends State<HeaderNav> {
                             width: 8,
                             height: 8,
                             decoration: const BoxDecoration(
-                              color: AppTheme.emerald,
+                              color: Color(0xFF22C55E),
                               shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x6610B981),
-                                  blurRadius: 6,
-                                  spreadRadius: 1,
-                                ),
-                              ],
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            'MUTHU',
+                          const Text(
+                            'MUTHUNILAVAN D.',
                             style: TextStyle(
-                              fontSize: isMobile ? 17 : 19,
+                              fontSize: 15,
                               fontWeight: FontWeight.w800,
                               color: AppTheme.textPrimary,
-                              letterSpacing: 1.5,
+                              letterSpacing: 0.8,
                             ),
                           ),
-                          Text(
-                            '.DEV',
-                            style: TextStyle(
-                              fontSize: isMobile ? 17 : 19,
-                              fontWeight: FontWeight.w800,
-                              color: AppTheme.primaryLight,
-                              letterSpacing: 1.5,
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppTheme.surfaceElevated,
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(color: AppTheme.borderSubtle),
+                            ),
+                            child: const Text(
+                              'PORTFOLIO',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme.textSecondary,
+                                letterSpacing: 0.6,
+                              ),
                             ),
                           ),
                         ],
@@ -176,19 +181,11 @@ class _HeaderNavState extends State<HeaderNav> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.code, size: 20),
+                          icon: const Icon(Icons.code, size: 18),
                           color: AppTheme.textSecondary,
                           onPressed: () =>
                               _launchURL('https://github.com/Muthunilavan-D'),
                           tooltip: 'GitHub',
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.work_outline, size: 20),
-                          color: AppTheme.textSecondary,
-                          onPressed: () => _launchURL(
-                            'https://www.linkedin.com/in/d-mn-92a1b7341',
-                          ),
-                          tooltip: 'LinkedIn',
                         ),
                         IconButton(
                           icon: const Icon(Icons.menu, color: AppTheme.textPrimary),
@@ -205,48 +202,48 @@ class _HeaderNavState extends State<HeaderNav> {
                           activeSection: _activeSection,
                           onTap: () => _scrollToSection(1),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         _NavItem(
                           label: 'Skills',
                           index: 2,
                           activeSection: _activeSection,
                           onTap: () => _scrollToSection(2),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         _NavItem(
                           label: 'Projects',
                           index: 3,
                           activeSection: _activeSection,
                           onTap: () => _scrollToSection(3),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         _NavItem(
                           label: 'Experience',
                           index: 4,
                           activeSection: _activeSection,
                           onTap: () => _scrollToSection(4),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         _NavItem(
                           label: 'Contact',
                           index: 5,
                           activeSection: _activeSection,
                           onTap: () => _scrollToSection(5),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 14),
                         Container(
                           width: 1,
-                          height: 20,
+                          height: 18,
                           color: AppTheme.borderSubtle,
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 10),
                         _SocialIconButton(
                           icon: Icons.code,
                           tooltip: 'GitHub',
                           onPressed: () =>
                               _launchURL('https://github.com/Muthunilavan-D'),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 4),
                         _SocialIconButton(
                           icon: Icons.work_outline,
                           tooltip: 'LinkedIn',
@@ -270,77 +267,71 @@ class _HeaderNavState extends State<HeaderNav> {
       context: context,
       backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            decoration: BoxDecoration(
-              color: AppTheme.surfaceDark.withValues(alpha: 0.95),
-              border: Border.all(color: AppTheme.borderSubtle),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
+      builder: (context) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        decoration: BoxDecoration(
+          color: AppTheme.surfaceDark,
+          border: Border.all(color: AppTheme.borderSubtle),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(16),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 36,
+              height: 3,
+              margin: const EdgeInsets.only(bottom: 18),
+              decoration: BoxDecoration(
+                color: AppTheme.borderSubtle,
+                borderRadius: BorderRadius.circular(2),
               ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 36,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: AppTheme.textMuted.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                _MobileNavItem(
-                  label: 'About',
-                  icon: Icons.person_outline,
-                  onTap: () {
-                    Navigator.pop(context);
-                    _scrollToSection(1);
-                  },
-                ),
-                _MobileNavItem(
-                  label: 'Skills',
-                  icon: Icons.layers_outlined,
-                  onTap: () {
-                    Navigator.pop(context);
-                    _scrollToSection(2);
-                  },
-                ),
-                _MobileNavItem(
-                  label: 'Projects',
-                  icon: Icons.folder_open_outlined,
-                  onTap: () {
-                    Navigator.pop(context);
-                    _scrollToSection(3);
-                  },
-                ),
-                _MobileNavItem(
-                  label: 'Experience',
-                  icon: Icons.work_outline,
-                  onTap: () {
-                    Navigator.pop(context);
-                    _scrollToSection(4);
-                  },
-                ),
-                _MobileNavItem(
-                  label: 'Contact',
-                  icon: Icons.mail_outline,
-                  onTap: () {
-                    Navigator.pop(context);
-                    _scrollToSection(5);
-                  },
-                ),
-                const SizedBox(height: 16),
-              ],
+            _MobileNavItem(
+              label: 'About',
+              icon: Icons.person_outline,
+              onTap: () {
+                Navigator.pop(context);
+                _scrollToSection(1);
+              },
             ),
-          ),
+            _MobileNavItem(
+              label: 'Skills',
+              icon: Icons.layers_outlined,
+              onTap: () {
+                Navigator.pop(context);
+                _scrollToSection(2);
+              },
+            ),
+            _MobileNavItem(
+              label: 'Projects',
+              icon: Icons.folder_open_outlined,
+              onTap: () {
+                Navigator.pop(context);
+                _scrollToSection(3);
+              },
+            ),
+            _MobileNavItem(
+              label: 'Experience & Credentials',
+              icon: Icons.school_outlined,
+              onTap: () {
+                Navigator.pop(context);
+                _scrollToSection(4);
+              },
+            ),
+            _MobileNavItem(
+              label: 'Contact',
+              icon: Icons.mail_outline,
+              onTap: () {
+                Navigator.pop(context);
+                _scrollToSection(5);
+              },
+            ),
+            const SizedBox(height: 12),
+          ],
         ),
       ),
     );
@@ -378,19 +369,17 @@ class _NavItemState extends State<_NavItem> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          duration: const Duration(milliseconds: 140),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             color: isActive
-                ? AppTheme.primary.withValues(alpha: 0.15)
+                ? AppTheme.surfaceElevated
                 : (_isHovered
-                    ? Colors.white.withValues(alpha: 0.06)
+                    ? const Color(0x14FFFFFF)
                     : Colors.transparent),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
-              color: isActive
-                  ? AppTheme.primaryLight.withValues(alpha: 0.4)
-                  : Colors.transparent,
+              color: isActive ? AppTheme.borderMedium : Colors.transparent,
               width: 1,
             ),
           ),
@@ -398,13 +387,12 @@ class _NavItemState extends State<_NavItem> {
             widget.label,
             style: TextStyle(
               color: isActive
-                  ? AppTheme.primaryLight
+                  ? AppTheme.textPrimary
                   : (_isHovered
                       ? AppTheme.textPrimary
                       : AppTheme.textSecondary),
-              fontSize: 14,
+              fontSize: 13.5,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-              letterSpacing: 0.2,
             ),
           ),
         ),
@@ -440,18 +428,18 @@ class _SocialIconButtonState extends State<_SocialIconButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.all(8),
+          duration: const Duration(milliseconds: 140),
+          padding: const EdgeInsets.all(7),
           decoration: BoxDecoration(
             color: _isHovered
-                ? Colors.white.withValues(alpha: 0.08)
+                ? const Color(0x14FFFFFF)
                 : Colors.transparent,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
           ),
           child: Icon(
             widget.icon,
             color: _isHovered ? AppTheme.textPrimary : AppTheme.textSecondary,
-            size: 19,
+            size: 17,
           ),
         ),
       ),
@@ -474,19 +462,12 @@ class _MobileNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppTheme.primary.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(icon, color: AppTheme.primaryLight, size: 20),
-      ),
+      leading: Icon(icon, color: AppTheme.textSecondary, size: 18),
       title: Text(
         label,
         style: const TextStyle(
           color: AppTheme.textPrimary,
-          fontSize: 16,
+          fontSize: 14.5,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -494,7 +475,7 @@ class _MobileNavItem extends StatelessWidget {
       trailing: const Icon(
         Icons.chevron_right,
         color: AppTheme.textMuted,
-        size: 20,
+        size: 18,
       ),
     );
   }
