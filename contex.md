@@ -70,6 +70,34 @@ Currently, I am focused on **advanced Flutter development, backend integration, 
 
 ---
 
+### 🚀 ProjIntel — AI Academic Project Management Platform
+
+**Description:**  
+An Explainable AI (XAI) and LLM-assisted academic project platform for students, faculty guides, and department administrators featuring early milestone delay-risk prediction and dependency-aware task prioritization.
+
+**Problem:**  
+Academic institutions struggle with tracking capstone project delays, lack of early risk visibility, opaque student evaluations, and unguided prioritization of blocking tasks.
+
+**Solution:**  
+An end-to-end intelligent platform with milestone tracking, deterministic risk estimation paired with SHAP-based feature explanations, dependency-aware task recommendations, and Groq-powered AI assistance for proposals and reports.
+
+**Tech Stack:**  
+React 19, Vite, Node.js, Express, MongoDB, Groq Cloud (Llama 3.3), Python, SHAP
+
+**Thumbnail Image:**  
+`assets/ProjIntel.png`
+
+**What I Learned:**  
+Explainable AI (SHAP), LLM integration with Groq, full-stack MERN/Vite architecture, dependency graph modeling, predictive risk analytics
+
+**GitHub:**  
+https://github.com/Muthunilavan-D/ProjIntel
+
+**Live Demo:**  
+https://proj-intel.vercel.app
+
+---
+
 ### 📱 FitTrack — AI Fitness Tracker
 
 **Description:**  
@@ -198,10 +226,33 @@ https://www.linkedin.com/posts/d-mn-92a1b7341_ai-machinelearning-nlp-activity-74
 ## 🎓 EDUCATION
 
 **Bachelor of Engineering – Computer Science Engineering**  
-Velammal College of Engineering  
+Velammal College of Engineering and Technology, Madurai  
 *2023 – 2027 (Expected)*  
 
-**CGPA:** 8.77 / 10
+**CGPA:** 8.65 / 10 (Semester 3 GPA: 9.18)
+
+**Higher Secondary Certificate (HSC - XII)**  
+Akshara Matriculation Higher Secondary School, Madurai  
+*2021 – 2023*  
+**Percentage:** 83.67%
+
+---
+
+## 🏆 ACCOMPLISHMENTS & AWARDS
+
+- 🥇 **Winner (Rs. 5000)** — Euphoria 2k25: AI Code Sprint
+- 🥈 **Runner-Up (Rs. 3000)** — Euphoria 2k25: Creative App Sparks
+- 🌟 **Academic Top Scorer** — 3rd Semester (GPA: 9.18)
+- 💡 **Participant** — Elements 2k24 Codeathon
+
+---
+
+## 📜 CERTIFICATIONS
+
+- **Flutter & Dart** — Udemy
+- **SQL and Relational Databases** — IBM
+- **Cloud Computing** — NPTEL
+- **Cloud Computing** — WIPRO
 
 ---
 

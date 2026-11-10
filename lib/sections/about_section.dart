@@ -145,7 +145,7 @@ class AboutSection extends StatelessWidget {
                             ),
                             const SizedBox(height: 24),
                             Text(
-                              'I build Flutter apps that solve real problems, focusing on clean UI, reliable logic, and smooth user experience. I experiment with Firebase, APIs, and AI features to make apps smarter and more useful. Right now, I’m focused on learning deeply, shipping regularly, and growing into a strong full-stack developer step by step.',
+                              'I build cross-platform mobile and full-stack web applications that solve real problems, focusing on clean architecture, reliable logic, and fluid user experiences. I integrate modern backends (Node.js, Express, MongoDB, Firebase) and intelligent AI features (LLMs, XAI/SHAP) to make applications truly smart and impactful. Currently shipping production-ready projects and growing into a versatile full-stack & AI software engineer.',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
@@ -214,7 +214,7 @@ class AboutSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'I have built projects ranging from AI-powered fitness and productivity apps to real-time news and price tracking systems. I enjoy exploring new technologies, optimizing performance, and designing apps that feel simple, fast, and intuitive.',
+                        'I have built projects ranging from Explainable AI academic project management platforms and AI fitness trackers to real-time price monitoring and news systems. I enjoy exploring new technologies, optimizing performance, and designing apps that feel simple, fast, and intuitive.',
                         style: TextStyle(
                           fontSize: 15,
                           color: AppTheme.textSecondary,
@@ -223,7 +223,7 @@ class AboutSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'Currently, I am focused on advanced Flutter development, backend integration, and AI-powered systems, aiming to build production-ready software that stands out both technically and visually.',
+                        'Currently, I am focused on full-stack development, mobile architecture with Flutter, and AI-powered decision support systems, aiming to build production-ready software that stands out both technically and visually.',
                         style: TextStyle(
                           fontSize: 15,
                           color: AppTheme.textSecondary,

@@ -40,6 +40,25 @@ class ProjectsSection extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 children: [
                   _ProjectCard(
+                    title: 'ProjIntel — AI Academic Project Management',
+                    cardWidth: cardWidth,
+                    description:
+                        'An Explainable AI (XAI) and LLM-assisted academic project platform for students, faculty guides, and department admins with early delay prediction.',
+                    problem:
+                        'Institutions struggle with tracking capstone delays, lack of early risk visibility, opaque evaluations, and unguided prioritization.',
+                    solution:
+                        'End-to-end intelligent platform with milestone tracking, SHAP-based delay risk explanations, task prioritization, and Groq LLM assistance.',
+                    techStack:
+                        'React 19, Node.js, Express, MongoDB, Groq Cloud, Python, SHAP',
+                    thumbnail: 'assets/ProjIntel.png',
+                    learned:
+                        'Explainable AI (SHAP), LLM integration with Groq, full-stack MERN architecture, dependency graph modeling, predictive risk analytics',
+                    githubUrl: 'https://github.com/Muthunilavan-D/ProjIntel',
+                    liveUrl: 'https://proj-intel.vercel.app',
+                    linkedinUrl:
+                        'https://www.linkedin.com/in/d-mn-92a1b7341',
+                  ),
+                  _ProjectCard(
                     title: 'FitTrack — AI Fitness Tracker',
                     cardWidth: cardWidth,
                     description:
@@ -57,24 +76,6 @@ class ProjectsSection extends StatelessWidget {
                         'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-firebase-ai-activity-7304894778985361408-vMVe',
                   ),
                   _ProjectCard(
-                    title: 'NewzSphere — Real-Time News App',
-                    cardWidth: cardWidth,
-                    description:
-                        'Sleek Flutter app delivering real-time news with category browsing and in-app reading.',
-                    problem:
-                        'Users need a fast, distraction-free news experience.',
-                    solution:
-                        'Clean UI with category filters and integrated WebView for full reading.',
-                    techStack: 'Flutter, NewsAPI, REST APIs',
-                    thumbnail: 'assets/NewzSphere.png',
-                    learned:
-                        'API integration, pagination, performance tuning, WebView handling',
-                    githubUrl:
-                        'https://github.com/Muthunilavan-D/NewzSphere.git',
-                    linkedinUrl:
-                        'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-flutterweb-newsapp-activity-7338821423643209730-1tbN',
-                  ),
-                  _ProjectCard(
                     title: 'PricePulse — Price Tracking App',
                     cardWidth: cardWidth,
                     description:
@@ -82,10 +83,10 @@ class ProjectsSection extends StatelessWidget {
                     problem: 'Users miss deals due to fluctuating prices.',
                     solution:
                         'Offline-first app with alerts, history, and notifications.',
-                    techStack: 'Flutter, Hive, Notifications',
+                    techStack: 'Flutter, Node.js, Hive, Notifications',
                     thumbnail: 'assets/PricePulse.png',
                     learned:
-                        'Local storage, alert systems, offline-first design',
+                        'Local storage, alert systems, automated web scraping, offline-first design',
                     githubUrl:
                         'https://github.com/Muthunilavan-D/Pricepulse.git',
                     linkedinUrl:
@@ -109,6 +110,24 @@ class ProjectsSection extends StatelessWidget {
                     linkedinUrl:
                         'https://www.linkedin.com/posts/d-mn-92a1b7341_ai-machinelearning-nlp-activity-7418544623360458752-4eU7',
                   ),
+                  _ProjectCard(
+                    title: 'NewzSphere — Real-Time News App',
+                    cardWidth: cardWidth,
+                    description:
+                        'Sleek Flutter app delivering real-time news with category browsing and in-app reading.',
+                    problem:
+                        'Users need a fast, distraction-free news experience.',
+                    solution:
+                        'Clean UI with category filters and integrated WebView for full reading.',
+                    techStack: 'Flutter, NewsAPI, REST APIs',
+                    thumbnail: 'assets/NewzSphere.png',
+                    learned:
+                        'API integration, pagination, performance tuning, WebView handling',
+                    githubUrl:
+                        'https://github.com/Muthunilavan-D/NewzSphere.git',
+                    linkedinUrl:
+                        'https://www.linkedin.com/posts/d-mn-92a1b7341_flutter-flutterweb-newsapp-activity-7338821423643209730-1tbN',
+                  ),
                 ],
               );
             },
@@ -129,6 +148,7 @@ class _ProjectCard extends StatelessWidget {
   final String learned;
   final String githubUrl;
   final String linkedinUrl;
+  final String? liveUrl;
   final double cardWidth;
 
   const _ProjectCard({
@@ -141,6 +161,7 @@ class _ProjectCard extends StatelessWidget {
     required this.learned,
     required this.githubUrl,
     required this.linkedinUrl,
+    this.liveUrl,
     required this.cardWidth,
   });
 
@@ -151,11 +172,33 @@ class _ProjectCard extends StatelessWidget {
     }
   }
 
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 18),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppTheme.spaceGray,
+        foregroundColor: color,
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: color.withOpacity(0.3), width: 1),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       width: cardWidth,
-      height: 680, // Fixed height for uniform project cards
+      height: 720, // Uniform project card height
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,39 +291,30 @@ class _ProjectCard extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Action buttons
-            Row(
+            Wrap(
+              spacing: 12,
+              runSpacing: 10,
               children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () => _launchURL(githubUrl),
-                    icon: const Icon(Icons.code, size: 18),
-                    label: const Text('GitHub'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.spaceGray,
-                      foregroundColor: AppTheme.neonBlue,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
+                _buildActionButton(
+                  icon: Icons.code,
+                  label: 'GitHub',
+                  color: AppTheme.neonBlue,
+                  onPressed: () => _launchURL(githubUrl),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton.icon(
+                if (liveUrl != null && liveUrl!.isNotEmpty)
+                  _buildActionButton(
+                    icon: Icons.rocket_launch,
+                    label: 'Live Demo',
+                    color: AppTheme.neonBlue,
+                    onPressed: () => _launchURL(liveUrl!),
+                  ),
+                if (linkedinUrl.isNotEmpty)
+                  _buildActionButton(
+                    icon: Icons.work,
+                    label: 'LinkedIn',
+                    color: AppTheme.neonPurple,
                     onPressed: () => _launchURL(linkedinUrl),
-                    icon: const Icon(Icons.work, size: 18),
-                    label: const Text('LinkedIn'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.spaceGray,
-                      foregroundColor: AppTheme.neonPurple,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
                   ),
-                ),
               ],
             ),
           ],

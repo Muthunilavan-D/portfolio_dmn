@@ -258,7 +258,7 @@ class _HeroSectionState extends State<HeroSection>
                             ],
                           ),
                           child: Text(
-                            'Flutter Developer | Creative Thinker | Problem Solver',
+                            'Flutter & Full-Stack Developer | AI Enthusiast | Problem Solver',
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width > 400
                                   ? 14
@@ -445,7 +445,7 @@ class _HeroSectionState extends State<HeroSection>
                                 ],
                               ),
                               child: Text(
-                                'Flutter Developer | Creative Thinker | Problem Solver',
+                                'Flutter & Full-Stack Developer | AI Enthusiast | Problem Solver',
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: AppTheme.neonBlue,

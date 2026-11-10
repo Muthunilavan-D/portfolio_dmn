@@ -90,7 +90,7 @@ class _HeaderNavState extends State<HeaderNav> {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
+    final isMobile = MediaQuery.of(context).size.width < 960;
 
     return ClipRRect(
       child: BackdropFilter(
