@@ -39,7 +39,7 @@ class Footer extends StatelessWidget {
                     onPressed: () =>
                         _launchURL('https://github.com/Muthunilavan-D'),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 16),
                   _FooterSocialButton(
                     icon: Icons.work_outline,
                     tooltip: 'LinkedIn',
@@ -47,7 +47,7 @@ class Footer extends StatelessWidget {
                       'https://www.linkedin.com/in/d-mn-92a1b7341',
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 16),
                   _FooterSocialButton(
                     icon: Icons.mail_outline,
                     tooltip: 'Email',
@@ -56,16 +56,16 @@ class Footer extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               const Text(
                 '© 2026 Muthunilavan D. All rights reserved.',
                 style: TextStyle(
-                  fontSize: 13.5,
+                  fontSize: 14,
                   color: AppTheme.textSecondary,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Wrap(
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -76,17 +76,17 @@ class Footer extends StatelessWidget {
                     width: 6,
                     height: 6,
                     decoration: const BoxDecoration(
-                      color: Color(0xFF22C55E),
+                      color: AppTheme.emerald,
                       shape: BoxShape.circle,
                     ),
                   ),
                   const Text(
-                    'Built with Flutter Web • Clean Architecture • Pure Carbon Monochrome',
+                    'Built with Flutter Web • Clean Architecture & Modern Glassmorphism',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12.5,
                       color: AppTheme.textMuted,
-                      letterSpacing: 0.1,
+                      letterSpacing: 0.2,
                     ),
                   ),
                 ],
@@ -126,20 +126,24 @@ class _FooterSocialButtonState extends State<_FooterSocialButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 140),
-          padding: const EdgeInsets.all(9),
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: _isHovered ? AppTheme.surfaceElevated : AppTheme.surfaceDark,
-            borderRadius: BorderRadius.circular(8),
+            color: _isHovered
+                ? AppTheme.primary.withValues(alpha: 0.18)
+                : AppTheme.surfaceDark,
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: _isHovered ? AppTheme.borderMedium : AppTheme.borderSubtle,
+              color: _isHovered
+                  ? AppTheme.primaryLight.withValues(alpha: 0.5)
+                  : AppTheme.borderSubtle,
               width: 1,
             ),
           ),
           child: Icon(
             widget.icon,
-            size: 17,
-            color: _isHovered ? AppTheme.textPrimary : AppTheme.textSecondary,
+            size: 19,
+            color: _isHovered ? AppTheme.primaryLight : AppTheme.textSecondary,
           ),
         ),
       ),

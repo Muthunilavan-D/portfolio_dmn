@@ -28,21 +28,7 @@ class _GlowButtonState extends State<GlowButton> {
 
   @override
   Widget build(BuildContext context) {
-    // Primary Style: Stark White button with Jet-Black text (Vercel / Linear executive aesthetic)
-    // Secondary / Outlined Style: Dark Zinc surface with crisp hairline border
-    final isPrimary = !widget.isOutlined;
-
-    final Color bgColor = isPrimary
-        ? (_isHovered ? const Color(0xFFE4E4E7) : Colors.white)
-        : (_isHovered ? AppTheme.surfaceElevated : AppTheme.surfaceDark);
-
-    final Color textColor = isPrimary
-        ? const Color(0xFF09090B)
-        : (_isHovered ? Colors.white : AppTheme.textPrimary);
-
-    final Color borderColor = isPrimary
-        ? (_isHovered ? const Color(0xFFD4D4D8) : Colors.white)
-        : (_isHovered ? AppTheme.borderHighlight : AppTheme.borderSubtle);
+    final Color accent = widget.customColor ?? AppTheme.primary;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -51,19 +37,42 @@ class _GlowButtonState extends State<GlowButton> {
       child: GestureDetector(
         onTap: widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 140),
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOut,
           padding: widget.padding ??
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 22, vertical: 13),
           decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: borderColor, width: 1),
+            gradient: widget.isOutlined
+                ? null
+                : LinearGradient(
+                    colors: [
+                      accent,
+                      accent == AppTheme.primary
+                          ? AppTheme.primaryDark
+                          : accent.withValues(alpha: 0.85),
+                    ],
+                  ),
+            color: widget.isOutlined
+                ? (_isHovered
+                    ? accent.withValues(alpha: 0.15)
+                    : AppTheme.surfaceDark.withValues(alpha: 0.70))
+                : null,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: widget.isOutlined
+                  ? (_isHovered ? accent : AppTheme.borderSubtle)
+                  : (_isHovered
+                      ? Colors.white.withValues(alpha: 0.5)
+                      : Colors.white.withValues(alpha: 0.2)),
+              width: 1,
+            ),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: isPrimary ? 0.3 : 0.15),
-                blurRadius: _isHovered ? 12 : 6,
-                offset: const Offset(0, 2),
-              ),
+              if (!widget.isOutlined)
+                BoxShadow(
+                  color: accent.withValues(alpha: _isHovered ? 0.45 : 0.20),
+                  blurRadius: _isHovered ? 20 : 10,
+                  offset: const Offset(0, 4),
+                ),
             ],
           ),
           child: Row(
@@ -71,20 +80,32 @@ class _GlowButtonState extends State<GlowButton> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (widget.icon != null) ...[
-                Icon(
-                  widget.icon,
-                  color: textColor,
-                  size: 16,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  transform: Matrix4.translationValues(
+                    _isHovered ? 2.0 : 0.0,
+                    0.0,
+                    0.0,
+                  ),
+                  child: Icon(
+                    widget.icon,
+                    color: widget.isOutlined
+                        ? (_isHovered ? accent : AppTheme.textPrimary)
+                        : Colors.white,
+                    size: 17,
+                  ),
                 ),
                 const SizedBox(width: 8),
               ],
               Text(
                 widget.text,
                 style: TextStyle(
-                  color: textColor,
-                  fontSize: 14,
+                  color: widget.isOutlined
+                      ? (_isHovered ? accent : AppTheme.textPrimary)
+                      : Colors.white,
+                  fontSize: 14.5,
                   fontWeight: FontWeight.w600,
-                  letterSpacing: -0.1,
+                  letterSpacing: 0.2,
                 ),
               ),
             ],

@@ -67,10 +67,13 @@ class _PortfolioHomeState extends State<PortfolioHome> {
   final GlobalKey _experienceKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
   bool _isFullscreen = false;
+  bool _showScrollToTop = false;
 
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_handleScroll);
+
     // Listen for fullscreen changes
     if (kIsWeb) {
       fullscreen_helper.initFullscreenListener((isFullscreen) {
@@ -84,6 +87,23 @@ class _PortfolioHomeState extends State<PortfolioHome> {
     }
   }
 
+  void _handleScroll() {
+    final shouldShow = _scrollController.offset > 400;
+    if (shouldShow != _showScrollToTop) {
+      setState(() {
+        _showScrollToTop = shouldShow;
+      });
+    }
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 700),
+      curve: Curves.easeInOutCubic,
+    );
+  }
+
   void _toggleFullscreen() {
     if (kIsWeb) {
       fullscreen_helper.toggleFullscreen();
@@ -92,6 +112,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
 
   @override
   void dispose() {
+    _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -102,7 +123,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
       body: Stack(
         children: [
           // Single shared background for entire page
-          Positioned.fill(child: AnimatedBackground()),
+          const Positioned.fill(child: AnimatedBackground()),
           SingleChildScrollView(
             controller: _scrollController,
             child: Column(
@@ -134,42 +155,82 @@ class _PortfolioHomeState extends State<PortfolioHome> {
               },
             ),
           ),
-          // Fullscreen toggle button
-          if (kIsWeb)
-            Positioned(
-              bottom: 24,
-              right: 24,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: _toggleFullscreen,
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppTheme.surfaceDark.withValues(alpha: 0.85),
+          // Interactive Floating Buttons (Bottom-Right)
+          Positioned(
+            bottom: 24,
+            right: 24,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Scroll to Top Button
+                if (_showScrollToTop) ...[
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: _scrollToTop,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppTheme.borderSubtle,
-                        width: 1,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.3),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppTheme.surfaceDark.withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppTheme.borderSubtle,
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.35),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: Icon(
-                      _isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
-                      color: AppTheme.primaryLight,
-                      size: 20,
+                        child: const Icon(
+                          Icons.keyboard_arrow_up,
+                          color: AppTheme.primaryLight,
+                          size: 20,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
+                  const SizedBox(width: 10),
+                ],
+                // Fullscreen toggle button
+                if (kIsWeb)
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: _toggleFullscreen,
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppTheme.surfaceDark.withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppTheme.borderSubtle,
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.35),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          _isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
+                          color: AppTheme.primaryLight,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );
